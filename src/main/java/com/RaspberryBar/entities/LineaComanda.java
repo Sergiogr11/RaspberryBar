@@ -1,12 +1,16 @@
 package com.RaspberryBar.entities;
 
-public class LineaComanda{
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
-    int numeroLinea;
-    int numeroComanda;
-    int cantidad;
-    float precio;
-    int articuloId;
+@Entity
+public class LineaComanda{
+    @EmbeddedId
+    private LineaComandaId lineaComandaId;
+    private int cantidad;
+    private float precio;
+    private int articuloId;
 
     /**
      * Constructor para Linea backend.entities.Comanda
@@ -17,27 +21,28 @@ public class LineaComanda{
      * @param articuloId artículo asociado a la linea de la comanda
      */
     public LineaComanda(int numeroLinea, int numeroComanda, int cantidad, float precio, int articuloId) {
-        this.numeroLinea = numeroLinea;
-        this.numeroComanda = numeroComanda;
+        this.lineaComandaId = new LineaComandaId(numeroLinea, numeroComanda);
         this.cantidad = cantidad;
         this.precio = precio;
         this.articuloId = articuloId;
     }
 
+    public LineaComanda(){}
+
     public int getNumeroLinea() {
-        return numeroLinea;
+        return lineaComandaId.getNumeroLinea();
     }
 
     public void setNumeroLinea(int numeroLinea) {
-        this.numeroLinea = numeroLinea;
-    }
-
-    public int getNumeroComanda() {
-        return numeroComanda;
+        this.lineaComandaId.setNumeroLinea(numeroLinea);
     }
 
     public void setNumeroComanda(int numeroComanda) {
-        this.numeroComanda = numeroComanda;
+        this.lineaComandaId.setNumeroComanda(numeroComanda);
+    }
+
+    public int getNumeroComanda() {
+        return lineaComandaId.getNumeroComanda();
     }
 
     public int getCantidad() {

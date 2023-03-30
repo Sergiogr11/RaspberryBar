@@ -1,11 +1,17 @@
 package com.RaspberryBar.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Articulo{
-    int articuloId;
-    String nombreArticulo;
-    String descripcionArticulo;
-    float precio;
-    int categoriaId;
+
+    @Id
+    private int articuloId;
+    private String nombreArticulo;
+    private String descripcionArticulo;
+    private float precio;
+    private int categoriaId;
 
     /**
      * Constructor para la clase articulo
@@ -21,6 +27,9 @@ public class Articulo{
         this.descripcionArticulo = descripcionArticulo;
         this.precio = precio;
         this.categoriaId = categoriaId;
+    }
+
+    public Articulo() {
     }
 
     public int getArticuloId() {

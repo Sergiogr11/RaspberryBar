@@ -1,11 +1,17 @@
 package com.RaspberryBar.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Restaurante{
-    int restauranteId;
-    String tipoImpositivo;
-    String cif;
-    String direccion;
-    String telefono;
+
+    @Id
+    private int restauranteId;
+    private String tipoImpositivo;
+    private String cif;
+    private String direccion;
+    private String telefono;
 
     /**
      * Constructor para la clase backend.entities.Restaurante
@@ -22,6 +28,8 @@ public class Restaurante{
         this.direccion = direccion;
         this.telefono = telefono;
     }
+
+    public Restaurante(){}
 
     public int getRestauranteId() {
         return restauranteId;

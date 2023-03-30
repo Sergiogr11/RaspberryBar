@@ -1,10 +1,15 @@
 package com.RaspberryBar.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Mesa{
-    int id;
-    String posicion;
-    int capacidad;
-    enum EstadoMesa{
+    @Id
+    private int mesaId;
+    private String posicion;
+    private int capacidad;
+    private enum EstadoMesa{
         Libre,
         Ocupada
     }
@@ -12,24 +17,27 @@ public class Mesa{
 
     /**
      * Constructor para la clase backend.entities.Mesa
-     * @param id identificador unico para mesa
+     * @param mesaId identificador unico para mesa
      * @param posicion posicion de la mesa
      * @param capacidad capacidad en personas
      * @param estadoMesa Ocupada o Libre
      */
-    public Mesa(int id, String posicion, int capacidad, EstadoMesa estadoMesa) {
-        this.id = id;
+    public Mesa(int mesaId, String posicion, int capacidad, EstadoMesa estadoMesa) {
+        this.mesaId = mesaId;
         this.posicion = posicion;
         this.capacidad = capacidad;
         this.estadoMesa = estadoMesa;
     }
 
-    public int getId() {
-        return id;
+    public Mesa() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getMesaId() {
+        return mesaId;
+    }
+
+    public void setMesaId(int mesaId) {
+        this.mesaId = mesaId;
     }
 
     public String getPosicion() {

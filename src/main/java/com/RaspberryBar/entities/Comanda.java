@@ -1,16 +1,21 @@
 package com.RaspberryBar.entities;
 
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
+@Entity
 public class Comanda{
-
-    int numeroComanda;
-    float precioTotal;
-    LocalDateTime fechaHoraApertura;
-    LocalDateTime fechaHoraCierre;
-    int numeroComensales;
-    int usuarioId;
-    int mesaId;
+    @Id
+    private int numeroComanda;
+    private float precioTotal;
+    private LocalDateTime fechaHoraApertura;
+    private LocalDateTime fechaHoraCierre;
+    private int numeroComensales;
+    private int usuarioId;
+    private int mesaId;
 
     /**
      * Constructor para la clase backend.entities.Comanda
@@ -30,6 +35,9 @@ public class Comanda{
         this.numeroComensales = numeroComensales;
         this.usuarioId = usuarioId;
         this.mesaId = mesaId;
+    }
+
+    public Comanda() {
     }
 
     public int getNumeroComanda() {

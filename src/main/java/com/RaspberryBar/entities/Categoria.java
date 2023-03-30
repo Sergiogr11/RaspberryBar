@@ -1,10 +1,15 @@
 package com.RaspberryBar.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Categoria{
 
-    int categoriaId;
-    String nombreCategoria;
-    String descripcionCategoria;
+    @Id
+    private int categoriaId;
+    private String nombreCategoria;
+    private String descripcionCategoria;
 
     /**
      * Constructor de la clase categoria
@@ -16,6 +21,9 @@ public class Categoria{
         this.categoriaId = categoriaId;
         this.nombreCategoria = nombreCategoria;
         this.descripcionCategoria = descripcionCategoria;
+    }
+
+    public Categoria() {
     }
 
     public int getCategoriaId() {

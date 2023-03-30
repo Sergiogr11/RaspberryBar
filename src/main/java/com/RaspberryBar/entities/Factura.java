@@ -1,16 +1,19 @@
 package com.RaspberryBar.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Factura{
-
-    int numeroFactura;
-    String fechaEmision;
-    String datosReceptor;
-    float baseImponible;
-    float importeTotal;
-    String registroMercantil;
-    int restauranteId;
-    int comandaId;
+    @Id
+    private int numeroFactura;
+    private String fechaEmision;
+    private String datosReceptor;
+    private float baseImponible;
+    private float importeTotal;
+    private String registroMercantil;
+    private int restauranteId;
+    private int comandaId;
 
     /**
      * Constructor para la clase backend.entities.Factura
@@ -33,6 +36,8 @@ public class Factura{
         this.restauranteId = restauranteId;
         this.comandaId = comandaId;
     }
+
+    public Factura(){}
 
     public int getNumeroFactura() {
         return numeroFactura;
