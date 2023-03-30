@@ -44,12 +44,12 @@ public class UsuarioService {
                     usuarioToBeUpdate.setContraseña(usuario.getContraseña());
                     usuarioRepository.save(usuarioToBeUpdate);
                 });
-                return "Student record updated.";
+                return "Usuario actualizado correctamente.";
             }catch (Exception e){
                 throw e;
             }
         }else {
-            return "Student does not exists in the database.";
+            return "El usuario no existe.";
         }
     }
 
