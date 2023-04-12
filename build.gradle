@@ -18,13 +18,12 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.xerial:sqlite-jdbc:3.34.0'
+	implementation 'org.openjfx:javafx-controls:16'
+	implementation 'org.springframework:spring-context:5.3.8'
+	implementation 'org.openjfx:javafx-fxml:16'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
-task runLogin(type: JavaExec) {
-	main = 'com.RasperryBar.RaspberryBarApplication'
-	classpath = sourceSets.main.runtimeClasspath
-}
