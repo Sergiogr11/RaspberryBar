@@ -23,3 +23,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task runLogin(type: JavaExec) {
+	main = 'com.RasperryBar.RaspberryBarApplication'
+	classpath = sourceSets.main.runtimeClasspath
+}
