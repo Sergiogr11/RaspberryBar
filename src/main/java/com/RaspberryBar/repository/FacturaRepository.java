@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface FacturaRepository extends JpaRepository<Factura, Integer> {
 
-        public boolean existById(int facturaId);
+        public boolean existsById(int facturaId);
 
         public List<Factura> findById(int facturaId);
 

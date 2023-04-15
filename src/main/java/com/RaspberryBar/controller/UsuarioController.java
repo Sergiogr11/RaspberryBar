@@ -18,11 +18,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @RequestMapping(value="info", method = RequestMethod.GET)
-    public String info(){
-        return "The app is up...";
-    }
-
     @RequestMapping(value="createUsuario", method  = RequestMethod.POST)
     public String createUsuario(@RequestBody Usuario usuario){
         return usuarioService.createUsuario(usuario);

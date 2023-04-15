@@ -17,11 +17,6 @@ public class ComandaController {
     @Autowired
     private ComandaService comandaService;
 
-    @RequestMapping(value="info", method = RequestMethod.GET)
-    public String info(){
-        return "The app is up...";
-    }
-
     @RequestMapping(value="createComanda", method  = RequestMethod.POST)
     public String createComandda(@RequestBody Comanda comanda){
         return comandaService.createComanda(comanda);

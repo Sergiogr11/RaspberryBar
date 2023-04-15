@@ -1,11 +1,14 @@
 package com.RaspberryBar.entities;
 
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
+
+@EqualsAndHashCode
 @Embeddable
 public class LineaComandaId implements Serializable {
-
     private int numeroLinea;
     private int numeroComanda;
 
@@ -32,5 +35,4 @@ public class LineaComandaId implements Serializable {
     public void setNumeroComanda(int numeroComanda) {
         this.numeroComanda = numeroComanda;
     }
-
 }

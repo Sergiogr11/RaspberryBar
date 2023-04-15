@@ -20,7 +20,7 @@ public class ComandaService {
     @Transactional
     public String createComanda(Comanda comanda){
         try {
-            if (!comandaRepository.existById(comanda.getNumeroComanda())){
+            if (!comandaRepository.existsById(comanda.getNumeroComanda())){
                 comanda.setNumeroComanda(null == comandaRepository.findMaxId()? 0 : comandaRepository.findMaxId() + 1);
                 comandaRepository.save(comanda);
                 return "Comanda guardada correctamente.";
@@ -32,13 +32,14 @@ public class ComandaService {
         }
     }
 
+    @Transactional
     public List<Comanda> readComandas(){
         return comandaRepository.findAll();
     }
 
     @Transactional
     public String updateComanda(Comanda comanda){
-        if (comandaRepository.existById(comanda.getNumeroComanda())){
+        if (comandaRepository.existsById(comanda.getNumeroComanda())){
             try {
 
                 List<Comanda> comandas = comandaRepository.findById(comanda.getNumeroComanda());

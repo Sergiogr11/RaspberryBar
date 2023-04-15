@@ -36,7 +36,7 @@ public class ArticuloService {
 
     @Transactional
     public String updateArticulo(Articulo articulo){
-        if (articuloRepository.existById(articulo.getArticuloId())){
+        if (articuloRepository.existsById(articulo.getArticuloId())){
             try {
 
                 List<Articulo> articulos = articuloRepository.findById(articulo.getArticuloId());

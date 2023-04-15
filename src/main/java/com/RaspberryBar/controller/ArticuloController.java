@@ -17,11 +17,6 @@ public class ArticuloController {
     @Autowired
     private ArticuloService articuloService;
 
-    @RequestMapping(value="info", method = RequestMethod.GET)
-    public String info(){
-        return "The app is up...";
-    }
-
     @RequestMapping(value="createArticulo", method  = RequestMethod.POST)
     public String createArticulo(@RequestBody Articulo articulo){
         return articuloService.createArticulo(articulo);

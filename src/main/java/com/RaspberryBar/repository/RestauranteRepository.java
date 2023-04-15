@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface RestauranteRepository extends JpaRepository<Restaurante, Integer> {
-    public boolean existById(int restauranteId);
+    public boolean existsById(int restauranteId);
 
     public List<Restaurante> findById(int restauranteId);
 

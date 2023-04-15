@@ -37,7 +37,7 @@ public class CategoriaService {
 
     @Transactional
     public String updateCategoria(Categoria categoria){
-        if (categoriaRepository.existById(categoria.getCategoriaId())){
+        if (categoriaRepository.existsById(categoria.getCategoriaId())){
             try {
 
                 List<Categoria> categorias = categoriaRepository.findById(categoria.getCategoriaId());

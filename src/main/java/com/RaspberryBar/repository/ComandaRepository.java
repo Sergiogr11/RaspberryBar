@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ComandaRepository extends JpaRepository<Comanda, Integer> {
 
-    public boolean existById(int numeroComanda);
+    public boolean existsById(int numeroComanda);
 
     public List<Comanda> findById(int numeroComanda);
 

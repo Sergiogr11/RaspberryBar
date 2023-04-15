@@ -17,11 +17,6 @@ public class RestauranteController {
     @Autowired
     private RestauranteService restauranteService;
 
-    @RequestMapping(value="info", method = RequestMethod.GET)
-    public String info(){
-        return "The app is up...";
-    }
-
     @RequestMapping(value="createRestaurante", method  = RequestMethod.POST)
     public String createRestaurante(@RequestBody Restaurante restaurante){
         return restauranteService.createRestaurante(restaurante);

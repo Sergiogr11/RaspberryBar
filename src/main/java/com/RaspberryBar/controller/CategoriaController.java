@@ -17,11 +17,6 @@ public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
 
-    @RequestMapping(value="info", method = RequestMethod.GET)
-    public String info(){
-        return "The app is up...";
-    }
-
     @RequestMapping(value="createCategoria", method  = RequestMethod.POST)
     public String createCategoria(@RequestBody Categoria categoria){
         return categoriaService.createCategoria(categoria);

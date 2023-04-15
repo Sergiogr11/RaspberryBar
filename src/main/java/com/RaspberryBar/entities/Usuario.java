@@ -10,7 +10,7 @@ public class Usuario{
     private int userId;
     private String username;
     private String correo;
-    private String contraseña;
+    private String password;
 
     public Usuario() {
     }
@@ -27,15 +27,15 @@ public class Usuario{
      * @param userId Identificador unico para el usuario
      * @param username Nickname unico
      * @param correo Correo electronico
-     * @param contraseña Contraseña
+     * @param password Contraseña
      * @param rol Rol, que puede ser admin o user
      * @param telefono Telefono movil
      */
-    public Usuario(int userId, String username, String correo, String contraseña, Roles rol, String telefono) {
+    public Usuario(int userId, String username, String correo, String password, Roles rol, String telefono) {
         this.userId = userId;
         this.username = username;
         this.correo = correo;
-        this.contraseña = contraseña;
+        this.password = password;
         this.rol = rol;
         this.telefono = telefono;
     }
@@ -74,12 +74,12 @@ public class Usuario{
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getTelefono() {

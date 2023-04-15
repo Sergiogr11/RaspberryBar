@@ -34,7 +34,7 @@ public class FacturaService {
 
     @Transactional
     public String updateFactura(Factura factura){
-        if (facturaRepository.existById(factura.getNumeroFactura())){
+        if (facturaRepository.existsById(factura.getNumeroFactura())){
             try {
 
                 List<Factura> facturas = facturaRepository.findById(factura.getNumeroFactura());

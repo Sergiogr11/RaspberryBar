@@ -15,11 +15,6 @@ public class MesaController {
     @Autowired
     private MesaService mesaService;
 
-    @RequestMapping(value="info", method = RequestMethod.GET)
-    public String info(){
-        return "The app is up...";
-    }
-
     @RequestMapping(value="createMesa", method  = RequestMethod.POST)
     public String createMesa(@RequestBody Mesa mesa){
         return mesaService.createMesa(mesa);

@@ -14,11 +14,11 @@ public class RaspberryBarApplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/com/RaspberryBar/fxml/login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("D:/Descargas/RaspberryBar/src/main/java/com/RaspberryBar/fxml"));
 
 		Scene scene = new Scene(root);
 
-		stage.setTitle("Mi aplicación");
+		stage.setTitle("RaspberryBar");
 		stage.setScene(scene);
 		stage.show();
 	}

@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface MesaRepository extends JpaRepository<Mesa, Integer> {
 
-    public boolean existById(int mesaId);
+    public boolean existsById(int mesaId);
 
     public List<Mesa> findById(int mesaId);
 

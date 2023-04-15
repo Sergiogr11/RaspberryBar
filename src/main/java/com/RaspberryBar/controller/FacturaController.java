@@ -17,11 +17,6 @@ public class FacturaController {
     @Autowired
     private FacturaService facturaService;
 
-    @RequestMapping(value="info", method = RequestMethod.GET)
-    public String info(){
-        return "The app is up...";
-    }
-
     @RequestMapping(value="createFactura", method  = RequestMethod.POST)
     public String createFactura(@RequestBody Factura factura){
         return facturaService.createFactura(factura);

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ArticuloRepository extends JpaRepository<Articulo, Integer>{
-    public boolean existById(int articuloId);
+    public boolean existsById(int articuloId);
 
     public List<Articulo> findById(int articuloId);
 

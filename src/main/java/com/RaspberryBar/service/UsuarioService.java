@@ -39,9 +39,12 @@ public class UsuarioService {
                 List<Usuario> usuarios = usuarioRepository.findByUsername(usuario.getUsername());
                 usuarios.stream().forEach(s -> {
                     Usuario usuarioToBeUpdate = usuarioRepository.findById(s.getUserId()).get();
+                    usuarioToBeUpdate.setUserId(s.getUserId());
                     usuarioToBeUpdate.setUsername(s.getUsername());
-                    usuarioToBeUpdate.setCorreo(usuario.getCorreo());
-                    usuarioToBeUpdate.setContraseña(usuario.getContraseña());
+                    usuarioToBeUpdate.setCorreo(s.getCorreo());
+                    usuarioToBeUpdate.setPassword(s.getPassword());
+                    usuarioToBeUpdate.setRol(s.getRol());
+                    usuarioToBeUpdate.setTelefono(s.getTelefono());
                     usuarioRepository.save(usuarioToBeUpdate);
                 });
                 return "Usuario actualizado correctamente.";

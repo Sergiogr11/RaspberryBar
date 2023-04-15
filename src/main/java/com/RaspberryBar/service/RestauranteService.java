@@ -18,7 +18,7 @@ public class RestauranteService {
     @Transactional
     public String createRestaurante(Restaurante restaurante){
         try {
-            if (!restauranteRepository.existById(restaurante.getRestauranteId())){
+            if (!restauranteRepository.existsById(restaurante.getRestauranteId())){
                 restaurante.setRestauranteId(null == restauranteRepository.findMaxId()? 0 : restauranteRepository.findMaxId() + 1);
                 restauranteRepository.save(restaurante);
                 return "Restaurante guardado correctamente.";
@@ -36,7 +36,7 @@ public class RestauranteService {
 
     @Transactional
     public String updateRestaurante(Restaurante restaurante){
-        if (restauranteRepository.existById(restaurante.getRestauranteId())){
+        if (restauranteRepository.existsById(restaurante.getRestauranteId())){
             try {
 
                 List<Restaurante> restaurantes = restauranteRepository.findById(restaurante.getRestauranteId());
