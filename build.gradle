@@ -1,12 +1,15 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.10'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version '2.6.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'application'
 }
 
-group = 'com'
+group = 'com.RaspberryBar'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+mainClassName = 'com.RaspberryBar.RaspberryBarApplication'
 
 repositories {
 	mavenCentral()
@@ -19,9 +22,10 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.xerial:sqlite-jdbc:3.34.0'
-	implementation 'org.openjfx:javafx-controls:16'
+	implementation 'org.openjfx:javafx-controls:11.0.2:win'
+	implementation 'org.openjfx:javafx-graphics:11.0.2:win'
 	implementation 'org.springframework:spring-context:5.3.8'
-	implementation 'org.openjfx:javafx-fxml:16'
+	implementation 'org.openjfx:javafx-fxml:11.0.2:win'
 }
 
 tasks.named('test') {

@@ -19,7 +19,7 @@ public class LineaComandaController {
     @Autowired
     private LineaComandaService lineaComandaService;
 
-    @RequestMapping(value="createArticulo", method  = RequestMethod.POST)
+    @RequestMapping(value="createLineaComanda", method  = RequestMethod.POST)
     public String createLineaComanda(@RequestBody LineaComanda lineaComanda){
         return lineaComandaService.createLineaComanda(lineaComanda);
     }

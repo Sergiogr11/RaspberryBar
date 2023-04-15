@@ -8,6 +8,12 @@ public class LineaComanda{
 
     @EmbeddedId
     private LineaComandaId lineaComandaId;
+    @Id
+    @Column(name = "numeroLinea", insertable = false, updatable = false)
+    private int numeroLinea;
+    @Id
+    @Column(name = "numeroComanda", insertable = false, updatable = false)
+    private int numeroComanda;
     private int cantidad;
     private float precio;
     private int articuloId;
