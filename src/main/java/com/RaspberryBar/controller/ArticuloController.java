@@ -1,9 +1,7 @@
 package com.RaspberryBar.controller;
 
 import com.RaspberryBar.entities.Articulo;
-import com.RaspberryBar.entities.Factura;
 import com.RaspberryBar.service.ArticuloService;
-import com.RaspberryBar.service.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

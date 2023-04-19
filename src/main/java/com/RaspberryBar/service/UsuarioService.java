@@ -73,4 +73,14 @@ public class UsuarioService {
             return "El usuario no existe";
         }
     }
+
+    public boolean authenticate(String username, String password){
+        Usuario usuario = this.usuarioRepository.findByUsername(username).get(0);
+        if(usuario == null){
+            return false;
+        }else{
+            if(password.equals(usuario.getPassword())) return true;
+            else return false;
+        }
+    }
 }

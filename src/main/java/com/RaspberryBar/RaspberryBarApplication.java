@@ -1,5 +1,7 @@
 package com.RaspberryBar;
 
+import com.RaspberryBar.config.StageManager;
+import com.RaspberryBar.view.FxmlView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,36 +10,45 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
-import java.io.IOException;
 
 @SpringBootApplication
 public class RaspberryBarApplication extends Application {
 
-	@Autowired
-	private ApplicationContext applicationContext;
-
-	@Override
-	public void start(Stage stage) throws IOException {
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-		loader.setControllerFactory(applicationContext::getBean);
-
-		Parent p = ((FXMLLoader) loader.getRoot()).load();
-		stage.setScene(new Scene(p));
-		stage.show();
-		/*
-		Parent root = loader.load();
-		Scene scene = new Scene(root);
-
-		stage.setTitle("RaspberryBar");
-		stage.setScene(scene);
-		stage.show();
-		 */
-	}
+	protected ConfigurableApplicationContext springContext;
+	protected StageManager stageManager;
 
 	public static void main(String[] args) {
-		SpringApplication.run(RaspberryBarApplication.class, args);
+		Application.launch(args);
 	}
+
+	@Override
+	public void init() throws Exception{
+		springContext = springBootApplicationContext();
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		stageManager = springContext.getBean(StageManager.class, stage);
+		displayInitialScene();
+	}
+
+	@Override
+	public void stop() throws Exception {
+		springContext.close();
+	}
+
+	protected void displayInitialScene() {
+		stageManager.switchScene(FxmlView.LOGIN);
+	}
+
+
+	private ConfigurableApplicationContext springBootApplicationContext() {
+		SpringApplicationBuilder builder = new SpringApplicationBuilder(RaspberryBarApplication.class);
+		String[] args = getParameters().getRaw().stream().toArray(String[]::new);
+		return builder.run(args);
+	}
+
 }
