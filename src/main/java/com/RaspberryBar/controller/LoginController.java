@@ -42,7 +42,7 @@ public class LoginController implements Initializable {
     @FXML
     private void login(ActionEvent event) throws IOException {
         if(usuarioService.authenticate(getUsername(), getPassword())){
-            //stageManager.switchScene(FxmlView.USER);
+            stageManager.switchScene(FxmlView.HOME);
             lblLogin.setText("Login Successfully");
         }else{
             lblLogin.setText("Login Failed.");

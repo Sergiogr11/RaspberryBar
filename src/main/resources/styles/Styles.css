@@ -1,7 +1,10 @@
 /* CSS for app */
 
 .btnGreen{
-	-fx-background-color:  #3cbc53;
+	-fx-background-color:  #6b0c0c;
+	-fx-text-fill: #ffffff;
 }
 
 .background{
+    -fx-background-image: url(../images/background-login.jpg)
+}

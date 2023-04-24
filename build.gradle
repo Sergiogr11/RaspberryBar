@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.openjfx:javafx-graphics:11.0.2:win'
 	implementation 'org.springframework:spring-context:5.3.8'
 	implementation 'org.openjfx:javafx-fxml:11.0.2:win'
+	implementation 'org.webjars:font-awesome:5.2.0'
 }
 
 tasks.named('test') {

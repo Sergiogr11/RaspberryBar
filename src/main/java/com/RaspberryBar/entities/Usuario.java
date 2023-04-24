@@ -1,5 +1,6 @@
 package com.RaspberryBar.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,19 +9,22 @@ public class Usuario{
 
     @Id
     private int userId;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String correo;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private String rol = "User";
+    @Column(nullable = false)
+    private String telefono;
 
+    /**
+     * Constructor vacío para Usuario
+     */
     public Usuario() {
     }
-
-    private enum Roles {
-        User,
-        Admin
-    }
-    private Roles rol = Roles.User;
-    private String telefono;
 
     /**
      * Constructor para la clase backend.entities.Usuario
@@ -31,7 +35,7 @@ public class Usuario{
      * @param rol Rol, que puede ser admin o user
      * @param telefono Telefono movil
      */
-    public Usuario(int userId, String username, String correo, String password, Roles rol, String telefono) {
+    public Usuario(int userId, String username, String correo, String password, String rol, String telefono) {
         this.userId = userId;
         this.username = username;
         this.correo = correo;
@@ -49,12 +53,11 @@ public class Usuario{
     }
 
 
-
-    public Roles getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(Roles rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 

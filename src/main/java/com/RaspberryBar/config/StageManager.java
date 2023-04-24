@@ -37,12 +37,12 @@ public class StageManager {
         }
 
         Scene scene = prepareScene(rootnode);
-        //scene.getStylesheets().add("/styles/Styles.css");
 
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
+        primaryStage.setFullScreen(true);
+        //primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
 
         try {
@@ -59,7 +59,8 @@ public class StageManager {
             scene = new Scene(rootnode);
         }
         scene.setRoot(rootnode);
-        return scene;
+
+       return scene;
     }
 
     /**

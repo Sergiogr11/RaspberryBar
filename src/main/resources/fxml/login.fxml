@@ -6,29 +6,39 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.LoginController">
+<VBox alignment="CENTER" prefWidth="800.0" style="-fx-background-image: /images/background-login.jpg;" styleClass="background" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.LoginController">
     <children>
-        <Rectangle fill="DODGERBLUE" height="250.0" stroke="#ffffff8b" strokeType="INSIDE" width="400.0" />
-        <Label fx:id="lblLogin" layoutX="97.0" layoutY="46.0" text="Login" textFill="WHITE">
+        <Rectangle fill="DODGERBLUE" stroke="#ffffff8b" strokeType="INSIDE" />
+        <Label fx:id="lblLogin" alignment="TOP_CENTER" text="Bienvenido a ComandApp" textFill="WHITE">
             <font>
-                <Font size="20.0" />
+                <Font name="Garamond" size="72.0" />
             </font>
+         <VBox.margin>
+            <Insets bottom="300.0" />
+         </VBox.margin>
         </Label>
-        <TextField fx:id="username" layoutX="98.0" layoutY="92.0" prefHeight="36.0" prefWidth="204.0" promptText="Username" />
-        <PasswordField fx:id="password" layoutX="98.0" layoutY="141.0" onAction="#login" prefHeight="36.0" prefWidth="204.0" promptText="Password" />
-        <Button fx:id="btnLogin" layoutX="215.0" layoutY="193.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Sign In" textFill="WHITE">
+        <TextField fx:id="username" maxHeight="60.0" maxWidth="1200.0" prefHeight="60.0" prefWidth="1200.0" promptText="Username" />
+        <PasswordField fx:id="password" maxHeight="60.0" maxWidth="1200.0" onAction="#login" prefHeight="60.0" prefWidth="1200.0" promptText="Password">
+         <VBox.margin>
+            <Insets top="25.0" />
+         </VBox.margin></PasswordField>
+        <Button fx:id="btnLogin" alignment="CENTER" layoutX="50.0" maxHeight="70.0" maxWidth="250.0" mnemonicParsing="false" onAction="#login" prefHeight="70.0" prefWidth="250.0" styleClass="btnGreen" text="Iniciar Sesión">
             <font>
-                <Font size="15.0" />
+                <Font name="Garamond" size="24.0" />
             </font>
             <effect>
                 <DropShadow blurType="ONE_PASS_BOX" />
-            </effect></Button>
+            </effect>
+         <VBox.margin>
+            <Insets top="50.0" />
+         </VBox.margin>
+        </Button>
     </children>
-    <opaqueInsets>
-        <Insets />
-    </opaqueInsets>
-</AnchorPane>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
