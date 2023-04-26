@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
+
+import static com.sun.javafx.font.FontResource.SALT;
 
 @Service
 public class UsuarioService {
@@ -79,8 +84,27 @@ public class UsuarioService {
         if(usuario == null){
             return false;
         }else{
-            if(password.equals(usuario.getPassword())) return true;
+            String encrypted_password = encrypt(password);
+            if(encrypted_password.equals(usuario.getPassword())) return true;
             else return false;
+        }
+    }
+
+
+    public static String encrypt(String password) {
+        String SALT = System.getenv("PASSWORD_SALT"); // Lee el salt desde una variable de entorno
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256"); // Selecciona el algoritmo de hash que deseas utilizar (en este caso, SHA-256)
+            String saltedPassword = password + SALT; // Agrega el salt a la contraseña
+            byte[] hashedPassword = md.digest(saltedPassword.getBytes()); // Calcula el hash de la contraseña con el salt
+
+            // Convierte el hash en una cadena de texto codificada en base64
+            String encodedHash = Base64.getEncoder().encodeToString(hashedPassword);
+            return encodedHash; // Retorna el hash en formato de cadena de texto
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

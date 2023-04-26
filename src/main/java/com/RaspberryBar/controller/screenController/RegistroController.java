@@ -58,7 +58,8 @@ public class RegistroController implements Initializable {
         if(validar()) {
             //Despues guardamos el usuario nuevo
             int id = usuarioRepository.findMaxId();
-            Usuario usuario = new Usuario(id, getUsername(), getEmail(), getPassword(), getRol(), getTelefono());
+            String encrypted_password = UsuarioService.encrypt(getPassword());
+            Usuario usuario = new Usuario(id, getUsername(), getEmail(), encrypted_password, getRol(), getTelefono());
 
             usuarioService.createUsuario(usuario);
 
