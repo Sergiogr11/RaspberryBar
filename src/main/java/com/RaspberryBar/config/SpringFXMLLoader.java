@@ -29,7 +29,6 @@ public class SpringFXMLLoader {
         loader.setControllerFactory(context::getBean); //Spring now FXML Controller Factory
         loader.setResources(resourceBundle);
         loader.setLocation(getClass().getResource(fxmlPath));
-        System.out.println("LOADER ESsss: " + loader.getLocation());
         return loader.load();
     }
 }

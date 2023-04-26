@@ -16,18 +16,6 @@ import java.util.ResourceBundle;
 
 @Controller
 public class HomeController implements Initializable {
-    @FXML
-    private Button btnLogout;
-    @FXML
-    private Button btnComandas;
-    @FXML
-    private Button btnArticulos;
-    @FXML
-    private Button btnFacturacion;
-    @FXML
-    private Button btnMesas;
-    @FXML
-    private Button btnRegistrar;
 
     @Lazy
     @Autowired
@@ -55,7 +43,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void entrarRegistrar(ActionEvent event) throws IOException {
-        //stageManager.switchScene(FxmlView.COMANDAS);
+        stageManager.switchScene(FxmlView.REGISTRO);
     }
 
     @FXML
@@ -65,6 +53,5 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 }
