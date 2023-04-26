@@ -42,7 +42,6 @@ public class StageManager {
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
-        //primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
 
         try {

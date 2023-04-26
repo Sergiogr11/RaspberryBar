@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="800.0" style="-fx-background-image: /images/background-login.jpg;" styleClass="background" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.LoginController">
+<VBox alignment="CENTER" prefWidth="800.0" style="-fx-background-image: /images/background-login.jpg;" styleClass="background" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.LoginController">
     <children>
         <Rectangle fill="DODGERBLUE" stroke="#ffffff8b" strokeType="INSIDE" />
         <Label fx:id="lblLogin" alignment="TOP_CENTER" text="Bienvenido a ComandApp" textFill="WHITE">

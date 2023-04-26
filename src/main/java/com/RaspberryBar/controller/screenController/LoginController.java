@@ -1,4 +1,4 @@
-package com.RaspberryBar.controller;
+package com.RaspberryBar.controller.screenController;
 import com.RaspberryBar.config.StageManager;
 import com.RaspberryBar.service.UsuarioService;
 import com.RaspberryBar.view.FxmlView;
@@ -43,9 +43,9 @@ public class LoginController implements Initializable {
     private void login(ActionEvent event) throws IOException {
         if(usuarioService.authenticate(getUsername(), getPassword())){
             stageManager.switchScene(FxmlView.HOME);
-            lblLogin.setText("Login Successfully");
+            lblLogin.setText("Login Correcto");
         }else{
-            lblLogin.setText("Login Failed.");
+            lblLogin.setText("Usuario o Contraseña Incorrectos");
         }
     }
 

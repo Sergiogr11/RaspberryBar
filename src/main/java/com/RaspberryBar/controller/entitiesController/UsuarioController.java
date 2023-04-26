@@ -1,4 +1,4 @@
-package com.RaspberryBar.controller;
+package com.RaspberryBar.controller.entitiesController;
 
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.service.UsuarioService;
