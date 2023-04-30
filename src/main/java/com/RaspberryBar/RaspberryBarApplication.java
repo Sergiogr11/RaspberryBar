@@ -42,8 +42,7 @@ public class RaspberryBarApplication extends Application {
 
 	protected void displayInitialScene() {
 		//stageManager.switchScene(FxmlView.LOGIN);
-		//stageManager.switchScene(FxmlView.HOME);
-		stageManager.switchScene(FxmlView.REGISTRO);
+		stageManager.switchScene(FxmlView.USUARIOS);
 	}
 
 

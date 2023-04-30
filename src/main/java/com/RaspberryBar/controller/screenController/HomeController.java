@@ -43,7 +43,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void entrarRegistrar(ActionEvent event) throws IOException {
-        stageManager.switchScene(FxmlView.REGISTRO);
+        stageManager.switchScene(FxmlView.USUARIOS);
     }
 
     @FXML

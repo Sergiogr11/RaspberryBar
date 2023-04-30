@@ -32,6 +32,8 @@ public class RegistroController implements Initializable {
     @FXML
     private JFXButton btnRegistro;
     @FXML
+    private JFXButton btnVolver;
+    @FXML
     private JFXPasswordField password;
     @FXML
     private JFXTextField email;
@@ -63,8 +65,15 @@ public class RegistroController implements Initializable {
 
             usuarioService.createUsuario(usuario);
 
-            stageManager.switchScene(FxmlView.HOME);
+
+
+            stageManager.switchScene(FxmlView.USUARIOS);
         }
+    }
+
+    @FXML
+    private void volver(ActionEvent event) throws IOException {
+            stageManager.switchScene(FxmlView.USUARIOS);
     }
 
     @FXML
