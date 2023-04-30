@@ -66,9 +66,7 @@ public class UsuarioService {
         if (usuarioRepository.existsByUsername(usuario.getUsername())){
             try {
                 List<Usuario> usuarios = usuarioRepository.findByUsername(usuario.getUsername());
-                usuarios.stream().forEach(s -> {
-                    usuarioRepository.delete(s);
-                });
+                    usuarioRepository.delete(usuarios.get(0));
                 return "Usuario eliminado correctamente.";
             }catch (Exception e){
                 throw e;
@@ -79,6 +77,7 @@ public class UsuarioService {
         }
     }
 
+    @Transactional
     public boolean authenticate(String username, String password){
         Usuario usuario = this.usuarioRepository.findByUsername(username).get(0);
         if(usuario == null){
@@ -90,7 +89,7 @@ public class UsuarioService {
         }
     }
 
-
+    @Transactional
     public static String encrypt(String password) {
         String SALT = System.getenv("PASSWORD_SALT"); // Lee el salt desde una variable de entorno
 
@@ -106,5 +105,10 @@ public class UsuarioService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Transactional
+    public Usuario findUsuario(String username){
+        return this.usuarioRepository.findByUsername(username).get(0);
     }
 }

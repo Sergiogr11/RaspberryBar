@@ -9,6 +9,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RegexValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,7 +51,14 @@ public class UsuariosController implements Initializable {
 
     @FXML
     private void eliminar(ActionEvent event) throws IOException {
-
+        //Obtengo el usuario seleccionado y su username
+        ObservableList<String> selectedUsuarios;
+        selectedUsuarios = listaUsuarios.getSelectionModel().getSelectedItems();
+        //Busco en la base datos el usuario seleccionado
+        Usuario usuarioEliminar = usuarioService.findUsuario(selectedUsuarios.get(0));
+        //Borro el usuario seleccionado
+        usuarioService.deleteUsuario(usuarioEliminar);
+        actualizarListView();
     }
 
     @FXML
@@ -64,13 +72,7 @@ public class UsuariosController implements Initializable {
     }
 
 
-
-
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    private void actualizarListView(){
         //Obtengo los usuarios y sus usernames para inicializar la ListView
         List<Usuario> userList = usuarioService.readUsuarios();
         List<String> usernameList = new ArrayList<>();
@@ -80,8 +82,18 @@ public class UsuariosController implements Initializable {
             usernameList.add(username);
         }
 
+        listaUsuarios.getItems().clear();
         listaUsuarios.getItems().addAll(usernameList);
+    }
 
+
+
+
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        actualizarListView();
     }
 
 }
