@@ -1,5 +1,11 @@
 package com.RaspberryBar.view;
 
+import com.RaspberryBar.entities.Usuario;
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
+
+import javax.print.DocFlavor;
+import javax.swing.text.View;
 import java.util.ResourceBundle;
 
 
@@ -15,6 +21,11 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/fxml/home.fxml";
         }
+
+        @Override
+        public FxmlView getView() {
+            return this;
+        }
     },
 
     LOGIN {
@@ -27,6 +38,11 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/fxml/login.fxml";
         }
+
+        @Override
+        public FxmlView getView() {
+            return this;
+        }
     },
     REGISTRO {
         @Override
@@ -37,6 +53,11 @@ public enum FxmlView {
         @Override
         public String getFxmlFile() {
             return "/fxml/registro.fxml";
+        }
+
+        @Override
+        public FxmlView getView() {
+            return this;
         }
     },
     USUARIOS {
@@ -49,6 +70,27 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/fxml/usuarios.fxml";
         }
+
+        @Override
+        public FxmlView getView() {
+            return this;
+        }
+    },
+    EDITARUSUARIO {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("editarUsuario.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/editarUsuario.fxml";
+        }
+
+        public FxmlView getView(){
+            return this;
+        }
+
     },
     ;
 
@@ -58,4 +100,7 @@ public enum FxmlView {
     String getStringFromResourceBundle(String key){
         return ResourceBundle.getBundle("Bundle").getString(key);
     }
+
+
+    public abstract FxmlView getView();
 }

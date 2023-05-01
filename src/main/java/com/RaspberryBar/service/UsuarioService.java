@@ -41,18 +41,15 @@ public class UsuarioService {
     public String updateUsuario(Usuario usuario){
         if (usuarioRepository.existsByUsername(usuario.getUsername())){
             try {
-                List<Usuario> usuarios = usuarioRepository.findByUsername(usuario.getUsername());
-                usuarios.stream().forEach(s -> {
-                    Usuario usuarioToBeUpdate = usuarioRepository.findById(s.getUserId()).get();
-                    usuarioToBeUpdate.setUserId(s.getUserId());
-                    usuarioToBeUpdate.setUsername(s.getUsername());
-                    usuarioToBeUpdate.setCorreo(s.getCorreo());
-                    usuarioToBeUpdate.setPassword(s.getPassword());
-                    usuarioToBeUpdate.setRol(s.getRol());
-                    usuarioToBeUpdate.setTelefono(s.getTelefono());
+                    Usuario usuarioToBeUpdate = usuarioRepository.findByUsername(usuario.getUsername()).get(0);
+                    usuarioToBeUpdate.setUserId(usuarioToBeUpdate.getUserId());
+                    usuarioToBeUpdate.setUsername(usuario.getUsername());
+                    usuarioToBeUpdate.setCorreo(usuario.getCorreo());
+                    usuarioToBeUpdate.setPassword(usuario.getPassword());
+                    usuarioToBeUpdate.setRol(usuario.getRol());
+                    usuarioToBeUpdate.setTelefono(usuario.getTelefono());
                     usuarioRepository.save(usuarioToBeUpdate);
-                });
-                return "Usuario actualizado correctamente.";
+                    return "Usuario actualizado correctamente.";
             }catch (Exception e){
                 throw e;
             }

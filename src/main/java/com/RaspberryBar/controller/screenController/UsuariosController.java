@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -43,6 +44,9 @@ public class UsuariosController implements Initializable {
     @FXML
     private JFXListView<String> listaUsuarios;
 
+    private ObservableList<String> selectedUsuarios;
+    private List<String> usernameList = new ArrayList<>();
+    static Usuario usuarioEditar = new Usuario();
 
     @FXML
     private void volver(ActionEvent event) throws IOException {
@@ -52,7 +56,6 @@ public class UsuariosController implements Initializable {
     @FXML
     private void eliminar(ActionEvent event) throws IOException {
         //Obtengo el usuario seleccionado y su username
-        ObservableList<String> selectedUsuarios;
         selectedUsuarios = listaUsuarios.getSelectionModel().getSelectedItems();
         //Busco en la base datos el usuario seleccionado
         Usuario usuarioEliminar = usuarioService.findUsuario(selectedUsuarios.get(0));
@@ -63,7 +66,12 @@ public class UsuariosController implements Initializable {
 
     @FXML
     private void editar(ActionEvent event) throws IOException {
-
+        //Obtengo el usuario seleccionado y su username
+        selectedUsuarios = listaUsuarios.getSelectionModel().getSelectedItems();
+        //Busco en la base datos el usuario seleccionado
+        usuarioEditar = usuarioService.findUsuario(selectedUsuarios.get(0));
+        //Paso como parametro el usuarioEditar
+        stageManager.switchScene(FxmlView.EDITARUSUARIO);
     }
 
     @FXML
@@ -73,9 +81,10 @@ public class UsuariosController implements Initializable {
 
 
     private void actualizarListView(){
+        //Borro elementos antiguos de la lista
+        usernameList.clear();
         //Obtengo los usuarios y sus usernames para inicializar la ListView
         List<Usuario> userList = usuarioService.readUsuarios();
-        List<String> usernameList = new ArrayList<>();
 
         for (Usuario user : userList) {
             String username = user.getUsername();
@@ -85,11 +94,6 @@ public class UsuariosController implements Initializable {
         listaUsuarios.getItems().clear();
         listaUsuarios.getItems().addAll(usernameList);
     }
-
-
-
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
