@@ -40,16 +40,11 @@ public class CategoriaService {
     public String updateCategoria(Categoria categoria){
         if (categoriaRepository.existsById(categoria.getCategoriaId())){
             try {
-
-                List<Categoria> categorias = categoriaRepository.findById(categoria.getCategoriaId());
-                categorias.stream().forEach(s -> {
-                    Categoria categoriaToBeUpdate = categoriaRepository.findById(s.getCategoriaId()).get(0);
-                    categoriaToBeUpdate.setCategoriaId(s.getCategoriaId());
-                    categoriaToBeUpdate.setNombreCategoria(s.getNombreCategoria());
-                    categoriaToBeUpdate.setDescripcionCategoria(s.getDescripcionCategoria());
-
-                    categoriaRepository.save(categoriaToBeUpdate);
-                });
+                Categoria categoriaToBeUpdate = categoriaRepository.findById(categoria.getCategoriaId()).get(0);
+                categoriaToBeUpdate.setCategoriaId(categoriaToBeUpdate.getCategoriaId());
+                categoriaToBeUpdate.setNombreCategoria(categoria.getNombreCategoria());
+                categoriaToBeUpdate.setDescripcionCategoria(categoria.getDescripcionCategoria());
+                categoriaRepository.save(categoriaToBeUpdate);
                 return "Categoria actualizado correctamente.";
             }catch (Exception e){
                 throw e;

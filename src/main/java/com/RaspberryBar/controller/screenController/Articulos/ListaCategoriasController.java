@@ -69,12 +69,12 @@ public class ListaCategoriasController implements Initializable {
         //Obtengo la categoria seleccionada
         selectedCategorias = listaCategorias.getSelectionModel().getSelectedItems();
         //Obtengo el id correspondiente al nombre de la categoria seleccionada
-        int indice = categoriasList.indexOf(selectedCategorias);
+        int indice = categoriasList.indexOf(selectedCategorias.get(0));
         int indice_categoria = categoriasIdList.get(indice);
         //Busco en la base datos el usuario seleccionado
         categoriaEditar = categoriaService.findCategoria(indice_categoria);
         //Cambio de escena con la variable global ya inicializada
-        //stageManager.switchScene(FxmlView.EDITARCATEGORIAS);
+        stageManager.switchScene(FxmlView.EDITARCATEGORIA);
     }
 
     @FXML

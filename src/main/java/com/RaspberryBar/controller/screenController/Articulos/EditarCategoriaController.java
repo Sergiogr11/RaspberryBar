@@ -1,14 +1,15 @@
 package com.RaspberryBar.controller.screenController.Articulos;
+
 import com.RaspberryBar.config.StageManager;
+import com.RaspberryBar.controller.screenController.Usuarios.UsuariosController;
 import com.RaspberryBar.entities.Categoria;
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.CategoriaRepository;
-import com.RaspberryBar.repository.UsuarioRepository;
 import com.RaspberryBar.service.CategoriaService;
-import com.RaspberryBar.service.UsuarioService;
 import com.RaspberryBar.view.FxmlView;
-import com.jfoenix.controls.*;
-import com.jfoenix.validation.RegexValidator;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Controller
-public class CrearCategoriaController implements Initializable {
+public class EditarCategoriaController implements Initializable {
 
     @FXML
     private JFXButton btnCrearCategoria;
@@ -40,6 +41,10 @@ public class CrearCategoriaController implements Initializable {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    @Autowired
+    private ListaCategoriasController listaCategoriasController;
+    private Categoria categoriaEditar;
+
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -49,15 +54,10 @@ public class CrearCategoriaController implements Initializable {
         //Primero validamos los campos
         if(validar()) {
             //Despues guardamos la categoria nuevo
-            int id;
-            try {
-                id = categoriaRepository.findMaxId() + 1;
-            }catch (NullPointerException e){
-                id = 0;
-            }
+            int id = categoriaEditar.getCategoriaId();
             Categoria categoria = new Categoria(id, getNombreCategoria(), getDescripcionCategoria());
 
-            categoriaService.createCategoria(categoria);
+            categoriaService.updateCategoria(categoria);
 
             //TODO-mostrar mensaje de confirmacon
 
@@ -83,6 +83,12 @@ public class CrearCategoriaController implements Initializable {
         }
     }
 
+    private void obtenerInfo(){
+        categoriaEditar = listaCategoriasController.categoriaEditar;
+        nombreCategoria.setText(categoriaEditar.getNombreCategoria());
+        descripcionCategoria.setText(categoriaEditar.getDescripcionCategoria());
+    }
+
     public String getNombreCategoria(){
         return nombreCategoria.getText();
     }
@@ -90,7 +96,6 @@ public class CrearCategoriaController implements Initializable {
     public String getDescripcionCategoria(){
         return descripcionCategoria.getText();
     }
-
 
 
     @Override
@@ -105,6 +110,7 @@ public class CrearCategoriaController implements Initializable {
         nombreCategoria.getValidators().add(requiredFieldValidator);
         descripcionCategoria.getValidators().add(requiredFieldValidator);
 
+        obtenerInfo();
     }
 
 }
