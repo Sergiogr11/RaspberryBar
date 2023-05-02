@@ -3,6 +3,8 @@
 .btnGreen{
 	-fx-background-color:  #6b0c0c;
 	-fx-text-fill: #ffffff;
+	-fx-font-style: Verdana;
+    -fx-font-size: 24px;
 }
 
 .background{

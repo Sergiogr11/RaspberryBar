@@ -2,6 +2,7 @@ package com.RaspberryBar.service;
 
 import com.RaspberryBar.entities.Categoria;
 import com.RaspberryBar.entities.Factura;
+import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.CategoriaRepository;
 import com.RaspberryBar.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,10 @@ public class CategoriaService {
         }else {
             return "La Categoria no existe";
         }
+    }
+
+    @Transactional
+    public Categoria findCategoria(int categoriaId){
+        return this.categoriaRepository.findById(categoriaId).get(0);
     }
 }

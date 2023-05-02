@@ -1,4 +1,4 @@
-package com.RaspberryBar.controller.screenController;
+package com.RaspberryBar.controller.screenController.Home;
 
 import com.RaspberryBar.config.StageManager;
 import com.RaspberryBar.view.FxmlView;
@@ -33,7 +33,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void entrarArticulos(ActionEvent event) throws IOException {
-        //stageManager.switchScene(FxmlView.COMANDAS);
+        stageManager.switchScene(FxmlView.ARTICULOS);
     }
 
     @FXML

@@ -1,4 +1,4 @@
-package com.RaspberryBar.controller.screenController;
+package com.RaspberryBar.controller.screenController.Login;
 import com.RaspberryBar.config.StageManager;
 import com.RaspberryBar.service.UsuarioService;
 import com.RaspberryBar.view.FxmlView;

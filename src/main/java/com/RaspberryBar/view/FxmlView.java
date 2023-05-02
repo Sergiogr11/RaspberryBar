@@ -22,10 +22,6 @@ public enum FxmlView {
             return "/fxml/home.fxml";
         }
 
-        @Override
-        public FxmlView getView() {
-            return this;
-        }
     },
 
     LOGIN {
@@ -39,10 +35,6 @@ public enum FxmlView {
             return "/fxml/login.fxml";
         }
 
-        @Override
-        public FxmlView getView() {
-            return this;
-        }
     },
     REGISTRO {
         @Override
@@ -55,10 +47,6 @@ public enum FxmlView {
             return "/fxml/registro.fxml";
         }
 
-        @Override
-        public FxmlView getView() {
-            return this;
-        }
     },
     USUARIOS {
         @Override
@@ -71,10 +59,6 @@ public enum FxmlView {
             return "/fxml/usuarios.fxml";
         }
 
-        @Override
-        public FxmlView getView() {
-            return this;
-        }
     },
     EDITARUSUARIO {
         @Override
@@ -86,12 +70,53 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/fxml/editarUsuario.fxml";
         }
+    },
+    ARTICULOS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("articulos.title");
+        }
 
-        public FxmlView getView(){
-            return this;
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/articulos.fxml";
+        }
+    },
+    LISTAARTICULOS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("listaArticulos.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/listaArticulos.fxml";
         }
 
     },
+    LISTACATEGORIAS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("listaCategorias.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/listaCategorias.fxml";
+        }
+    },
+    CREARCATEGORIA {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("crearCategoria.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/crearCategoria.fxml";
+        }
+    },
+
     ;
 
     public abstract String getTitle();
@@ -100,7 +125,4 @@ public enum FxmlView {
     String getStringFromResourceBundle(String key){
         return ResourceBundle.getBundle("Bundle").getString(key);
     }
-
-
-    public abstract FxmlView getView();
 }

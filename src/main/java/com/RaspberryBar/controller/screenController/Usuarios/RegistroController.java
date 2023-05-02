@@ -1,16 +1,23 @@
-package com.RaspberryBar.controller.screenController;
+package com.RaspberryBar.controller.screenController.Usuarios;
 import com.RaspberryBar.config.StageManager;
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.UsuarioRepository;
 import com.RaspberryBar.service.UsuarioService;
 import com.RaspberryBar.view.FxmlView;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RegexValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -20,7 +27,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Controller
-public class EditarUsuarioController implements Initializable {
+public class RegistroController implements Initializable {
 
     @FXML
     private JFXButton btnRegistro;
@@ -47,21 +54,19 @@ public class EditarUsuarioController implements Initializable {
     @Autowired
     private StageManager stageManager;
 
-    @Autowired
-    private UsuariosController usuariosController;
-    private Usuario usuarioEditar;
-
     @FXML
     private void registrar(ActionEvent event) throws IOException {
         //Primero validamos los campos
         if(validar()) {
             //Despues guardamos el usuario nuevo
-            int id = usuarioEditar.getUserId();
+            int id = usuarioRepository.findMaxId();
             String encrypted_password = UsuarioService.encrypt(getPassword());
             Usuario usuario = new Usuario(id, getUsername(), getEmail(), encrypted_password, getRol(), getTelefono());
 
-            usuarioService.updateUsuario(usuario);
-            //TODO-mostrar mensaje de confirmacion
+            usuarioService.createUsuario(usuario);
+
+            //TODO-mostrar mensaje de confirmacon
+
             stageManager.switchScene(FxmlView.USUARIOS);
         }
     }
@@ -87,16 +92,6 @@ public class EditarUsuarioController implements Initializable {
         }
     }
 
-    private void obtenerInfo(){
-        usuarioEditar = usuariosController.usuarioEditar;
-        password.setText(usuarioEditar.getPassword());
-        email.setText(usuarioEditar.getCorreo());
-        telefono.setText(usuarioEditar.getTelefono());
-        rol.setValue(usuarioEditar.getRol());
-        username.setText(usuarioEditar.getUsername());
-        username.setEditable(false);
-    }
-
     public String getPassword() {
         return password.getText();
     }
@@ -114,7 +109,6 @@ public class EditarUsuarioController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         rol.getItems().add("USER");
         rol.getItems().add("ADMIN");
         //Creamos los validadores
@@ -132,6 +126,11 @@ public class EditarUsuarioController implements Initializable {
         emailValidator.setRegexPattern("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
         emailValidator.setMessage("Introduce un correo electrónico válido");
 
+        //Valida que la contraseña tenga 6 digitos minimo y un numero
+        RegexValidator passwordValidator = new RegexValidator();
+        passwordValidator.setRegexPattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
+        passwordValidator.setMessage("La contraseña debe tener al menos 6 digitos y un numero");
+
 
         //Seteamos los validadores a nuestros JFXTextFields
         email.getValidators().add(requiredFieldValidator);
@@ -141,9 +140,8 @@ public class EditarUsuarioController implements Initializable {
         telefono.getValidators().add(requiredFieldValidator);
 
         email.getValidators().add(emailValidator);
+        password.getValidators().add(passwordValidator);
         telefono.getValidators().add(telefonoValidator);
-
-        obtenerInfo();
     }
 
 }
