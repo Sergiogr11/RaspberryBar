@@ -31,7 +31,17 @@ public class ArticuloController {
     }
 
     @RequestMapping(value="deleteArticulo", method = RequestMethod.DELETE)
-    public String deleteMesa(@RequestBody Articulo articulo){
+    public String deleteArticulo(@RequestBody Articulo articulo){
         return articuloService.deleteArticulo(articulo);
     }
+
+    @RequestMapping(value="findByCategoria", method = RequestMethod.POST)
+    public List<String> findByCategoria(@RequestBody int categoriaId){ return articuloService.findbyCategoria(categoriaId); }
+
+    @RequestMapping(value="readNameArticulos", method = RequestMethod.GET)
+    public List<String> readNameArticulos(){ return articuloService.readNameArticulos(); }
+
+    @RequestMapping(value="findIdByNombreArticulo", method = RequestMethod.POST)
+    public Integer findIdByNombreArticulo(@RequestBody String nombreArticulo){ return articuloService.findIdByNombreArticulo(nombreArticulo); }
+
 }

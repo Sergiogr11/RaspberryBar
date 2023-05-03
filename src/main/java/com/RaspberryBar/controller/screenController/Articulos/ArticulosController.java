@@ -22,7 +22,7 @@ public class ArticulosController implements Initializable {
 
     @FXML
     private void entrarListadoArticulos(ActionEvent event) throws IOException {
-        //switchScene(FxmlView.LISTADOARTICULOS);
+        stageManager.switchScene(FxmlView.LISTAARTICULOS);
     }
 
     @FXML

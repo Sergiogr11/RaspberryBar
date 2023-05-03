@@ -47,27 +47,39 @@ public class CrearCategoriaController implements Initializable {
     @FXML
     private void crearCategoria(ActionEvent event) throws IOException {
         //Primero validamos los campos
-        if(validar()) {
+        if (validar()) {
             //Despues guardamos la categoria nuevo
             int id;
             try {
                 id = categoriaRepository.findMaxId() + 1;
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 id = 0;
             }
             Categoria categoria = new Categoria(id, getNombreCategoria(), getDescripcionCategoria());
 
-            categoriaService.createCategoria(categoria);
+            if (!categoriaExiste(categoria)) {
+                categoriaService.createCategoria(categoria);
+                //TODO-mostrar mensaje de confirmacon
 
-            //TODO-mostrar mensaje de confirmacon
+                stageManager.switchScene(FxmlView.LISTACATEGORIAS);
 
-            stageManager.switchScene(FxmlView.LISTACATEGORIAS);
+            } else {
+                //TODO de no se puede crear categoria
+            }
         }
     }
 
     @FXML
     private void volver(ActionEvent event) throws IOException {
             stageManager.switchScene(FxmlView.LISTACATEGORIAS);
+    }
+
+    private boolean categoriaExiste(Categoria categoria){
+        if(categoriaService.findCategoria(categoria.getCategoriaId()) == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @FXML

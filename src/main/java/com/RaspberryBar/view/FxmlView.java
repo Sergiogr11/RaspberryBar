@@ -127,6 +127,28 @@ public enum FxmlView {
             return "/fxml/editarCategoria.fxml";
         }
     },
+    CREARARTICULO {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("crearArticulo.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/crearArticulo.fxml";
+        }
+    },
+    EDITARARTICULO {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("editarArticulo.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/editarArticulo.fxml";
+        }
+    },
     ;
 
     public abstract String getTitle();

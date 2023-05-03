@@ -1,13 +1,18 @@
 package com.RaspberryBar.controller.screenController.Articulos;
 
 import com.RaspberryBar.config.StageManager;
+import com.RaspberryBar.entities.Articulo;
+import com.RaspberryBar.entities.Categoria;
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.ArticuloRepository;
 import com.RaspberryBar.repository.UsuarioRepository;
 import com.RaspberryBar.service.ArticuloService;
+import com.RaspberryBar.service.CategoriaService;
 import com.RaspberryBar.service.UsuarioService;
 import com.RaspberryBar.view.FxmlView;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +35,8 @@ public class ListaArticulosController implements Initializable {
     private ArticuloService articuloService;
     @Autowired
     private ArticuloRepository articuloRepository;
+    @Autowired
+    private CategoriaService categoriaService;
 
     @Lazy
     @Autowired
@@ -37,10 +44,15 @@ public class ListaArticulosController implements Initializable {
 
     @FXML
     private JFXListView<String> listaArticulos;
+    @FXML
+    private JFXComboBox<String> comboBoxCategoria;
 
     private ObservableList<String> selectedArticulos;
-    private List<String> articulosList = new ArrayList<>();
-    static Usuario usuarioEditar = new Usuario();
+    private List<String> articulosNombresList = new ArrayList<>();
+    private List<Integer> articulosIdList = new ArrayList<>();
+    private List<Integer> categoriaIdList = new ArrayList<>();
+    private List<String> nombresCategorias = new ArrayList<>();
+    static Articulo articuloEditar = new Articulo();
 
     @FXML
     private void volver(ActionEvent event) throws IOException {
@@ -48,59 +60,72 @@ public class ListaArticulosController implements Initializable {
     }
 
     @FXML
-    private void eliminar(ActionEvent event) throws IOException {
-        /*
-        //Obtengo el usuario seleccionado y su username
-        selectedArticulos = listaUsuarios.getSelectionModel().getSelectedItems();
-        //Busco en la base datos el usuario seleccionado
-        Usuario usuarioEliminar = usuarioService.findUsuario(selectedUsuarios.get(0));
+    private void eliminarArticulo(ActionEvent event) throws IOException {
+        //Obtengo el articulo seleccionado
+        selectedArticulos = listaArticulos.getSelectionModel().getSelectedItems();
+
+        //Obtengo el id correspondiente al nombre del articulo seleccionado
+        int idArticulo = articuloService.findIdByNombreArticulo(selectedArticulos.get(0));
+
+        //Busco en la base datos el articulo seleccionado
+        Articulo articuloEliminar = articuloService.findArticulo(idArticulo);
+
         //Borro el usuario seleccionado
-        usuarioService.deleteUsuario(usuarioEliminar);
+        articuloService.deleteArticulo(articuloEliminar);
+        comboBoxCategoria.setValue("");
         actualizarListView();
-
-         */
     }
 
     @FXML
-    private void editar(ActionEvent event) throws IOException {
-        /*
-        //Obtengo el usuario seleccionado y su username
-        selectedUsuarios = listaUsuarios.getSelectionModel().getSelectedItems();
+    private void editarArticulo(ActionEvent event) throws IOException {
+        //Obtengo el articulo seleccionado
+        selectedArticulos = listaArticulos.getSelectionModel().getSelectedItems();
         //Busco en la base datos el usuario seleccionado
-        usuarioEditar = usuarioService.findUsuario(selectedUsuarios.get(0));
+        int idArticulo = articuloService.findIdByNombreArticulo(selectedArticulos.get(0));
+        articuloEditar = articuloService.findArticulo(idArticulo);
         //Paso como parametro el usuarioEditar
-        stageManager.switchScene(FxmlView.EDITARUSUARIO);
-
-         */
+        stageManager.switchScene(FxmlView.EDITARARTICULO);
     }
 
     @FXML
-    private void crear(ActionEvent event) throws IOException {
-        stageManager.switchScene(FxmlView.REGISTRO);
+    private void crearArticulo(ActionEvent event) throws IOException {
+        stageManager.switchScene(FxmlView.CREARARTICULO);
     }
-
 
     private void actualizarListView(){
-        /*
-        //Borro elementos antiguos de la lista
-        usernameList.clear();
-        //Obtengo los usuarios y sus usernames para inicializar la ListView
-        List<Usuario> userList = usuarioService.readUsuarios();
+        articulosNombresList = articuloService.readNameArticulos();
 
-        for (Usuario user : userList) {
-            String username = user.getUsername();
-            usernameList.add(username);
-        }
+        listaArticulos.getItems().clear();
+        listaArticulos.getItems().addAll(articulosNombresList);
+    }
 
-        listaUsuarios.getItems().clear();
-        listaUsuarios.getItems().addAll(usernameList);
+    private void actualizarComboBox(){
+        //Obtengo el nombre de las categorias
+        nombresCategorias = categoriaService.readCategoriasName();
+        //Añado el nombre de las categorias al comboBox
+        comboBoxCategoria.setItems(FXCollections.observableList(nombresCategorias));
+    }
 
-         */
+
+    private void actionComboBox(){
+        comboBoxCategoria.setOnAction(event -> {
+            //Obtengo la categoria seleccionada y el indice correspondiente a la misma
+            String selectedCategoria = comboBoxCategoria.getSelectionModel().getSelectedItem();
+            int idCategoria = categoriaService.findIdByNombreCategoria(selectedCategoria);
+
+            //Limpio la lista de articulos y añado solo las correspondientes a la categoria
+            articulosNombresList.clear();
+            articulosNombresList = articuloService.findbyCategoria(idCategoria);
+            listaArticulos.getItems().clear();
+            listaArticulos.getItems().addAll(articulosNombresList);
+        });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         actualizarListView();
+        actualizarComboBox();
+        actionComboBox();
     }
 
 }

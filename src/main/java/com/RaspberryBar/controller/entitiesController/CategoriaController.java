@@ -36,4 +36,15 @@ public class CategoriaController {
     public String deleteCategoria(@RequestBody Categoria categoria){
         return categoriaService.deleteCategoria(categoria);
     }
+
+    @RequestMapping(value="readCategoriasName", method  = RequestMethod.GET)
+    public List<String> readCategoriasName(){
+        return categoriaService.readCategoriasName();
+    }
+
+    @RequestMapping(value="findIdByNombreCategoria", method = RequestMethod.POST)
+    public Integer findIdByNombreCategoria(@RequestBody String nombreCategoria){
+        return categoriaService.findIdByNombreCategoria(nombreCategoria);
+    }
+
 }

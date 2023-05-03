@@ -76,4 +76,15 @@ public class CategoriaService {
     public Categoria findCategoria(int categoriaId){
         return this.categoriaRepository.findById(categoriaId).get(0);
     }
+
+    @Transactional
+    public List<String> readCategoriasName(){
+        return this.categoriaRepository.readCategoriasName();
+    }
+
+    @Transactional
+    public int findIdByNombreCategoria(String nombreCategoria){
+        return this.categoriaRepository.findIdByNombreCategoria(nombreCategoria);
+    }
+
 }

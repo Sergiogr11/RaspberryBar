@@ -4,6 +4,7 @@ import com.RaspberryBar.entities.Articulo;
 import com.RaspberryBar.entities.Factura;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,8 +15,18 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Integer>{
 
     public List<Articulo> findById(int articuloId);
 
-    @Query("select max(s.id) from Articulo s")
+    @Query("select max(a.id) from Articulo a")
     public Integer findMaxId();
+
+    @Query("select a.nombreArticulo from Articulo a where a.categoriaId = :categoriaId")
+    public List<String> findbyCategoria(@Param("categoriaId") int categoriaId);
+
+    @Query("select a.nombreArticulo from Articulo a")
+    public List<String> readArticulosName();
+
+    @Query("select a.id from Articulo a where a.nombreArticulo = :nombreArticulo")
+    public Integer findIdByNombreArticulo(@Param("nombreArticulo") String nombreArticulo);
+
 }
 
 

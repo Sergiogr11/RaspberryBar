@@ -75,7 +75,7 @@
                         <FontIcon iconColor="WHITE" iconLiteral="fa-file-text-o" iconSize="100" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnRegistrar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarRegistrar" prefHeight="447.0" prefWidth="1028.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Registrar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="btnRegistrar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarRegistrar" prefHeight="447.0" prefWidth="1028.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Usuarios" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font name="Verdana Bold Italic" size="36.0" />
                      </font>
