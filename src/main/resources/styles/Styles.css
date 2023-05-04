@@ -15,3 +15,16 @@
     -fx-font-style: Verdana;
     -fx-font-size: 24px;
 }
+
+.custom-alert .button {
+  -fx-font-family: Verdana;
+  -fx-font-size: 16pt;
+  -fx-min-width: 100px;
+  -fx-min-height: 70px;
+  -fx-background-color: #6b0c0c;
+  -fx-text-fill: white;
+}
+
+.custom-alert .content-label {
+  -fx-font-size: 4pt;
+}

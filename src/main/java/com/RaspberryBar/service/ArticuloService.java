@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArticuloService {
@@ -92,6 +93,16 @@ public class ArticuloService {
     @Transactional
     public Integer findIdByNombreArticulo(String nombreArticulo) {
         return articuloRepository.findIdByNombreArticulo(nombreArticulo);
+    }
+
+    @Transactional
+    public boolean existeArticulo(Integer articuloId){
+        Optional<Articulo> optionalArticulo = articuloRepository.findById(articuloId);
+        if (optionalArticulo.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -7,17 +7,17 @@ import com.RaspberryBar.repository.ArticuloRepository;
 import com.RaspberryBar.repository.CategoriaRepository;
 import com.RaspberryBar.service.ArticuloService;
 import com.RaspberryBar.service.CategoriaService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.animation.alert.JFXAlertAnimation;
+import com.jfoenix.controls.*;
 import com.jfoenix.validation.RegexValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -72,10 +72,21 @@ public class CrearArticuloController implements Initializable {
             }
             Articulo articulo = new Articulo(id, getNombreArticulo(), getDescripcionArticulo(), getPrecioArticulo(), getCategoria());
             if(!articuloExiste(articulo)) {
+
                 articuloService.createArticulo(articulo);
+                CustomAlert alertCrearArticulo = new CustomAlert(Alert.AlertType.ERROR);
+                alertCrearArticulo.setTitle("Articulo Creado");
+                alertCrearArticulo.setHeaderText("Articulo creado satisfactoriamente");
+                alertCrearArticulo.showAndWait();
+
                 //TODO-mostrar mensaje de confirmacon
                 stageManager.switchScene(FxmlView.LISTAARTICULOS);
             }else{
+                CustomAlert alertCrearArticulo = new CustomAlert(Alert.AlertType.ERROR);
+                alertCrearArticulo.setTitle("No se puede crear articulo");
+                alertCrearArticulo.setHeaderText("No se puede crear articulo porque ya existe");
+                alertCrearArticulo.showAndWait();
+
                 //TODO-mostrar mensaje de no se puede crear articulo
             }
         }
@@ -87,10 +98,10 @@ public class CrearArticuloController implements Initializable {
     }
 
     private boolean articuloExiste(Articulo articulo){
-        if(articuloService.findArticulo(articulo.getArticuloId()) == null){
-            return false;
-        }else{
+        if(articuloService.findIdByNombreArticulo(articulo.getNombreArticulo()) != null) {
             return true;
+        }else{
+            return false;
         }
     }
 

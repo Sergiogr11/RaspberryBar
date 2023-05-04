@@ -72,7 +72,7 @@ public class ListaArticulosController implements Initializable {
 
         //Borro el usuario seleccionado
         articuloService.deleteArticulo(articuloEliminar);
-        comboBoxCategoria.setValue("");
+        comboBoxCategoria.getSelectionModel().clearSelection();
         actualizarListView();
     }
 
