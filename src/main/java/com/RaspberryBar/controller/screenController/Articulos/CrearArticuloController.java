@@ -63,31 +63,32 @@ public class CrearArticuloController implements Initializable {
     private void crearArticulo(ActionEvent event) throws IOException {
         //Primero validamos los campos
         if (validar()) {
-            //Despues guardamos el articulo nuevo
+            //Creo el articulo, si el maximo id es null se pone a 0
             int id;
             try {
                 id = articuloRepository.findMaxId() + 1;
             } catch (NullPointerException e) {
                 id = 0;
             }
-            Articulo articulo = new Articulo(id, getNombreArticulo(), getDescripcionArticulo(), getPrecioArticulo(), getCategoria());
-            if(!articuloExiste(articulo)) {
 
+            Articulo articulo = new Articulo(id, getNombreArticulo(), getDescripcionArticulo(), getPrecioArticulo(), getCategoria());
+            //Si articulo no existe lo creo
+            if(!articuloExiste(articulo)) {
                 articuloService.createArticulo(articulo);
-                CustomAlert alertCrearArticulo = new CustomAlert(Alert.AlertType.ERROR);
+                //Muestro alert de articulo creado
+                CustomAlert alertCrearArticulo = new CustomAlert(Alert.AlertType.INFORMATION);
                 alertCrearArticulo.setTitle("Articulo Creado");
                 alertCrearArticulo.setHeaderText("Articulo creado satisfactoriamente");
                 alertCrearArticulo.showAndWait();
-
-                //TODO-mostrar mensaje de confirmacon
+                //Cambio de pantalla
                 stageManager.switchScene(FxmlView.LISTAARTICULOS);
             }else{
+                //Muestro alert de articulo no se ha podido crear
                 CustomAlert alertCrearArticulo = new CustomAlert(Alert.AlertType.ERROR);
                 alertCrearArticulo.setTitle("No se puede crear articulo");
                 alertCrearArticulo.setHeaderText("No se puede crear articulo porque ya existe");
                 alertCrearArticulo.showAndWait();
 
-                //TODO-mostrar mensaje de no se puede crear articulo
             }
         }
     }

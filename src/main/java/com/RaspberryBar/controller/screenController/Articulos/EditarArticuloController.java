@@ -7,6 +7,7 @@ import com.RaspberryBar.repository.ArticuloRepository;
 import com.RaspberryBar.repository.CategoriaRepository;
 import com.RaspberryBar.service.ArticuloService;
 import com.RaspberryBar.service.CategoriaService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -18,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -70,11 +72,19 @@ public class EditarArticuloController implements Initializable {
             int id = articuloEditar.getArticuloId();
             Articulo articulo = new Articulo(id, getNombreArticulo(), getDescripcionArticulo(), getPrecioArticulo(), getCategoriaArticulo());
 
-            articuloService.updateArticulo(articulo);
-
-            //TODO-mostrar mensaje de confirmacon
-
-            stageManager.switchScene(FxmlView.LISTAARTICULOS);
+            if(!articuloExiste(articulo)) {
+                articuloService.updateArticulo(articulo);
+                CustomAlert alertEditarArticulo = new CustomAlert(Alert.AlertType.INFORMATION);
+                alertEditarArticulo.setTitle("Artículo actualizado");
+                alertEditarArticulo.setHeaderText("Artículo satisfactoriamente actualizado");
+                alertEditarArticulo.showAndWait();
+                stageManager.switchScene(FxmlView.LISTAARTICULOS);
+            }else{
+                CustomAlert alertEditarArticulo = new CustomAlert(Alert.AlertType.ERROR);
+                alertEditarArticulo.setTitle("No se puede actualizar articulo");
+                alertEditarArticulo.setHeaderText("Ya existe un articulo con ese nombre");
+                alertEditarArticulo.showAndWait();
+            }
         }
     }
 
@@ -95,6 +105,14 @@ public class EditarArticuloController implements Initializable {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private boolean articuloExiste(Articulo articulo){
+        if(articuloService.findIdByNombreArticulo(articulo.getNombreArticulo()) != null) {
+            return true;
+        }else{
+            return false;
         }
     }
 

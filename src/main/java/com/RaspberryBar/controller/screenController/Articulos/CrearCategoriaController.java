@@ -6,6 +6,7 @@ import com.RaspberryBar.repository.CategoriaRepository;
 import com.RaspberryBar.repository.UsuarioRepository;
 import com.RaspberryBar.service.CategoriaService;
 import com.RaspberryBar.service.UsuarioService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RegexValidator;
@@ -13,6 +14,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -48,7 +50,7 @@ public class CrearCategoriaController implements Initializable {
     private void crearCategoria(ActionEvent event) throws IOException {
         //Primero validamos los campos
         if (validar()) {
-            //Despues guardamos la categoria nuevo
+            //Creo la categoria, si el maximo id es null se pone a 0
             int id;
             try {
                 id = categoriaRepository.findMaxId() + 1;
@@ -59,12 +61,20 @@ public class CrearCategoriaController implements Initializable {
 
             if (!categoriaExiste(categoria)) {
                 categoriaService.createCategoria(categoria);
-                //TODO-mostrar mensaje de confirmacon
-
+                //Muestro alert de categoria creada
+                CustomAlert alertCrearCategoria = new CustomAlert(Alert.AlertType.INFORMATION);
+                alertCrearCategoria.setTitle("Categoria creada");
+                alertCrearCategoria.setHeaderText("Categoria satisfactoriamente creada");
+                alertCrearCategoria.showAndWait();
+                //Cambio de pantalla
                 stageManager.switchScene(FxmlView.LISTACATEGORIAS);
 
             } else {
-                //TODO de no se puede crear categoria
+                //Muestro Alert de categoria no se puede crear
+                CustomAlert alertCrearCategoria = new CustomAlert(Alert.AlertType.ERROR);
+                alertCrearCategoria.setTitle("No se puede crear categoria");
+                alertCrearCategoria.setHeaderText("No se puede crear la categoria porque ya existe");
+                alertCrearCategoria.showAndWait();
             }
         }
     }
@@ -75,10 +85,10 @@ public class CrearCategoriaController implements Initializable {
     }
 
     private boolean categoriaExiste(Categoria categoria){
-        if(categoriaService.findCategoria(categoria.getCategoriaId()) == null){
-            return false;
-        }else{
+        if(categoriaService.findIdByNombreCategoria(categoria.getNombreCategoria()) != null) {
             return true;
+        }else{
+            return false;
         }
     }
 
@@ -102,8 +112,6 @@ public class CrearCategoriaController implements Initializable {
     public String getDescripcionCategoria(){
         return descripcionCategoria.getText();
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

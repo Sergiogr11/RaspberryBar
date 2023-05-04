@@ -19,8 +19,8 @@
 .custom-alert .button {
   -fx-font-family: Verdana;
   -fx-font-size: 16pt;
-  -fx-min-width: 100px;
-  -fx-min-height: 70px;
+  -fx-min-width: 90px;
+  -fx-min-height: 60px;
   -fx-background-color: #6b0c0c;
   -fx-text-fill: white;
 }

@@ -9,6 +9,7 @@ import com.RaspberryBar.repository.UsuarioRepository;
 import com.RaspberryBar.service.ArticuloService;
 import com.RaspberryBar.service.CategoriaService;
 import com.RaspberryBar.service.UsuarioService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
@@ -17,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -56,7 +58,7 @@ public class ListaArticulosController implements Initializable {
 
     @FXML
     private void volver(ActionEvent event) throws IOException {
-        stageManager.switchScene(FxmlView.HOME);
+        stageManager.switchScene(FxmlView.ARTICULOS);
     }
 
     @FXML
@@ -70,7 +72,13 @@ public class ListaArticulosController implements Initializable {
         //Busco en la base datos el articulo seleccionado
         Articulo articuloEliminar = articuloService.findArticulo(idArticulo);
 
-        //Borro el usuario seleccionado
+        //Muestro mensaje de articulo eliminado
+        CustomAlert alertEliminarArticulo = new CustomAlert(Alert.AlertType.INFORMATION);
+        alertEliminarArticulo.setTitle("Artículo eliminado");
+        alertEliminarArticulo.setHeaderText("Artículo satisfactoriamente eliminado");
+        alertEliminarArticulo.showAndWait();
+
+        //Borro el articulo seleccionado
         articuloService.deleteArticulo(articuloEliminar);
         comboBoxCategoria.getSelectionModel().clearSelection();
         actualizarListView();
@@ -80,10 +88,12 @@ public class ListaArticulosController implements Initializable {
     private void editarArticulo(ActionEvent event) throws IOException {
         //Obtengo el articulo seleccionado
         selectedArticulos = listaArticulos.getSelectionModel().getSelectedItems();
-        //Busco en la base datos el usuario seleccionado
+
+        //Busco en la base datos el articulo seleccionado
         int idArticulo = articuloService.findIdByNombreArticulo(selectedArticulos.get(0));
         articuloEditar = articuloService.findArticulo(idArticulo);
-        //Paso como parametro el usuarioEditar
+
+        //Cambio de escena
         stageManager.switchScene(FxmlView.EDITARARTICULO);
     }
 

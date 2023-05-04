@@ -6,6 +6,7 @@ import com.RaspberryBar.entities.Categoria;
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.CategoriaRepository;
 import com.RaspberryBar.service.CategoriaService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -14,6 +15,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -50,24 +52,44 @@ public class EditarCategoriaController implements Initializable {
     private StageManager stageManager;
 
     @FXML
-    private void crearCategoria(ActionEvent event) throws IOException {
+    private void editarCategoria(ActionEvent event) throws IOException {
         //Primero validamos los campos
-        if(validar()) {
+        if (validar()) {
             //Despues guardamos la categoria nuevo
             int id = categoriaEditar.getCategoriaId();
             Categoria categoria = new Categoria(id, getNombreCategoria(), getDescripcionCategoria());
 
-            categoriaService.updateCategoria(categoria);
+            if (!categoriaExiste(categoria)) {
+                categoriaService.createCategoria(categoria);
+                //Muestro alert de categoria creada
+                CustomAlert alertEditarCategoria = new CustomAlert(Alert.AlertType.INFORMATION);
+                alertEditarCategoria.setTitle("Categoria actualizada");
+                alertEditarCategoria.setHeaderText("Categoria satisfactoriamente actualizada");
+                alertEditarCategoria.showAndWait();
+                //Cambio de pantalla
+                stageManager.switchScene(FxmlView.LISTACATEGORIAS);
 
-            //TODO-mostrar mensaje de confirmacon
-
-            stageManager.switchScene(FxmlView.LISTACATEGORIAS);
+            } else {
+                //Muestro Alert de categoria no se puede actualizar
+                CustomAlert alertEditarCategoria = new CustomAlert(Alert.AlertType.ERROR);
+                alertEditarCategoria.setTitle("No se puede actualizar categoria");
+                alertEditarCategoria.setHeaderText("Ya existe una categoria con ese nombre");
+                alertEditarCategoria.showAndWait();
+            }
         }
     }
 
     @FXML
     private void volver(ActionEvent event) throws IOException {
             stageManager.switchScene(FxmlView.LISTACATEGORIAS);
+    }
+
+    private boolean categoriaExiste(Categoria categoria){
+        if(categoriaService.findCategoria(categoria.getCategoriaId()) == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @FXML

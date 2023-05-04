@@ -89,7 +89,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="194.0" prefWidth="1920.0" VBox.vgrow="ALWAYS">
          <children>
-            <JFXButton fx:id="btnCrearCategoria" alignment="CENTER" contentDisplay="CENTER" onAction="#crearCategoria" prefHeight="149.0" prefWidth="391.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Actualizar Categoría" textAlignment="CENTER">
+            <JFXButton fx:id="btnCrearCategoria" alignment="CENTER" contentDisplay="CENTER" onAction="#editarCategoria" prefHeight="149.0" prefWidth="391.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Actualizar Categoría" textAlignment="CENTER">
                <font>
                   <Font name="Verdana Italic" size="36.0" />
                </font>

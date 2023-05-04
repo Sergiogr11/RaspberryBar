@@ -83,8 +83,8 @@ public class CategoriaService {
     }
 
     @Transactional
-    public int findIdByNombreCategoria(String nombreCategoria){
-        return this.categoriaRepository.findIdByNombreCategoria(nombreCategoria);
+    public Integer findIdByNombreCategoria(String nombreCategoria){
+        return categoriaRepository.findIdByNombreCategoria(nombreCategoria);
     }
 
 }
