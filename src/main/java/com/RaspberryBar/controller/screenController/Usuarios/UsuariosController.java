@@ -4,6 +4,7 @@ import com.RaspberryBar.config.StageManager;
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.UsuarioRepository;
 import com.RaspberryBar.service.UsuarioService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.NumberValidator;
@@ -14,10 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -57,8 +55,16 @@ public class UsuariosController implements Initializable {
     private void eliminar(ActionEvent event) throws IOException {
         //Obtengo el usuario seleccionado y su username
         selectedUsuarios = listaUsuarios.getSelectionModel().getSelectedItems();
+
         //Busco en la base datos el usuario seleccionado
         Usuario usuarioEliminar = usuarioService.findUsuario(selectedUsuarios.get(0));
+
+        //Muestro alert de usuario eliminado
+        CustomAlert alertCrearArticulo = new CustomAlert(Alert.AlertType.ERROR);
+        alertCrearArticulo.setTitle("Usuario eliminado");
+        alertCrearArticulo.setHeaderText("Usuario satisfactoriamente eliminado");
+        alertCrearArticulo.showAndWait();
+        
         //Borro el usuario seleccionado
         usuarioService.deleteUsuario(usuarioEliminar);
         actualizarListView();

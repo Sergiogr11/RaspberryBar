@@ -106,6 +106,10 @@ public class UsuarioService {
 
     @Transactional
     public Usuario findUsuario(String username){
-        return this.usuarioRepository.findByUsername(username).get(0);
+        List<Usuario> usuarios = this.usuarioRepository.findByUsername(username);
+        if(!usuarios.isEmpty()) {
+            return usuarios.get(0);
+        }
+        return null;
     }
 }

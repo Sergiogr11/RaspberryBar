@@ -1,8 +1,10 @@
 package com.RaspberryBar.controller.screenController.Usuarios;
 import com.RaspberryBar.config.StageManager;
+import com.RaspberryBar.entities.Articulo;
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.UsuarioRepository;
 import com.RaspberryBar.service.UsuarioService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -55,16 +57,36 @@ public class RegistroController implements Initializable {
     private void registrar(ActionEvent event) throws IOException {
         //Primero validamos los campos
         if(validar()) {
-            //Despues guardamos el usuario nuevo
-            int id = usuarioRepository.findMaxId();
+            //Creo el usuario, si el maximo id es null se pone a 0
+            int id;
+            try {
+                id = usuarioRepository.findMaxId() + 1;
+            } catch (NullPointerException e) {
+                id = 0;
+            }
+            //Encripto contraseña
             String encrypted_password = UsuarioService.encrypt(getPassword());
             Usuario usuario = new Usuario(id, getUsername(), getEmail(), encrypted_password, getRol(), getTelefono());
 
-            usuarioService.createUsuario(usuario);
+            //Si usuario no existe lo creo
+            if(!usuarioExiste(usuario)) {
+                usuarioService.createUsuario(usuario);
+                //Muestro alert de usuario creado
+                CustomAlert alertCrearUsuario = new CustomAlert(Alert.AlertType.INFORMATION);
+                alertCrearUsuario.setTitle("Usuario Creado");
+                alertCrearUsuario.setHeaderText("Usuario creado satisfactoriamente");
+                alertCrearUsuario.showAndWait();
+                //Cambio de pantalla
+                stageManager.switchScene(FxmlView.USUARIOS);
+            }else{
+                //Muestro alert de usuario no se ha podido crear
+                CustomAlert alertCrearUsuario = new CustomAlert(Alert.AlertType.ERROR);
+                alertCrearUsuario.setTitle("No se puede crear usuario");
+                alertCrearUsuario.setHeaderText("No se puede crear usuario porque ya existe");
+                alertCrearUsuario.showAndWait();
+            }
 
-            //TODO-mostrar mensaje de confirmacon
 
-            stageManager.switchScene(FxmlView.USUARIOS);
         }
     }
 
@@ -86,6 +108,14 @@ public class RegistroController implements Initializable {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private boolean usuarioExiste(Usuario usuario){
+        if(usuarioService.findUsuario(usuario.getUsername()) != null) {
+            return true;
+        }else{
+            return false;
         }
     }
 

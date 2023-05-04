@@ -1,8 +1,10 @@
 package com.RaspberryBar.controller.screenController.Usuarios;
 import com.RaspberryBar.config.StageManager;
+import com.RaspberryBar.entities.Articulo;
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.UsuarioRepository;
 import com.RaspberryBar.service.UsuarioService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RegexValidator;
@@ -10,6 +12,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -54,14 +57,28 @@ public class EditarUsuarioController implements Initializable {
     private void registrar(ActionEvent event) throws IOException {
         //Primero validamos los campos
         if(validar()) {
-            //Despues guardamos el usuario nuevo
             int id = usuarioEditar.getUserId();
             String encrypted_password = UsuarioService.encrypt(getPassword());
             Usuario usuario = new Usuario(id, getUsername(), getEmail(), encrypted_password, getRol(), getTelefono());
 
-            usuarioService.updateUsuario(usuario);
-            //TODO-mostrar mensaje de confirmacion
-            stageManager.switchScene(FxmlView.USUARIOS);
+            //Si usuario no existe lo creo
+            if(!usuarioExiste(usuario)) {
+                usuarioService.updateUsuario(usuario);
+                //Muestro alert de usuario creado
+                CustomAlert alertEditarUsuario = new CustomAlert(Alert.AlertType.INFORMATION);
+                alertEditarUsuario.setTitle("Usuario Actualizado");
+                alertEditarUsuario.setHeaderText("Usuario actualizado satisfactoriamente");
+                alertEditarUsuario.showAndWait();
+                //Cambio de pantalla
+                stageManager.switchScene(FxmlView.USUARIOS);
+            }else{
+                //Muestro alert de usuario no se ha podido crear
+                CustomAlert alertEditarUsuario = new CustomAlert(Alert.AlertType.ERROR);
+                alertEditarUsuario.setTitle("No se puede actualizar usuario");
+                alertEditarUsuario.setHeaderText("No se puede actualizar usuario porque ya existe otro con ese nombre");
+                alertEditarUsuario.showAndWait();
+            }
+
         }
     }
 
@@ -83,6 +100,14 @@ public class EditarUsuarioController implements Initializable {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private boolean usuarioExiste(Usuario usuario){
+        if(usuarioService.findUsuario(usuario.getUsername()) != null) {
+            return true;
+        }else{
+            return false;
         }
     }
 
