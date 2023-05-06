@@ -28,3 +28,10 @@
 .custom-alert .content-label {
   -fx-font-size: 4pt;
 }
+
+.btnSelected {
+    -fx-background-color: #300606;
+    -fx-text-fill: #ffffff;
+    -fx-font-style: Verdana;
+    -fx-font-size: 24px;
+}

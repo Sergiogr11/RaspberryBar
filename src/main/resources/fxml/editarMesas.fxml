@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1920.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Mesas.MesasController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1920.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Mesas.EditarMesasController">
    <children>
       <AnchorPane prefHeight="190.0" prefWidth="600.0" styleClass="background" stylesheets="@../styles/Styles.css">
          <children>
@@ -26,9 +26,9 @@
       </AnchorPane>
       <AnchorPane prefHeight="72.0" prefWidth="1920.0" VBox.vgrow="NEVER">
          <children>
-            <JFXButton fx:id="btnRestaurante" layoutX="51.0" layoutY="33.0" onAction="#disposicionRestaurante" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Restaurante" />
-            <JFXButton fx:id="btnBar" layoutX="272.0" layoutY="33.0" onAction="#disposicionBar" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Bar" />
-            <JFXButton fx:id="btnTerraza" layoutX="494.0" layoutY="33.0" onAction="#disposicionTerraza" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Terraza" />
+            <JFXButton fx:id="btnRestaurante" layoutX="51.0" layoutY="33.0" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Restaurante" />
+            <JFXButton fx:id="btnBar" layoutX="272.0" layoutY="33.0" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Bar" />
+            <JFXButton fx:id="btnTerraza" layoutX="494.0" layoutY="33.0" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Terraza" />
             <JFXButton fx:id="btnEditarMesas" layoutX="1647.0" layoutY="27.0" onAction="#editarMesas" prefHeight="95.0" prefWidth="222.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Editar Mesas" />
          </children>
       </AnchorPane>

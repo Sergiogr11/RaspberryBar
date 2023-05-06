@@ -37,4 +37,5 @@ public class UsuarioController {
     public String deleteUsuario(@RequestBody Usuario usuario){
         return usuarioService.deleteUsuario(usuario);
     }
+
 }

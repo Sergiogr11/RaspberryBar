@@ -27,6 +27,7 @@ public class StageManager {
     public void switchScene(final FxmlView view) {
         Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.getFxmlFile());
         show(viewRootNodeHierarchy, view.getTitle());
+        setFullScreen();
     }
 
     private void show(final Parent rootnode, String title) {
@@ -41,14 +42,18 @@ public class StageManager {
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
         primaryStage.centerOnScreen();
+        setFullScreen();
 
         try {
             primaryStage.show();
         } catch (Exception exception) {
             logAndExit ("Unable to show scene for title" + title,  exception);
         }
+    }
+
+    private void setFullScreen() {
+        primaryStage.setFullScreen(true);
     }
 
     private Scene prepareScene(Parent rootnode){

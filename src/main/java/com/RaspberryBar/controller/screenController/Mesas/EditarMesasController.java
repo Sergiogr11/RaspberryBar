@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 @Controller
-public class MesasController implements Initializable {
+public class EditarMesasController implements Initializable {
 
     @Lazy
     @Autowired
