@@ -45,6 +45,9 @@ public class MesaService {
                     mesaToBeUpdate.setPosicion(mesa.getPosicion());
                     mesaToBeUpdate.setCapacidad(mesa.getCapacidad());
                     mesaToBeUpdate.setEstadoMesa(mesa.getEstadoMesa());
+                    mesaToBeUpdate.setNombreMesa(mesa.getNombreMesa());
+                    mesaToBeUpdate.setX(mesa.getX());
+                    mesaToBeUpdate.setY(mesa.getY());
                 });
                 return "Mesa actualizada correctamente.";
             }catch (Exception e){
@@ -71,5 +74,11 @@ public class MesaService {
         }else {
             return "La mesa no existe";
         }
+    }
+
+
+    @Transactional
+    public List<Mesa> findMesaByPosicion(String posicion){
+        return mesaRepository.findMesaByPosicion(posicion);
     }
 }

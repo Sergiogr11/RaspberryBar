@@ -36,8 +36,6 @@ public class ListaArticulosController implements Initializable {
     @Autowired
     private ArticuloService articuloService;
     @Autowired
-    private ArticuloRepository articuloRepository;
-    @Autowired
     private CategoriaService categoriaService;
 
     @Lazy
@@ -51,8 +49,6 @@ public class ListaArticulosController implements Initializable {
 
     private ObservableList<String> selectedArticulos;
     private List<String> articulosNombresList = new ArrayList<>();
-    private List<Integer> articulosIdList = new ArrayList<>();
-    private List<Integer> categoriaIdList = new ArrayList<>();
     private List<String> nombresCategorias = new ArrayList<>();
     static Articulo articuloEditar = new Articulo();
 

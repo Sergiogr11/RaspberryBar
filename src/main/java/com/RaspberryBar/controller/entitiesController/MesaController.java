@@ -34,4 +34,10 @@ public class MesaController {
     public String deleteMesa(@RequestBody Mesa mesa){
         return mesaService.deleteMesa(mesa);
     }
+
+    @RequestMapping(value="findMesasByPosicion", method = RequestMethod.POST)
+    public List<Mesa> findMesaByPosicion(@RequestBody String posicion){
+        return mesaService.findMesaByPosicion(posicion);
+    }
+
 }

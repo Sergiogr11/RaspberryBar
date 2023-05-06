@@ -48,7 +48,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void entrarMesas(ActionEvent event) throws IOException {
-        //stageManager.switchScene(FxmlView.COMANDAS);
+        stageManager.switchScene(FxmlView.MESAS);
     }
 
     @Override

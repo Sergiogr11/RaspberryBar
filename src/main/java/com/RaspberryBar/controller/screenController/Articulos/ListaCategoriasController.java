@@ -31,8 +31,6 @@ public class ListaCategoriasController implements Initializable {
 
     @Autowired
     private CategoriaService categoriaService;
-    @Autowired
-    private CategoriaRepository categoriaRepository;
 
     @Lazy
     @Autowired

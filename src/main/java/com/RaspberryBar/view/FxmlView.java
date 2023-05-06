@@ -149,6 +149,17 @@ public enum FxmlView {
             return "/fxml/editarArticulo.fxml";
         }
     },
+    MESAS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("mesas.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/mesas.fxml";
+        }
+    },
     ;
 
     public abstract String getTitle();
