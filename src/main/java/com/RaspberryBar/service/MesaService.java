@@ -1,5 +1,6 @@
 package com.RaspberryBar.service;
 
+import com.RaspberryBar.entities.Categoria;
 import com.RaspberryBar.entities.Mesa;
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.repository.MesaRepository;
@@ -21,7 +22,7 @@ public class MesaService {
             if (!mesaRepository.existsById(mesa.getMesaId())){
                 mesa.setMesaId(null == mesaRepository.findMaxId()? 1 : mesaRepository.findMaxId() + 1);
                 mesaRepository.save(mesa);
-                return "Mesa guardado correctamente.";
+                return "Mesa guardada correctamente.";
             }else {
                 return "La mesa ya existe en la base de datos.";
             }
@@ -38,17 +39,12 @@ public class MesaService {
     public String updateMesa(Mesa mesa){
         if (mesaRepository.existsById(mesa.getMesaId())){
             try {
-                List<Mesa> mesas = mesaRepository.findById(mesa.getMesaId());
-                mesas.stream().forEach(s -> {
-                    Mesa mesaToBeUpdate = mesaRepository.findById(s.getMesaId()).get(0);
-                    mesaToBeUpdate.setMesaId(s.getMesaId());
+                    Mesa mesaToBeUpdate = mesaRepository.findById(mesa.getMesaId()).get(0);
+                    mesaToBeUpdate.setMesaId(mesaToBeUpdate.getMesaId());
                     mesaToBeUpdate.setPosicion(mesa.getPosicion());
                     mesaToBeUpdate.setCapacidad(mesa.getCapacidad());
                     mesaToBeUpdate.setEstadoMesa(mesa.getEstadoMesa());
                     mesaToBeUpdate.setNombreMesa(mesa.getNombreMesa());
-                    mesaToBeUpdate.setX(mesa.getX());
-                    mesaToBeUpdate.setY(mesa.getY());
-                });
                 return "Mesa actualizada correctamente.";
             }catch (Exception e){
                 throw e;
@@ -76,9 +72,29 @@ public class MesaService {
         }
     }
 
+    @Transactional
+    public Mesa findMesa(int mesaId){
+        return this.mesaRepository.findById(mesaId).get(0);
+    }
+
+    @Transactional
+    public List<String> readMesasName(){
+        return this.mesaRepository.readMesasName();
+    }
+
+    @Transactional
+    public Integer findIdByNombreMesa(String nombreMesa){
+        return mesaRepository.findIdByNombreMesa(nombreMesa);
+    }
 
     @Transactional
     public List<Mesa> findMesaByPosicion(String posicion){
         return mesaRepository.findMesaByPosicion(posicion);
     }
+
+    @Transactional
+    public List<String> findNombreMesaByPosicion(String posicion){
+        return mesaRepository.findNombreMesaByPosicion(posicion);
+    }
+
 }

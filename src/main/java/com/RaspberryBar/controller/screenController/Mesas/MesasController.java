@@ -47,7 +47,7 @@ public class MesasController implements Initializable {
 
     @FXML
     private void configurarMesas(ActionEvent event) throws IOException{
-        //TODO Lista Mesas
+        stageManager.switchScene(FxmlView.LISTAMESAS);
     }
 
     @FXML
@@ -101,7 +101,9 @@ public class MesasController implements Initializable {
         for (Mesa mesa : mesasList){
             JFXButton mesaButton = new JFXButton(mesa.getNombreMesa());
             mesaButton.setOnAction(event -> {
-                //Entrar a la pantalla de comandas con la comanda correspondiente a la mesa
+                //TODO
+                // Setear la mesa seleccionada a un atributo global
+                // Cambiar de escena a comandas
             });
             mesaButton.setPrefSize(150, 150); //Ajusta el tamaño del botón
             mesaButton.setStyle("-fx-background-color: #00FF00");

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Articulos.ListaCategoriasController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Mesas.ListaMesasController">
    <children>
       <AnchorPane prefHeight="190.0" prefWidth="600.0" styleClass="background" stylesheets="@../styles/Styles.css">
          <children>
-            <Label layoutX="30.0" layoutY="50.0" text="Categorias" textFill="WHITE">
+            <Label layoutX="30.0" layoutY="50.0" text="Mesas" textFill="WHITE">
                <font>
                   <Font name="Pristina" size="48.0" />
                </font>
@@ -25,22 +27,28 @@
       </AnchorPane>
       <AnchorPane prefHeight="888.0" prefWidth="1920.0">
          <children>
-            <JFXListView fx:id="listaCategorias" fixedCellSize="100.0" layoutX="60.0" layoutY="34.0" prefHeight="810.0" prefWidth="922.0" styleClass="userlist" stylesheets="@../styles/Styles.css" />
-            <JFXButton fx:id="btnEliminarCategoria" layoutX="1329.0" layoutY="589.0" onAction="#eliminarCategoria" prefHeight="183.0" prefWidth="330.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Eliminar Categoría">
+            <JFXListView fx:id="listaMesas" fixedCellSize="100.0" layoutX="60.0" layoutY="34.0" prefHeight="810.0" prefWidth="856.0" styleClass="userlist" stylesheets="@../styles/Styles.css" />
+            <JFXButton fx:id="btnEliminarMesa" layoutX="1449.0" layoutY="591.0" onAction="#eliminarMesa" prefHeight="183.0" prefWidth="330.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Eliminar Mesa">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnEditarCategoria" layoutX="1331.0" layoutY="330.0" onAction="#editarCategoria" prefHeight="183.0" prefWidth="330.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Editar Categoría">
+            <JFXButton fx:id="btnEditarMesa" layoutX="1451.0" layoutY="332.0" onAction="#editarMesa" prefHeight="183.0" prefWidth="330.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Editar Mesa">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnCrearCategoria" layoutX="1331.0" layoutY="71.0" onAction="#crearCategoria" prefHeight="183.0" prefWidth="330.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Crear Categoría">
+            <JFXButton fx:id="btnCrearMesa" layoutX="1451.0" layoutY="73.0" onAction="#crearMesa" prefHeight="183.0" prefWidth="330.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Crear Mesa">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </JFXButton>
+            <JFXComboBox fx:id="comboBoxPosicion" layoutX="1000.0" layoutY="167.0" prefHeight="83.0" prefWidth="346.0" styleClass="userlist" stylesheets="@../styles/Styles.css" />
+            <Text layoutX="999.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona una posición" wrappingWidth="375.6708984375">
+               <font>
+                  <Font name="Verdana" size="24.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>

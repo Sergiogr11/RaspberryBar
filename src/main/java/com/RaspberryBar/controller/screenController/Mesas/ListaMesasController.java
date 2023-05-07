@@ -7,7 +7,9 @@ import com.RaspberryBar.service.CategoriaService;
 import com.RaspberryBar.service.MesaService;
 import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -36,6 +39,8 @@ public class ListaMesasController implements Initializable {
 
     @FXML
     private JFXListView<String> listaMesas;
+    @FXML
+    private JFXComboBox<String> comboBoxPosicion;
 
     private ObservableList<String> selectedMesa;
     private List<String> mesasList = new ArrayList<>();
@@ -53,51 +58,74 @@ public class ListaMesasController implements Initializable {
         selectedMesa = listaMesas.getSelectionModel().getSelectedItems();
 
         //Obtengo el id correspondiente al nombre de la mesa seleccionada
-        int idMesa = mesaService.findMesaByNombre(selectedMesa.get(0));
+        int idMesa = mesaService.findIdByNombreMesa(selectedMesa.get(0));
 
-        //Busco en la base datos la categoria seleccionada
-        Mesa mesaEliminar = mesaService.(idCategoria);
+        //Busco en la base datos la mesa seleccionada
+        Mesa mesaEliminar = mesaService.findMesa(idMesa);
 
-        //Muestro mensaje de categoria eliminada
+        //Muestro mensaje de mesa eliminada
         CustomAlert alertEliminarCategoria = new CustomAlert(Alert.AlertType.INFORMATION);
-        alertEliminarCategoria.setTitle("Categoría eliminada");
-        alertEliminarCategoria.setHeaderText("Categoría satisfactoriamente eliminada");
+        alertEliminarCategoria.setTitle("Mesa eliminada");
+        alertEliminarCategoria.setHeaderText("Mesa satisfactoriamente eliminada");
         alertEliminarCategoria.showAndWait();
 
         //Borro la categoria seleccionada
-        categoriaService.deleteCategoria(categoriaEliminar);
+        mesaService.deleteMesa(mesaEliminar);
+        comboBoxPosicion.getSelectionModel().clearSelection();
         actualizarListView();
     }
 
     @FXML
-    private void editarCategoria(ActionEvent event) throws IOException {
-        //Obtengo la categoria seleccionada
-        selectedCategorias = listaCategorias.getSelectionModel().getSelectedItems();
+    private void editarMesa(ActionEvent event) throws IOException {
+        //Obtengo la mesa seleccionada
+        selectedMesa = listaMesas.getSelectionModel().getSelectedItems();
 
-        //Busco en la base datos la categoria seleccionada
-        int idCategoria = categoriaService.findIdByNombreCategoria(selectedCategorias.get(0));
-        categoriaEditar = categoriaService.findCategoria(idCategoria);
+        //Busco en la base datos la mesa seleccionada
+        int idMesa = mesaService.findIdByNombreMesa(selectedMesa.get(0));
+        mesaEditar = mesaService.findMesa(idMesa);
 
         //Cambio de escena
-        stageManager.switchScene(FxmlView.EDITARCATEGORIA);
+        //TODO stageManager.switchScene(FxmlView.EDITARMESA);
     }
 
     @FXML
-    private void crearCategoria(ActionEvent event) throws IOException {
-        stageManager.switchScene(FxmlView.CREARCATEGORIA);
+    private void crearMesa(ActionEvent event) throws IOException {
+        //TODO stageManager.switchScene(FxmlView.CREARCATEGORIA);
     }
 
 
     private void actualizarListView(){
-        categoriasList = categoriaService.readCategoriasName();
+        mesasList = mesaService.readMesasName();
 
-        listaCategorias.getItems().clear();
-        listaCategorias.getItems().addAll(categoriasList);
+        listaMesas.getItems().clear();
+        listaMesas.getItems().addAll(mesasList);
+    }
+
+    private void actualizarComboBox(){
+        //Seteo el nombre de las posiciones
+        List<String> nombresPosiciones = Arrays.asList("Restaurante", "Bar", "Terraza");
+        //Añado el nombre de las posiciones al ComboBox
+        comboBoxPosicion.setItems(FXCollections.observableList(nombresPosiciones));
+    }
+
+    private void actionComboBox(){
+        comboBoxPosicion.setOnAction(event -> {
+            //Obtengo la mesa seleccionada y el indice correspondiente a la misma
+            String selectedPosicion = comboBoxPosicion.getSelectionModel().getSelectedItem();
+
+            //Limpio la lista de articulos y añado solo las correspondientes a la categoria
+            mesasList.clear();
+            mesasList = mesaService.findNombreMesaByPosicion(selectedPosicion);
+            listaMesas.getItems().clear();
+            listaMesas.getItems().addAll(mesasList);
+        });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         actualizarListView();
+        actualizarComboBox();
+        actionComboBox();
     }
 
 }

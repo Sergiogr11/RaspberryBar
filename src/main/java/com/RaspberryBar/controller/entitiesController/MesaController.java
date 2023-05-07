@@ -35,9 +35,23 @@ public class MesaController {
         return mesaService.deleteMesa(mesa);
     }
 
+    @RequestMapping(value="readMesasName", method  = RequestMethod.GET)
+    public List<String> readMesasName(){
+        return mesaService.readMesasName();
+    }
+
+    @RequestMapping(value="findIdByNombreMesa", method = RequestMethod.POST)
+    public Integer findIdByNombreMesa(@RequestBody String nombreMesa){
+        return mesaService.findIdByNombreMesa(nombreMesa);
+    }
+
     @RequestMapping(value="findMesasByPosicion", method = RequestMethod.POST)
-    public List<Mesa> findMesaByPosicion(@RequestBody String posicion){
+    public List<Mesa> findMesaByPosicion(@RequestBody String posicion) {
         return mesaService.findMesaByPosicion(posicion);
     }
 
+    @RequestMapping(value="findNombreMesaByPosicion", method = RequestMethod.POST)
+    public List<String> findNombreMesaByPosicion(@RequestBody String posicion) {
+        return mesaService.findNombreMesaByPosicion(posicion);
+    }
 }
