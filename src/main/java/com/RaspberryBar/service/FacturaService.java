@@ -17,7 +17,7 @@ public class FacturaService {
     public String createFactura(Factura factura){
         try {
             if (!facturaRepository.existsById(factura.getNumeroFactura())){
-                factura.setNumeroFactura(null == facturaRepository.findMaxId()? 0 : facturaRepository.findMaxId() + 1);
+                factura.setNumeroFactura(null == facturaRepository.findMaxId()? 1 : facturaRepository.findMaxId() + 1);
                 facturaRepository.save(factura);
                 return "Factura guardada correctamente.";
             }else {

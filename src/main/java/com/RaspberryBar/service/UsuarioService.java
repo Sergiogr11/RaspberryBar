@@ -22,7 +22,7 @@ public class UsuarioService {
     public String createUsuario(Usuario usuario){
         try {
             if (!usuarioRepository.existsByUsername(usuario.getUsername())){
-                usuario.setUserId(null == usuarioRepository.findMaxId()? 0 : usuarioRepository.findMaxId() + 1);
+                usuario.setUserId(null == usuarioRepository.findMaxId()? 1 : usuarioRepository.findMaxId() + 1);
                 usuarioRepository.save(usuario);
                 return "Usuario guardado correctamente.";
             }else {

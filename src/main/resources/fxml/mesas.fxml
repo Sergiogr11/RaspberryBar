@@ -29,7 +29,7 @@
             <JFXButton fx:id="btnRestaurante" layoutX="51.0" layoutY="33.0" onAction="#disposicionRestaurante" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Restaurante" />
             <JFXButton fx:id="btnBar" layoutX="272.0" layoutY="33.0" onAction="#disposicionBar" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Bar" />
             <JFXButton fx:id="btnTerraza" layoutX="494.0" layoutY="33.0" onAction="#disposicionTerraza" prefHeight="89.0" prefWidth="196.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Terraza" />
-            <JFXButton fx:id="btnEditarMesas" layoutX="1647.0" layoutY="27.0" onAction="#editarMesas" prefHeight="95.0" prefWidth="222.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Editar Mesas" />
+            <JFXButton fx:id="btnEditarMesas" layoutX="1647.0" layoutY="27.0" onAction="#configurarMesas" prefHeight="95.0" prefWidth="222.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Editar Mesas" />
          </children>
       </AnchorPane>
       <FlowPane fx:id="tableroMesas" prefHeight="766.0" prefWidth="1920.0" style="-fx-border-color: #000;">

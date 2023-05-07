@@ -21,7 +21,7 @@ public class LineaComandaService {
     public String createLineaComanda(LineaComanda lineaComanda){
         try {
             if (!lineaComandaRepository.existsById(lineaComanda.getLineaComandaId())){
-                lineaComanda.setNumeroComanda(null == lineaComandaRepository.findMaxId()? 0 : lineaComandaRepository.findMaxId() + 1);
+                lineaComanda.setNumeroComanda(null == lineaComandaRepository.findMaxId()? 1 : lineaComandaRepository.findMaxId() + 1);
                 lineaComandaRepository.save(lineaComanda);
                 return "Linea de comanda guardada correctamente.";
             }else {

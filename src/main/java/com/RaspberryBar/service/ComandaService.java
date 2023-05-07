@@ -21,7 +21,7 @@ public class ComandaService {
     public String createComanda(Comanda comanda){
         try {
             if (!comandaRepository.existsById(comanda.getNumeroComanda())){
-                comanda.setNumeroComanda(null == comandaRepository.findMaxId()? 0 : comandaRepository.findMaxId() + 1);
+                comanda.setNumeroComanda(null == comandaRepository.findMaxId()? 1 : comandaRepository.findMaxId() + 1);
                 comandaRepository.save(comanda);
                 return "Comanda guardada correctamente.";
             }else {

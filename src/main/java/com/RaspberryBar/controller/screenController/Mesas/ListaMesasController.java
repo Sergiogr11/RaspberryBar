@@ -1,12 +1,10 @@
-package com.RaspberryBar.controller.screenController.Articulos;
+package com.RaspberryBar.controller.screenController.Mesas;
 
 import com.RaspberryBar.config.StageManager;
 import com.RaspberryBar.entities.Categoria;
-import com.RaspberryBar.entities.Usuario;
-import com.RaspberryBar.repository.ArticuloRepository;
-import com.RaspberryBar.repository.CategoriaRepository;
-import com.RaspberryBar.service.ArticuloService;
+import com.RaspberryBar.entities.Mesa;
 import com.RaspberryBar.service.CategoriaService;
+import com.RaspberryBar.service.MesaService;
 import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.JFXListView;
@@ -26,39 +24,39 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 @Controller
-public class ListaCategoriasController implements Initializable {
+public class ListaMesasController implements Initializable {
 
 
     @Autowired
-    private CategoriaService categoriaService;
+    private MesaService mesaService;
 
     @Lazy
     @Autowired
     private StageManager stageManager;
 
     @FXML
-    private JFXListView<String> listaCategorias;
+    private JFXListView<String> listaMesas;
 
-    private ObservableList<String> selectedCategoria;
-    private List<String> categoriasList = new ArrayList<>();
-    static Categoria categoriaEditar = new Categoria();
+    private ObservableList<String> selectedMesa;
+    private List<String> mesasList = new ArrayList<>();
+    static Mesa mesaEditar = new Mesa();
 
 
     @FXML
     private void volver(ActionEvent event) throws IOException {
-        stageManager.switchScene(FxmlView.ARTICULOS);
+        stageManager.switchScene(FxmlView.MESAS);
     }
 
     @FXML
-    private void eliminarCategoria(ActionEvent event) throws IOException {
-        //Obtengo la categoria seleccionada
-        selectedCategoria = listaCategorias.getSelectionModel().getSelectedItems();
+    private void eliminarMesa(ActionEvent event) throws IOException {
+        //Obtengo la mesa seleccionada
+        selectedMesa = listaMesas.getSelectionModel().getSelectedItems();
 
-        //Obtengo el id correspondiente al nombre de la categoria seleccionada
-        int idCategoria = categoriaService.findIdByNombreCategoria(selectedCategoria.get(0));
+        //Obtengo el id correspondiente al nombre de la mesa seleccionada
+        int idMesa = mesaService.findMesaByNombre(selectedMesa.get(0));
 
         //Busco en la base datos la categoria seleccionada
-        Categoria categoriaEliminar = categoriaService.findCategoria(idCategoria);
+        Mesa mesaEliminar = mesaService.(idCategoria);
 
         //Muestro mensaje de categoria eliminada
         CustomAlert alertEliminarCategoria = new CustomAlert(Alert.AlertType.INFORMATION);
@@ -74,10 +72,10 @@ public class ListaCategoriasController implements Initializable {
     @FXML
     private void editarCategoria(ActionEvent event) throws IOException {
         //Obtengo la categoria seleccionada
-        selectedCategoria = listaCategorias.getSelectionModel().getSelectedItems();
+        selectedCategorias = listaCategorias.getSelectionModel().getSelectedItems();
 
         //Busco en la base datos la categoria seleccionada
-        int idCategoria = categoriaService.findIdByNombreCategoria(selectedCategoria.get(0));
+        int idCategoria = categoriaService.findIdByNombreCategoria(selectedCategorias.get(0));
         categoriaEditar = categoriaService.findCategoria(idCategoria);
 
         //Cambio de escena

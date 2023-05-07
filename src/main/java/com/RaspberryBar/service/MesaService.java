@@ -19,7 +19,7 @@ public class MesaService {
     public String createMesa(Mesa mesa){
         try {
             if (!mesaRepository.existsById(mesa.getMesaId())){
-                mesa.setMesaId(null == mesaRepository.findMaxId()? 0 : mesaRepository.findMaxId() + 1);
+                mesa.setMesaId(null == mesaRepository.findMaxId()? 1 : mesaRepository.findMaxId() + 1);
                 mesaRepository.save(mesa);
                 return "Mesa guardado correctamente.";
             }else {

@@ -19,7 +19,7 @@ public class RestauranteService {
     public String createRestaurante(Restaurante restaurante){
         try {
             if (!restauranteRepository.existsById(restaurante.getRestauranteId())){
-                restaurante.setRestauranteId(null == restauranteRepository.findMaxId()? 0 : restauranteRepository.findMaxId() + 1);
+                restaurante.setRestauranteId(null == restauranteRepository.findMaxId()? 1 : restauranteRepository.findMaxId() + 1);
                 restauranteRepository.save(restaurante);
                 return "Restaurante guardado correctamente.";
             }else {

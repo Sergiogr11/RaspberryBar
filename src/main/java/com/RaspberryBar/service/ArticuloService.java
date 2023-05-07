@@ -21,7 +21,7 @@ public class ArticuloService {
     public String createArticulo(Articulo articulo) {
         try {
             if (!articuloRepository.existsById(articulo.getArticuloId())) {
-                articulo.setArticuloId(null == articuloRepository.findMaxId() ? 0 : articuloRepository.findMaxId() + 1);
+                articulo.setArticuloId(null == articuloRepository.findMaxId() ? 1 : articuloRepository.findMaxId() + 1);
                 articuloRepository.save(articulo);
                 return "Articulo guardado correctamente.";
             } else {

@@ -160,6 +160,17 @@ public enum FxmlView {
             return "/fxml/mesas.fxml";
         }
     },
+    LISTAMESAS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("listaMesas.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/listaMesas.fxml";
+        }
+    },
     ;
 
     public abstract String getTitle();

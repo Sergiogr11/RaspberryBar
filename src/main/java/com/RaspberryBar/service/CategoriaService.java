@@ -21,7 +21,7 @@ public class CategoriaService {
     public String createCategoria(Categoria categoria){
         try {
             if (!categoriaRepository.existsById(categoria.getCategoriaId())){
-                categoria.setCategoriaId(null == categoriaRepository.findMaxId()? 0 : categoriaRepository.findMaxId() + 1);
+                categoria.setCategoriaId(null == categoriaRepository.findMaxId()? 1 : categoriaRepository.findMaxId() + 1);
                  categoriaRepository.save(categoria);
                 return "Categoria guardada correctamente.";
             }else {

@@ -46,8 +46,8 @@ public class MesasController implements Initializable {
 
 
     @FXML
-    private void editarMesas(ActionEvent event) throws IOException{
-        //stageManager.switchScene(FxmlView.EDITARMESAS);
+    private void configurarMesas(ActionEvent event) throws IOException{
+        //TODO Lista Mesas
     }
 
     @FXML
@@ -100,8 +100,6 @@ public class MesasController implements Initializable {
 
         for (Mesa mesa : mesasList){
             JFXButton mesaButton = new JFXButton(mesa.getNombreMesa());
-            mesaButton.setLayoutX(mesa.getX());
-            mesaButton.setLayoutY(mesa.getY());
             mesaButton.setOnAction(event -> {
                 //Entrar a la pantalla de comandas con la comanda correspondiente a la mesa
             });
