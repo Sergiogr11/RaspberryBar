@@ -50,12 +50,12 @@ public class CrearCategoriaController implements Initializable {
     private void crearCategoria(ActionEvent event) throws IOException {
         //Primero validamos los campos
         if (validar()) {
-            //Creo la categoria, si el maximo id es null se pone a 0
+            //Creo la categoria, si el maximo id es null se pone a 1
             int id;
             try {
                 id = categoriaRepository.findMaxId() + 1;
             } catch (NullPointerException e) {
-                id = 0;
+                id = 1;
             }
             Categoria categoria = new Categoria(id, getNombreCategoria(), getDescripcionCategoria());
 

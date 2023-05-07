@@ -11,8 +11,6 @@ public class Mesa{
     private int capacidad;
     private String estadoMesa = "Libre";
     private String nombreMesa;
-    private double x;
-    private double y;
 
     /**
      * Constructor para la clase backend.entities.Mesa
@@ -21,17 +19,13 @@ public class Mesa{
      * @param capacidad capacidad en personas
      * @param estadoMesa Ocupada o Libre
      * @param nombreMesa Nombre de la Mesa
-     * @param x Posicion x de mesa
-     * @param y Posicion y de mesa
      */
-    public Mesa(int mesaId, String posicion, int capacidad, String estadoMesa, String nombreMesa, double x, double y) {
+    public Mesa(int mesaId, String posicion, int capacidad, String estadoMesa, String nombreMesa) {
         this.mesaId = mesaId;
         this.posicion = posicion;
         this.capacidad = capacidad;
         this.estadoMesa = estadoMesa;
         this.nombreMesa = nombreMesa;
-        this.x = x;
-        this.y = y;
     }
 
     /**
@@ -80,19 +74,4 @@ public class Mesa{
         this.nombreMesa = nombreMesa;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
 }

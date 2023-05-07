@@ -90,7 +90,7 @@ public class ListaMesasController implements Initializable {
 
     @FXML
     private void crearMesa(ActionEvent event) throws IOException {
-        //TODO stageManager.switchScene(FxmlView.CREARCATEGORIA);
+        stageManager.switchScene(FxmlView.CREARMESA);
     }
 
 

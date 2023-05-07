@@ -63,12 +63,12 @@ public class CrearArticuloController implements Initializable {
     private void crearArticulo(ActionEvent event) throws IOException {
         //Primero validamos los campos
         if (validar()) {
-            //Creo el articulo, si el maximo id es null se pone a 0
+            //Creo el articulo, si el maximo id es null se pone a 1
             int id;
             try {
                 id = articuloRepository.findMaxId() + 1;
             } catch (NullPointerException e) {
-                id = 0;
+                id = 1;
             }
 
             Articulo articulo = new Articulo(id, getNombreArticulo(), getDescripcionArticulo(), getPrecioArticulo(), getCategoria());

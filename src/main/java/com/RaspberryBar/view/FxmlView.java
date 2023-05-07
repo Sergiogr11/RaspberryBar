@@ -171,6 +171,28 @@ public enum FxmlView {
             return "/fxml/listaMesas.fxml";
         }
     },
+    CREARMESA {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("crearMesa.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/crearMesa.fxml";
+        }
+    },
+    EDITARMESA {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("editarMesa.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/editarMesa.fxml";
+        }
+    },
     ;
 
     public abstract String getTitle();
