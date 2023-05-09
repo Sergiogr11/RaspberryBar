@@ -72,7 +72,7 @@ public class EditarArticuloController implements Initializable {
             int id = articuloEditar.getArticuloId();
             Articulo articulo = new Articulo(id, getNombreArticulo(), getDescripcionArticulo(), getPrecioArticulo(), getCategoriaArticulo());
 
-            if(!articuloExiste(articulo)) {
+            if(!articuloExiste(getNombreArticulo())) {
                 articuloService.updateArticulo(articulo);
                 CustomAlert alertEditarArticulo = new CustomAlert(Alert.AlertType.INFORMATION);
                 alertEditarArticulo.setTitle("Artículo actualizado");
@@ -95,25 +95,35 @@ public class EditarArticuloController implements Initializable {
 
     @FXML
     private boolean validar() {
-        boolean nombreCategoriaValid = nombreArticulo.validate();
-        boolean descripcionCategoriaValid = descripcionArticulo.validate();
+        boolean nombreArticuloValid = nombreArticulo.validate();
+        boolean descripcionArticuloValid = descripcionArticulo.validate();
         boolean categoriaValid = comboBoxCategoria.validate();
         boolean precioValid = precioArticulo.validate();
 
+        // Verificar si el nombre del artículo a editar ya existe en la base de datos
+        if (articuloExiste(nombreArticulo.getText())) {
+            CustomAlert alertEditarArticulo = new CustomAlert(Alert.AlertType.ERROR);
+            alertEditarArticulo.setTitle("No se puede actualizar articulo");
+            alertEditarArticulo.setHeaderText("Ya existe un articulo con ese nombre");
+            alertEditarArticulo.showAndWait();
+            return false;
+        }
+
         // Si alguno de los campos no es válido, retornar true
-        if (!nombreCategoriaValid || !descripcionCategoriaValid || !precioValid || !categoriaValid) {
+        if (!nombreArticuloValid || !descripcionArticuloValid || !precioValid || !categoriaValid) {
             return false;
         } else {
             return true;
         }
     }
 
-    private boolean articuloExiste(Articulo articulo){
-        if(articuloService.findIdByNombreArticulo(articulo.getNombreArticulo()) != null) {
+    private boolean articuloExiste(String nombreArticulo){
+        int idArticulo = articuloService.findIdByNombreArticulo(nombreArticulo);
+        Articulo articuloExistente = articuloService.findArticulo(idArticulo);
+        if (articuloExistente != null && articuloExistente.getArticuloId() != articuloEditar.getArticuloId()) {
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
 
     private void obtenerInfo(){

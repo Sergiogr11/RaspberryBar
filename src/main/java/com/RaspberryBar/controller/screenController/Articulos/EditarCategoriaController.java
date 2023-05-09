@@ -59,7 +59,7 @@ public class EditarCategoriaController implements Initializable {
             int id = categoriaEditar.getCategoriaId();
             Categoria categoria = new Categoria(id, getNombreCategoria(), getDescripcionCategoria());
 
-            if (!categoriaExiste(categoria)) {
+            if (!categoriaExiste(getNombreCategoria())) {
                 categoriaService.createCategoria(categoria);
                 //Muestro alert de categoria creada
                 CustomAlert alertEditarCategoria = new CustomAlert(Alert.AlertType.INFORMATION);
@@ -84,18 +84,28 @@ public class EditarCategoriaController implements Initializable {
             stageManager.switchScene(FxmlView.LISTACATEGORIAS);
     }
 
-    private boolean categoriaExiste(Categoria categoria){
-        if(categoriaService.findCategoria(categoria.getCategoriaId()) == null){
-            return false;
-        }else{
+    private boolean categoriaExiste(String categoriaNombre){
+        int idCategoria = categoriaService.findIdByNombreCategoria(categoriaNombre);
+        Categoria categoriaExistente = categoriaService.findCategoria(idCategoria);
+        if(categoriaExistente != null && categoriaExistente.getCategoriaId() != categoriaEditar.getCategoriaId()){
             return true;
         }
+        return false;
     }
 
     @FXML
     private boolean validar() {
         boolean nombreCategoriaValid = nombreCategoria.validate();
         boolean descripcionCategoriaValid = descripcionCategoria.validate();
+
+        // Verificar si el nombre del artículo a editar ya existe en la base de datos
+        if (categoriaExiste(nombreCategoria.getText())) {
+            CustomAlert alertEditarCategoria = new CustomAlert(Alert.AlertType.ERROR);
+            alertEditarCategoria.setTitle("No se puede actualizar categoría");
+            alertEditarCategoria.setHeaderText("Ya existe una categoría con ese nombre");
+            alertEditarCategoria.showAndWait();
+            return false;
+        }
 
         // Si alguno de los campos no es válido, retornar true
         if (!nombreCategoriaValid || !descripcionCategoriaValid) {

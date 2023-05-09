@@ -80,12 +80,12 @@ public class ListaMesasController implements Initializable {
         //Obtengo la mesa seleccionada
         selectedMesa = listaMesas.getSelectionModel().getSelectedItems();
 
-        //Busco en la base datos la mesa seleccionada
+        //Busco en la base datos la mesa seleccionada y la selecciono
         int idMesa = mesaService.findIdByNombreMesa(selectedMesa.get(0));
         mesaEditar = mesaService.findMesa(idMesa);
 
         //Cambio de escena
-        //TODO stageManager.switchScene(FxmlView.EDITARMESA);
+        stageManager.switchScene(FxmlView.EDITARMESA);
     }
 
     @FXML
