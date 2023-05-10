@@ -78,4 +78,9 @@ public class LineaComandaService {
             return "La Linea Comanda no existe";
         }
     }
+
+    @Transactional
+    public int findMaxId(){
+        return lineaComandaRepository.findMaxId() ;
+    }
 }

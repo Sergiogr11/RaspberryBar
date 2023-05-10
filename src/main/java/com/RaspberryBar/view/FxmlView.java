@@ -193,6 +193,17 @@ public enum FxmlView {
             return "/fxml/editarMesa.fxml";
         }
     },
+    COMANDAS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("comandas.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/comandas.fxml";
+        }
+    },
     ;
 
     public abstract String getTitle();

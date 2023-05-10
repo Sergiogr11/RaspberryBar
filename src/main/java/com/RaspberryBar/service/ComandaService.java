@@ -81,4 +81,9 @@ public class ComandaService {
             return "La Comanda no existe";
         }
     }
+
+    @Transactional
+    public int findMaxId(){
+        return comandaRepository.findMaxId();
+    }
 }
