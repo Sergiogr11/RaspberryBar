@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -85,5 +86,15 @@ public class ComandaService {
     @Transactional
     public int findMaxId(){
         return comandaRepository.findMaxId();
+    }
+
+    @Transactional
+    public Optional<Comanda> findComandaById(Integer comandaId){
+        return comandaRepository.findById(comandaId);
+    }
+
+    @Transactional
+    public void save(Comanda comanda){
+        comandaRepository.save(comanda);
     }
 }

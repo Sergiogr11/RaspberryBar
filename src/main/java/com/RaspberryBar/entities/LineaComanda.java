@@ -3,17 +3,11 @@ package com.RaspberryBar.entities;
 import javax.persistence.*;
 
 @Entity
-@IdClass(LineaComandaId.class)
 public class LineaComanda{
 
     @EmbeddedId
     private LineaComandaId lineaComandaId;
-    @Id
-    @Column(name = "numeroLinea", insertable = false, updatable = false)
-    private int numeroLinea;
-    @Id
-    @Column(name = "numeroComanda", insertable = false, updatable = false)
-    private int numeroComanda;
+
     private int cantidad;
     private float precio;
     private int articuloId;
@@ -26,9 +20,8 @@ public class LineaComanda{
      * @param precio precio del artículo
      * @param articuloId artículo asociado a la linea de la comanda
      */
-    public LineaComanda(int numeroLinea, int numeroComanda, int cantidad, float precio, int articuloId) {
-        this.lineaComandaId.setNumeroLinea(numeroLinea);
-        this.lineaComandaId.setNumeroComanda(numeroComanda);
+    public LineaComanda(LineaComandaId lineaComandaId, int cantidad, float precio, int articuloId) {
+        this.lineaComandaId = lineaComandaId;
         this.cantidad = cantidad;
         this.precio = precio;
         this.articuloId = articuloId;
@@ -49,13 +42,15 @@ public class LineaComanda{
     }
 
     public void setNumeroLinea(int numeroLinea) {
-        lineaComandaId.setNumeroLinea(numeroLinea);
+        this.lineaComandaId.setNumeroLinea(numeroLinea);
     }
-
-    public void setNumeroComanda(int numeroComanda) { lineaComandaId.setNumeroComanda(numeroComanda);}
 
     public int getNumeroComanda() {
         return lineaComandaId.getNumeroComanda();
+    }
+
+    public void setNumeroComanda(int numeroComanda) {
+        this.lineaComandaId.setNumeroComanda(numeroComanda);
     }
 
     public int getCantidad() {

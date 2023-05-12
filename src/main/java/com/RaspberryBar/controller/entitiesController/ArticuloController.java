@@ -44,4 +44,6 @@ public class ArticuloController {
     @RequestMapping(value="findIdByNombreArticulo", method = RequestMethod.POST)
     public Integer findIdByNombreArticulo(@RequestBody String nombreArticulo){ return articuloService.findIdByNombreArticulo(nombreArticulo); }
 
+    @RequestMapping(value="findNombreById", method = RequestMethod.POST)
+    public String findNombreById(@RequestBody int idArticulo){ return articuloService.findNombrebyId(idArticulo); }
 }

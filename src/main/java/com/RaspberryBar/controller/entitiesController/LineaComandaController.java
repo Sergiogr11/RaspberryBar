@@ -1,9 +1,6 @@
 package com.RaspberryBar.controller.entitiesController;
 
-import com.RaspberryBar.entities.Articulo;
 import com.RaspberryBar.entities.LineaComanda;
-import com.RaspberryBar.entities.LineaComandaId;
-import com.RaspberryBar.service.ArticuloService;
 import com.RaspberryBar.service.LineaComandaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

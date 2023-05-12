@@ -106,8 +106,8 @@ public class MesasController implements Initializable {
                 // Cambiar de escena a comandas
             });
             mesaButton.setPrefSize(150, 150); //Ajusta el tamaño del botón
-            mesaButton.getStyleClass().add("btnGreen");
-            //mesaButton.setStyle("-fx-background-color: #00FF00");
+            //mesaButton.getStyleClass().add("btnGreen");
+            mesaButton.setStyle("-fx-background-color: #00FF00");
             // Establecer margen del botón
             AnchorPane.setTopAnchor(mesaButton, 50.0);
             AnchorPane.setLeftAnchor(mesaButton, 50.0);

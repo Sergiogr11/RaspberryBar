@@ -105,4 +105,9 @@ public class ArticuloService {
         }
     }
 
+    @Transactional
+    public String findNombrebyId(Integer articuloId){
+        return articuloRepository.findNombreById(articuloId);
+    }
+
 }
