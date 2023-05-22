@@ -5,10 +5,7 @@ import com.RaspberryBar.service.UsuarioService;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.EvaluationException;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,4 +35,13 @@ public class UsuarioController {
         return usuarioService.deleteUsuario(usuario);
     }
 
+    @RequestMapping(value="login", method = RequestMethod.POST)
+    public boolean login(@RequestParam("username") String username, @RequestParam("password") String password) {
+        return usuarioService.authenticate(username, password);
+    }
+
+    @RequestMapping(value="findUsuario",method = RequestMethod.POST)
+    public Usuario findUsuario(@RequestParam("username") String username){
+        return usuarioService.findUsuario(username);
+    }
 }

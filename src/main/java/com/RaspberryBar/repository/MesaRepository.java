@@ -25,7 +25,7 @@ public interface MesaRepository extends JpaRepository<Mesa, Integer> {
     public Integer findIdByNombreMesa(@Param("nombreMesa") String nombreMesa);
 
     @Query("select m from Mesa m where m.posicion = :posicion")
-    public List<Mesa> findMesaByPosicion(@Param("posicion") String posicion);
+    public List<Mesa> findMesasByPosicion(@Param("posicion") String posicion);
 
     @Query("select m.nombreMesa from Mesa m where m.posicion = :posicion")
     public List<String> findNombreMesaByPosicion(@Param("posicion") String posicion);

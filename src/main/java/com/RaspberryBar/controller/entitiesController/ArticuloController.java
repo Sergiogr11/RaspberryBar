@@ -3,10 +3,7 @@ package com.RaspberryBar.controller.entitiesController;
 import com.RaspberryBar.entities.Articulo;
 import com.RaspberryBar.service.ArticuloService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,8 +32,10 @@ public class ArticuloController {
         return articuloService.deleteArticulo(articulo);
     }
 
-    @RequestMapping(value="findByCategoria", method = RequestMethod.POST)
-    public List<String> findByCategoria(@RequestBody int categoriaId){ return articuloService.findbyCategoria(categoriaId); }
+    @RequestMapping(value="findByCategoria/{categoriaId}", method = RequestMethod.POST)
+    public List<String> findByCategoria(@PathVariable("categoriaId") int categoriaId) {
+        return articuloService.findbyCategoria(categoriaId);
+    }
 
     @RequestMapping(value="readNameArticulos", method = RequestMethod.GET)
     public List<String> readNameArticulos(){ return articuloService.readNameArticulos(); }
@@ -46,4 +45,9 @@ public class ArticuloController {
 
     @RequestMapping(value="findNombreById", method = RequestMethod.POST)
     public String findNombreById(@RequestBody int idArticulo){ return articuloService.findNombrebyId(idArticulo); }
+
+    @RequestMapping(value="findArticulosbyCategoria/{categoriaId}", method = RequestMethod.POST)
+    public List<Articulo> findArticulosbyCategoria(@PathVariable("categoriaId") int categoriaId) {
+        return articuloService.findArticulosbyCategoria(categoriaId);
+    }
 }

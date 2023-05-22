@@ -7,6 +7,7 @@ import com.RaspberryBar.service.ArticuloService;
 import com.RaspberryBar.service.CategoriaService;
 import com.RaspberryBar.service.ComandaService;
 import com.RaspberryBar.service.LineaComandaService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,9 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -27,12 +26,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,16 +69,28 @@ public class ComandasController implements Initializable {
 
     int cantidad = 0;
     Articulo articuloSeleccionado;
-    int comandaId = 1;
-    float totalPrice;
+    int comandaId = 0;
+    public float totalPrice;
     LocalDateTime fechaApertura;
-    int mesaId;
-    int usuarioId;
+    int usuarioId = 1;
     //Inicializo contador de linea Comanda
     int numeroLinea  = 0;
+    public int mesaId;
+    Comanda comandaActiva;
 
     @FXML
     private void volver(ActionEvent event) throws IOException {
+        // Limpiar la lista de lineas de comanda después de guardarlas y precio total
+        lineasComanda.clear();
+        totalPrice = 0;
+        precioTotal.setText("0");
+
+        // Reinicia la comanda activa y su ID
+        comandaActiva = null;
+        comandaId = 0;
+
+        //Se reinicia el contador de lineas
+        numeroLinea = 1;
         stageManager.switchScene(FxmlView.HOME);
     }
 
@@ -189,7 +198,7 @@ public class ComandasController implements Initializable {
                 totalPrice = bd2.floatValue();
                 precioTotal.setText(String.valueOf(totalPrice));
 
-                if(comandaId == 0){
+                if(comandaId == 0 ){
                     comandaId = comandaService.findMaxId();
                 }
 
@@ -248,6 +257,29 @@ public class ComandasController implements Initializable {
 
     }
 
+    private void cargarComanda(){
+        // Obtiene la última Comanda para la mesa seleccionada
+        try{
+            mesaId = mesasController.mesaSeleccionada.getMesaId();
+            comandaActiva = comandaService.findLastComandaByMesa(mesasController.mesaSeleccionada.getMesaId());
+        }catch (NullPointerException e){
+            System.out.println("No hay Comanda activa o Mesa seleccionada");
+        }
+
+        // Si la comanda activa no es null, asignar su ID a comandaId
+        if (comandaActiva != null) {
+            comandaId = comandaActiva.getNumeroComanda();
+
+            // Obtengo las lineas de comanda de la comanda activa
+            List<LineaComanda> lineasComandaActivas = lineaComandaService.findAllByNumeroComanda(comandaActiva.getNumeroComanda());
+            // Agrego las lineas de comanda activas a la lista observable
+            lineasComanda.addAll(lineasComandaActivas);
+        }else{
+            //Mesa creada para la barra
+            mesaId = 6;
+        }
+    }
+
     @FXML
     private void volverCategorias(ActionEvent event) throws IOException {
         inicializarListaCategorias();
@@ -255,27 +287,33 @@ public class ComandasController implements Initializable {
 
     @FXML
     private void imprimirTicket(ActionEvent event) throws IOException {
+
+        // No crear o actualizar una comanda si no hay líneas de comanda
+        if (lineasComanda.isEmpty()) {
+            System.out.println("No se puede crear o actualizar una comanda sin líneas de comanda");
+            return;
+        }
+
         //Crear la comanda
         Comanda comanda;
-        Optional<Comanda> optionalComanda = comandaService.findComandaById(comandaId);
-        if (optionalComanda.isPresent()) {
+        if (comandaActiva != null) {
             // Si la comanda ya existe, actualizarla
-            comanda = optionalComanda.get();
-            comanda.setPrecioTotal(totalPrice); // asumir totalPrice es el precio total de la comanda
+            comanda = comandaActiva;
+            comanda.setPrecioTotal(totalPrice); //totalPrice es el precio total de la comanda
             comanda.setFechaHoraCierre(LocalDateTime.now());
         } else {
+            comandaId = comandaService.findMaxId() + 1;
             // Si la comanda no existe, crear una nueva
             comanda = new Comanda();
             comanda.setNumeroComanda(comandaId);
             comanda.setPrecioTotal(totalPrice);
-            comanda.setFechaHoraApertura(fechaApertura);
+            comanda.setFechaHoraApertura(LocalDateTime.now());
             comanda.setFechaHoraCierre(LocalDateTime.now());
-            //TODO momentaneamente pongo 1 sólo
             comanda.setNumeroComensales(1);
-            //Ver como obtenerla
             comanda.setMesaId(mesaId);
-            //Ver como obtenerlo
             comanda.setUsuarioId(usuarioId);
+
+            comandaActiva = comanda;
         }
 
         // Guardar la comanda en la base de datos
@@ -283,51 +321,76 @@ public class ComandasController implements Initializable {
 
         //Guardar lineas comanda creadas en la bbdd
         for (LineaComanda lineaComanda : lineasComanda) {
+            lineaComanda.setNumeroComanda(comandaId);
             lineaComandaService.createLineaComanda(lineaComanda);
         }
-        // Limpiar la lista de lineas de comanda después de guardarlas y precio total
-        //lineasComanda.clear();
-        //totalPrice = 0;
-        //precioTotal.setText("0");
-        numeroLinea = 1;
 
         //Imprimir con la impresora
+        //TODO
     }
 
     @FXML
     private void cobrar(ActionEvent event) throws IOException {
-        //Ventana emergente para cobrar
+        stageManager.showPopup(FxmlView.COBRAR);
     }
 
     @FXML
     private void eliminarTicket(ActionEvent event) throws IOException {
-        //Borrar las lineas de comanda creadas
+        //Muestro alert para preguntar si eliminar
+        CustomAlert alertEliminarComanda = new CustomAlert(Alert.AlertType.CONFIRMATION);
+        alertEliminarComanda.setTitle("Eliminar Comanda");
+        alertEliminarComanda.setHeaderText("Pulsa OK para eliminar comanda");
+        Optional<ButtonType> result = alertEliminarComanda.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Comprueba si hay una comanda activa antes de intentar borrarla
+            if (comandaActiva != null) {
+                // Borra las líneas de comanda asociadas a la comanda activa
+                lineaComandaService.deleteAllByComanda(comandaActiva.getNumeroComanda());
+
+                // Borra la comanda activa
+                comandaService.deleteComanda(comandaActiva);
+            }
+
+            // Limpiar la lista de lineas de comanda después de guardarlas y precio total
+            lineasComanda.clear();
+            totalPrice = 0;
+            precioTotal.setText("0");
+
+            // Reinicia la comanda activa y su ID
+            comandaActiva = null;
+            comandaId = 0;
+
+            //Se reinicia el contador de lineas
+            numeroLinea = 1;
+        }
     }
 
     @FXML
     private void eliminarLinea(ActionEvent event) throws IOException {
         //Obtengo la fila seleccionada
         LineaComanda selectedLineaComanda = TableLineasComanda.getSelectionModel().getSelectedItem();
-        //Resto el precio de la linea eliminada
-        totalPrice -= selectedLineaComanda.getPrecio();
-        //Acepto solo 2 decimales
-        BigDecimal bd = new BigDecimal(Float.toString(totalPrice));
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        totalPrice = bd.floatValue();
 
-        precioTotal.setText(String.valueOf(totalPrice));
         if (selectedLineaComanda != null) {
+            //Resto el precio de la linea eliminada
+            totalPrice -= selectedLineaComanda.getPrecio();
+            //Acepto solo 2 decimales
+            BigDecimal bd = new BigDecimal(Float.toString(totalPrice));
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            totalPrice = bd.floatValue();
+
+            precioTotal.setText(String.valueOf(totalPrice));
+
             lineasComanda.remove(selectedLineaComanda);
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //Inicializo tabla que contendra lineas de comanda
         inicializarTablaComanda();
-        //TODO
-        //Obtengo comandaId desde MesasController
-
+        //Cargo comanda de la mesa seleccionada si existe
+        cargarComanda();
         //Inicializo teclado numerico
         inicializarTecladoNumerico();
         //Inicializo Lista categorias

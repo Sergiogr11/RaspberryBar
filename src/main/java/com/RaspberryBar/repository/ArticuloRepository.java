@@ -30,6 +30,9 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Integer>{
     @Query("select a.nombreArticulo from Articulo a where a.id = :articuloId")
     public String findNombreById(@Param("articuloId") int articuloId);
 
+    @Query("select a from Articulo a where a.categoriaId = :categoriaId")
+    public List<Articulo> findArticulosbyCategoria(@Param("categoriaId") int categoriaId);
+
 }
 
 

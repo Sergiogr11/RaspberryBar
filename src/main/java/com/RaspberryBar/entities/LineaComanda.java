@@ -14,8 +14,7 @@ public class LineaComanda{
 
     /**
      * Constructor para Linea backend.entities.Comanda
-     * @param numeroLinea numero de Linea de la comanda
-     * @param numeroComanda numero de comanda asociado
+     * @param lineaComandaId clave compuesta por numeroLinea y numeroComanda
      * @param cantidad cantidad del artículo
      * @param precio precio del artículo
      * @param articuloId artículo asociado a la linea de la comanda

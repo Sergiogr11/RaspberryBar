@@ -4,6 +4,7 @@ import com.RaspberryBar.view.FxmlView;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -89,5 +90,31 @@ public class StageManager {
     private void logAndExit(String errorMsg, Exception exception) {
         Platform.exit();
     }
+
+    public void showPopup(final FxmlView view) {
+        Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.getFxmlFile());
+        showPopup(viewRootNodeHierarchy, view.getTitle());
+    }
+
+    private void showPopup(final Parent rootnode, String title) {
+        if (rootnode == null) {
+            logAndExit("Unable to load FXML view", new IOException("FXML file is null"));
+            return;
+        }
+
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.setTitle(title);
+
+        Scene scene = new Scene(rootnode);
+        popupStage.setScene(scene);
+
+        try {
+            popupStage.showAndWait();
+        } catch (Exception exception) {
+            logAndExit("Unable to show popup for title" + title, exception);
+        }
+    }
+
 }
 

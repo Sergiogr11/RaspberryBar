@@ -204,6 +204,17 @@ public enum FxmlView {
             return "/fxml/comandas.fxml";
         }
     },
+    COBRAR {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("cobrar.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/cobrar.fxml";
+        }
+    },
     ;
 
     public abstract String getTitle();

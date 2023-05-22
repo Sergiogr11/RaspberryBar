@@ -33,6 +33,7 @@ public class MesasController implements Initializable {
     private MesaService mesaService;
 
     List<Mesa> mesasList = new ArrayList<>();
+    public Mesa mesaSeleccionada;
 
     @FXML
     private JFXButton btnRestaurante;
@@ -85,7 +86,7 @@ public class MesasController implements Initializable {
     private void cargarDisposicion(String posicionMesas){
         mesasList.clear();
         tableroMesas.getChildren().clear();
-        mesasList = mesaService.findMesaByPosicion(posicionMesas);
+        mesasList = mesaService.findMesasByPosicion(posicionMesas);
         switch (posicionMesas) {
             case "Restaurante":
                 seleccionarBoton(btnRestaurante);
@@ -98,16 +99,24 @@ public class MesasController implements Initializable {
                 break;
         }
 
-        for (Mesa mesa : mesasList){
+        for (Mesa mesa : mesasList) {
             JFXButton mesaButton = new JFXButton(mesa.getNombreMesa());
             mesaButton.setOnAction(event -> {
-                //TODO
-                // Setear la mesa seleccionada a un atributo global
-                // Cambiar de escena a comandas
+                //Solo se puede entrar a mesas ocupadas
+                if (mesa.getEstadoMesa().equals("Ocupada")) {
+                    mesaSeleccionada = mesa;
+                    stageManager.switchScene(FxmlView.COMANDAS);
+                }
             });
             mesaButton.setPrefSize(150, 150); //Ajusta el tamaño del botón
-            //mesaButton.getStyleClass().add("btnGreen");
-            mesaButton.setStyle("-fx-background-color: #00FF00");
+            //Si la mesa esta libre se mostrara verde
+            if (mesa.getEstadoMesa().equals("Libre")){
+                mesaButton.setStyle("-fx-background-color: #00FF00");
+            }
+            //Si no esta libre en rojo
+            else{
+                mesaButton.setStyle("-fx-background-color: #CF0808");
+            }
             // Establecer margen del botón
             AnchorPane.setTopAnchor(mesaButton, 50.0);
             AnchorPane.setLeftAnchor(mesaButton, 50.0);

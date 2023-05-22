@@ -36,4 +36,14 @@ public class ComandaController {
     public String deleteComanda(@RequestBody Comanda comanda){
         return comandaService.deleteComanda(comanda);
     }
+
+    @RequestMapping(value="findLastComandaByMesa", method = RequestMethod.DELETE)
+    public Comanda findLastComandaByMesa(@RequestBody int mesaId){
+        return comandaService.findLastComandaByMesa(mesaId);
+    }
+
+    @RequestMapping(value="findMaxIdComanda", method = RequestMethod.GET)
+    public int findMaxIdComanda(){
+        return comandaService.findMaxId();
+    }
 }

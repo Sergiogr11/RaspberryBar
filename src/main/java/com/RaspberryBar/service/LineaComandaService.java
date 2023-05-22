@@ -6,6 +6,7 @@ import com.RaspberryBar.entities.LineaComandaId;
 import com.RaspberryBar.repository.ComandaRepository;
 import com.RaspberryBar.repository.LineaComandaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -76,4 +77,16 @@ public class LineaComandaService {
         }
         return maxId;
     }
+
+    @Transactional
+    public List<LineaComanda> findAllByNumeroComanda (Integer numeroComanda){
+        return lineaComandaRepository.findAllByNumeroComanda(numeroComanda);
+    }
+
+    @Modifying
+    @Transactional
+    public void deleteAllByComanda(int comandaId){
+        lineaComandaRepository.deleteAllByLineaComandaIdNumeroComanda(comandaId);
+    }
+
 }

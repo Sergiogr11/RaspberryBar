@@ -86,6 +86,11 @@ public class ArticuloService {
     }
 
     @Transactional
+    public List<Articulo> findArticulosbyCategoria(int categoriaId) {
+        return this.articuloRepository.findArticulosbyCategoria(categoriaId);
+    }
+
+    @Transactional
     public List<String> readNameArticulos() {
         return articuloRepository.readArticulosName();
     }

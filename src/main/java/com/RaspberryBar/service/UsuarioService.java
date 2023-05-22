@@ -41,7 +41,7 @@ public class UsuarioService {
     public String updateUsuario(Usuario usuario){
         if (usuarioRepository.existsByUsername(usuario.getUsername())){
             try {
-                    Usuario usuarioToBeUpdate = usuarioRepository.findByUsername(usuario.getUsername()).get(0);
+                    Usuario usuarioToBeUpdate = usuarioRepository.findByUsername(usuario.getUsername());
                     usuarioToBeUpdate.setUserId(usuarioToBeUpdate.getUserId());
                     usuarioToBeUpdate.setUsername(usuario.getUsername());
                     usuarioToBeUpdate.setCorreo(usuario.getCorreo());
@@ -62,8 +62,8 @@ public class UsuarioService {
     public String deleteUsuario(Usuario usuario){
         if (usuarioRepository.existsByUsername(usuario.getUsername())){
             try {
-                List<Usuario> usuarios = usuarioRepository.findByUsername(usuario.getUsername());
-                    usuarioRepository.delete(usuarios.get(0));
+               Usuario usuarioABorrar = usuarioRepository.findByUsername(usuario.getUsername());
+                    usuarioRepository.delete(usuarioABorrar);
                 return "Usuario eliminado correctamente.";
             }catch (Exception e){
                 throw e;
@@ -76,7 +76,7 @@ public class UsuarioService {
 
     @Transactional
     public boolean authenticate(String username, String password){
-        Usuario usuario = this.usuarioRepository.findByUsername(username).get(0);
+        Usuario usuario = this.usuarioRepository.findByUsername(username);
         if(usuario == null){
             return false;
         }else{
@@ -106,11 +106,7 @@ public class UsuarioService {
 
     @Transactional
     public Usuario findUsuario(String username){
-        List<Usuario> usuarios = this.usuarioRepository.findByUsername(username);
-        if(!usuarios.isEmpty()) {
-            return usuarios.get(0);
-        }
-        return null;
+        return this.usuarioRepository.findByUsername(username);
     }
 
 }

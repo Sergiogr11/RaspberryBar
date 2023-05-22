@@ -12,7 +12,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     public boolean existsByUsername(String username);
 
-    public List<Usuario> findByUsername(String username);
+    public Usuario findByUsername(String username);
 
     @Query("select max(s.id) from Usuario s")
     public Integer findMaxId();

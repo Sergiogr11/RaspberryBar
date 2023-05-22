@@ -2,11 +2,13 @@ package com.RaspberryBar.service;
 
 import com.RaspberryBar.entities.Comanda;
 import com.RaspberryBar.entities.Factura;
+import com.RaspberryBar.entities.Mesa;
 import com.RaspberryBar.repository.ComandaRepository;
 import com.RaspberryBar.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -96,5 +98,10 @@ public class ComandaService {
     @Transactional
     public void save(Comanda comanda){
         comandaRepository.save(comanda);
+    }
+
+    @Transactional
+    public Comanda findLastComandaByMesa(int mesaId) {
+        return comandaRepository.findLastComandaByMesa(mesaId);
     }
 }

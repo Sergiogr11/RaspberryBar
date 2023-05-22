@@ -88,8 +88,8 @@ public class MesaService {
     }
 
     @Transactional
-    public List<Mesa> findMesaByPosicion(String posicion){
-        return mesaRepository.findMesaByPosicion(posicion);
+    public List<Mesa> findMesasByPosicion(String posicion){
+        return mesaRepository.findMesasByPosicion(posicion);
     }
 
     @Transactional

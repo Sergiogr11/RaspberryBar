@@ -46,8 +46,8 @@ public class MesaController {
     }
 
     @RequestMapping(value="findMesasByPosicion", method = RequestMethod.POST)
-    public List<Mesa> findMesaByPosicion(@RequestBody String posicion) {
-        return mesaService.findMesaByPosicion(posicion);
+    public List<Mesa> findMeByPosicion(@RequestBody String posicion) {
+        return mesaService.findMesasByPosicion(posicion);
     }
 
     @RequestMapping(value="findNombreMesaByPosicion", method = RequestMethod.POST)
