@@ -4,6 +4,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,8 +12,8 @@ public class Comanda{
     @Id
     private int numeroComanda;
     private float precioTotal;
-    private LocalDateTime fechaHoraApertura;
-    private LocalDateTime fechaHoraCierre;
+    private long  fechaHoraApertura;
+    private long  fechaHoraCierre;
     private int numeroComensales;
     private int usuarioId;
     private int mesaId;
@@ -27,7 +28,7 @@ public class Comanda{
      * @param usuarioId Identificador unico del usuario
      * @param mesaId Identificador unico de la mesa
      */
-    public Comanda(int numeroComanda, float precioTotal, LocalDateTime fechaHoraApertura, LocalDateTime fechaHoraCierre, int numeroComensales, int usuarioId, int mesaId) {
+    public Comanda(int numeroComanda, float precioTotal, long  fechaHoraApertura, long  fechaHoraCierre, int numeroComensales, int usuarioId, int mesaId) {
         this.numeroComanda = numeroComanda;
         this.precioTotal = precioTotal;
         this.fechaHoraApertura = fechaHoraApertura;
@@ -56,19 +57,19 @@ public class Comanda{
         this.precioTotal = precioTotal;
     }
 
-    public LocalDateTime getFechaHoraApertura() {
+    public long getFechaHoraApertura() {
         return fechaHoraApertura;
     }
 
-    public void setFechaHoraApertura(LocalDateTime fechaHoraApertura) {
+    public void setFechaHoraApertura(long fechaHoraApertura) {
         this.fechaHoraApertura = fechaHoraApertura;
     }
 
-    public LocalDateTime getFechaHoraCierre() {
+    public long getFechaHoraCierre() {
         return fechaHoraCierre;
     }
 
-    public void setFechaHoraCierre(LocalDateTime fechaHoraCierre) {
+    public void setFechaHoraCierre(long fechaHoraCierre) {
         this.fechaHoraCierre = fechaHoraCierre;
     }
 

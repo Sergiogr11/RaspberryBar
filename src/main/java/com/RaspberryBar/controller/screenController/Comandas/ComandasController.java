@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -297,18 +298,20 @@ public class ComandasController implements Initializable {
         //Crear la comanda
         Comanda comanda;
         if (comandaActiva != null) {
+            long millis = System.currentTimeMillis();
             // Si la comanda ya existe, actualizarla
             comanda = comandaActiva;
             comanda.setPrecioTotal(totalPrice); //totalPrice es el precio total de la comanda
-            comanda.setFechaHoraCierre(LocalDateTime.now());
+            comanda.setFechaHoraCierre(millis);
         } else {
             comandaId = comandaService.findMaxId() + 1;
+            long millis = System.currentTimeMillis();
             // Si la comanda no existe, crear una nueva
             comanda = new Comanda();
             comanda.setNumeroComanda(comandaId);
             comanda.setPrecioTotal(totalPrice);
-            comanda.setFechaHoraApertura(LocalDateTime.now());
-            comanda.setFechaHoraCierre(LocalDateTime.now());
+            comanda.setFechaHoraApertura(millis);
+            comanda.setFechaHoraCierre(millis);
             comanda.setNumeroComensales(1);
             comanda.setMesaId(mesaId);
             comanda.setUsuarioId(usuarioId);

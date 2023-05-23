@@ -18,7 +18,7 @@ public class ComandaController {
     private ComandaService comandaService;
 
     @RequestMapping(value="createComanda", method  = RequestMethod.POST)
-    public String createComandda(@RequestBody Comanda comanda){
+    public String createComanda(@RequestBody Comanda comanda){
         return comandaService.createComanda(comanda);
     }
 
@@ -43,7 +43,7 @@ public class ComandaController {
     }
 
     @RequestMapping(value="findMaxIdComanda", method = RequestMethod.GET)
-    public int findMaxIdComanda(){
+    public Integer findMaxIdComanda(){
         return comandaService.findMaxId();
     }
 }

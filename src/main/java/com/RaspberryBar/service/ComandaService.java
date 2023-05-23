@@ -87,7 +87,8 @@ public class ComandaService {
 
     @Transactional
     public int findMaxId(){
-        return comandaRepository.findMaxId();
+        Integer maxId = comandaRepository.findMaxId();
+        return maxId != null ? maxId : 0;
     }
 
     @Transactional
