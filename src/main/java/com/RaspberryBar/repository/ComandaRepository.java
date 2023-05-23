@@ -20,7 +20,7 @@ public interface ComandaRepository extends JpaRepository<Comanda, Integer> {
     @Query("select max(c.id) from Comanda c")
     public Integer findMaxId();
 
-    @Query(value = "SELECT * FROM Comanda WHERE MesaId = :mesaId ORDER BY FechaHoraApertura DESC LIMIT 1", nativeQuery = true)
+    @Query("SELECT c FROM Comanda c WHERE c.mesaId = :mesaId ORDER BY c.fechaHoraApertura DESC")
     public Comanda findLastComandaByMesa(int mesaId);
 
 }
