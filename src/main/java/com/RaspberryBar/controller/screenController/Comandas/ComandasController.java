@@ -1,6 +1,7 @@
 package com.RaspberryBar.controller.screenController.Comandas;
 
 import com.RaspberryBar.config.StageManager;
+import com.RaspberryBar.controller.entitiesController.ImpresoraController;
 import com.RaspberryBar.controller.screenController.Mesas.MesasController;
 import com.RaspberryBar.entities.*;
 import com.RaspberryBar.service.ArticuloService;
@@ -53,6 +54,8 @@ public class ComandasController implements Initializable {
     @FXML
     TextField precioTotal;
 
+    @Autowired
+    ImpresoraController impresoraController;
     @Autowired
     CategoriaService categoriaService;
     @Autowired
@@ -329,6 +332,7 @@ public class ComandasController implements Initializable {
         }
 
         //Imprimir con la impresora
+        impresoraController.imprimirComandas(comanda);
         //TODO
     }
 

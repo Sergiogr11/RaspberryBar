@@ -1,5 +1,7 @@
 package com.RaspberryBar.service;
 
+import java.io.IOException;
+
 public class ImpresoraService {
 
     private static ImpresoraService instance = new ImpresoraService();
@@ -9,6 +11,7 @@ public class ImpresoraService {
 
     private ImpresoraService() {
     }
+
 
     public static ImpresoraService getInstance(){
         return instance;
