@@ -37,7 +37,7 @@ public class ComandaController {
         return comandaService.deleteComanda(comanda);
     }
 
-    @RequestMapping(value="findLastComandaByMesa", method = RequestMethod.DELETE)
+    @RequestMapping(value="findLastComandaByMesa", method = RequestMethod.POST)
     public Comanda findLastComandaByMesa(@RequestBody int mesaId){
         return comandaService.findLastComandaByMesa(mesaId);
     }

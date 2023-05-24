@@ -1,9 +1,8 @@
-/* CSS for app */
 
 .btnGreen{
 	-fx-background-color:  #6b0c0c;
 	-fx-text-fill: #ffffff;
-	-fx-font-style: Verdana;
+	-fx-font-family: Verdana;
     -fx-font-size: 24px;
 }
 
@@ -12,7 +11,7 @@
 }
 
 .userlist{
-    -fx-font-style: Verdana;
+    -fx-font-family: Verdana;
     -fx-font-size: 24px;
 }
 
@@ -32,6 +31,6 @@
 .btnSelected {
     -fx-background-color: #300606;
     -fx-text-fill: #ffffff;
-    -fx-font-style: Verdana;
+    -fx-font-family: Verdana;
     -fx-font-size: 24px;
 }

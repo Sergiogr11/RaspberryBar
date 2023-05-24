@@ -35,4 +35,10 @@ public class LineaComandaController {
     public String deleteLineaComanda(@RequestBody LineaComanda lineaComanda){
         return lineaComandaService.deleteLineaComanda(lineaComanda);
     }
+
+    @RequestMapping(value="findLastLineaComanda", method  = RequestMethod.POST)
+    public int findLastLineaComandabyComandaId(@RequestBody Integer comandaId){
+        return lineaComandaService.findMaxId(comandaId);
+    }
+
 }

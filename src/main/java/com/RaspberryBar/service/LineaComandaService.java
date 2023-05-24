@@ -26,7 +26,7 @@ public class LineaComandaService {
     public String createLineaComanda(LineaComanda lineaComanda){
         LineaComandaId id = lineaComanda.getLineaComandaId();
         if (!lineaComandaRepository.existsById(id)){
-            lineaComanda.getLineaComandaId().setNumeroLinea(null == lineaComandaRepository.findMaxId() ? 1 : lineaComandaRepository.findMaxId() + 1);
+            lineaComanda.getLineaComandaId().setNumeroLinea(null == lineaComandaRepository.findMaxId(lineaComanda.getNumeroComanda()) ? 1 : lineaComandaRepository.findMaxId(lineaComanda.getNumeroComanda()) + 1);
             lineaComandaRepository.save(lineaComanda);
             return "Linea de comanda guardada correctamente.";
         }else {
@@ -70,8 +70,8 @@ public class LineaComandaService {
     }
 
     @Transactional
-    public int findMaxId(){
-        Integer maxId = lineaComandaRepository.findMaxId();
+    public int findMaxId(int comandaId){
+        Integer maxId = lineaComandaRepository.findMaxId(comandaId);
         if(maxId == null){
             maxId = 1;
         }

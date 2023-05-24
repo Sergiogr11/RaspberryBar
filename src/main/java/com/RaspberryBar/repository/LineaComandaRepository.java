@@ -17,14 +17,13 @@ public interface LineaComandaRepository extends JpaRepository<LineaComanda, Line
 
     Optional<LineaComanda> findById(LineaComandaId lineaComandaId);
 
-    @Query("select max(l.lineaComandaId.numeroLinea) from LineaComanda l")
-    Integer findMaxId();
+    @Query("select max(lc.lineaComandaId.numeroLinea) from LineaComanda lc WHERE lc.lineaComandaId.numeroComanda = :numeroComanda")
+    Integer findMaxId(@Param("numeroComanda") int numeroComanda);
 
     @Query("SELECT lc FROM LineaComanda lc WHERE lc.lineaComandaId.numeroComanda = :numeroComanda")
     List<LineaComanda> findAllByNumeroComanda(@Param("numeroComanda") int numeroComanda);
 
     @Query("DELETE FROM LineaComanda l WHERE l.lineaComandaId.numeroComanda = :comandaId")
     void deleteAllByLineaComandaIdNumeroComanda(@Param("comandaId") int comandaId);
-
 
 }

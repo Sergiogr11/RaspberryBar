@@ -262,7 +262,7 @@ public class ComandasController implements Initializable {
         // Obtiene la última Comanda para la mesa seleccionada
         try{
             mesaId = mesasController.mesaSeleccionada.getMesaId();
-            comandaActiva = comandaService.findLastComandaByMesa(mesasController.mesaSeleccionada.getMesaId());
+            comandaActiva = comandaService.findLastComandaByMesa(mesaId);
         }catch (NullPointerException e){
             System.out.println("No hay Comanda activa o Mesa seleccionada");
         }
