@@ -29,6 +29,7 @@ dependencies {
 	implementation 'com.jfoenix:jfoenix:8.0.10'
 	implementation 'org.kordamp.ikonli:ikonli-javafx:2.6.0'
 	implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:2.6.0'
+	implementation 'com.github.anastaciocintra:escpos-coffee:4.1.0'
 }
 
 tasks.named('test') {

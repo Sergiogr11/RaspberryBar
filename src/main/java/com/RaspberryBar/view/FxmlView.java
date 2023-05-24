@@ -215,6 +215,17 @@ public enum FxmlView {
             return "/fxml/cobrar.fxml";
         }
     },
+    CONFIGURACION {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("configuracion.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/configuracion.fxml";
+        }
+    },
     ;
 
     public abstract String getTitle();

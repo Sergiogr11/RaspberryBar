@@ -1,6 +1,7 @@
 package com.RaspberryBar.controller.entitiesController;
 
 import com.RaspberryBar.entities.Comanda;
+import com.RaspberryBar.service.ImpresoraService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,7 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ImpresoraController {
 
-    //Realizo la conexion con las impresoras en otro archivo
+    //Obtengo las impresoras
+    ImpresoraService impresoraService = ImpresoraService.getInstance();
+    String impresoraBarra = impresoraService.getImpresoraBarra();
+    String impresoraCocina = impresoraService.getImpresoraCocina();
+
+    //Realizo la conexion con las impresoras
+
     //Conecto con LineaComandaController
     //Imprimo bebida en barra ()
     //Imprimo comida en cocina ()
