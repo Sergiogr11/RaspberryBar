@@ -2,6 +2,7 @@ package com.RaspberryBar.controller.entitiesController;
 
 import com.RaspberryBar.entities.Categoria;
 import com.RaspberryBar.entities.Comanda;
+import com.RaspberryBar.entities.LineaComanda;
 import com.RaspberryBar.service.CategoriaService;
 import com.RaspberryBar.service.ComandaService;
 import org.springframework.beans.factory.annotation.Autowired;

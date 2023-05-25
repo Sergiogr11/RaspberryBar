@@ -1,6 +1,7 @@
 package com.RaspberryBar.controller.entitiesController;
 
 import com.RaspberryBar.entities.LineaComanda;
+import com.RaspberryBar.entities.LineaComandaDTO;
 import com.RaspberryBar.service.LineaComandaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,9 +37,20 @@ public class LineaComandaController {
         return lineaComandaService.deleteLineaComanda(lineaComanda);
     }
 
-    @RequestMapping(value="findLastLineaComanda", method  = RequestMethod.POST)
-    public int findLastLineaComandabyComandaId(@RequestBody Integer comandaId){
-        return lineaComandaService.findMaxId(comandaId);
+    @RequestMapping(value="findLastLineaComanda", method  = RequestMethod.GET)
+    public int findLastLineaComandabyComandaId(@RequestBody Integer numeroComanda){
+        return lineaComandaService.findMaxId(numeroComanda);
     }
+
+    @RequestMapping(value="findAllByNumeroComanda", method = RequestMethod.GET)
+    public List<LineaComanda> findAllByNumeroComanda(@RequestBody Integer numeroComanda){
+        return lineaComandaService.findAllByNumeroComanda(numeroComanda);
+    }
+
+    @RequestMapping(value="findAllWithNombreArticulo", method = RequestMethod.GET)
+    public List<LineaComandaDTO> findAllWithNombreArticulo(@RequestBody Integer numeroComanda){
+        return lineaComandaService.findAllWithNombreArticulo(numeroComanda);
+    }
+
 
 }

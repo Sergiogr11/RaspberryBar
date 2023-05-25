@@ -1,6 +1,7 @@
 package com.RaspberryBar.repository;
 
 import com.RaspberryBar.entities.LineaComanda;
+import com.RaspberryBar.entities.LineaComandaDTO;
 import com.RaspberryBar.entities.LineaComandaId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +24,13 @@ public interface LineaComandaRepository extends JpaRepository<LineaComanda, Line
     @Query("SELECT lc FROM LineaComanda lc WHERE lc.lineaComandaId.numeroComanda = :numeroComanda")
     List<LineaComanda> findAllByNumeroComanda(@Param("numeroComanda") int numeroComanda);
 
-    @Query("DELETE FROM LineaComanda l WHERE l.lineaComandaId.numeroComanda = :comandaId")
-    void deleteAllByLineaComandaIdNumeroComanda(@Param("comandaId") int comandaId);
+    @Query("DELETE FROM LineaComanda l WHERE l.lineaComandaId.numeroComanda = :numeroComanda")
+    void deleteAllByLineaComandaIdNumeroComanda(@Param("numeroComanda") int numeroComanda);
+
+    @Query("SELECT new com.RaspberryBar.entities.LineaComandaDTO(lc, a.nombreArticulo) " +
+            "FROM LineaComanda lc " +
+            "JOIN Articulo a ON lc.articuloId = a.articuloId " +
+            "WHERE lc.lineaComandaId.numeroComanda = :numeroComanda")
+    List<LineaComandaDTO> findAllWithNombreArticulo(@Param("numeroComanda") int numeroComanda);
 
 }

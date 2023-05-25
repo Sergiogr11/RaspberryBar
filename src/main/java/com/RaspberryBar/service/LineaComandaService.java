@@ -2,6 +2,7 @@ package com.RaspberryBar.service;
 
 import com.RaspberryBar.entities.Comanda;
 import com.RaspberryBar.entities.LineaComanda;
+import com.RaspberryBar.entities.LineaComandaDTO;
 import com.RaspberryBar.entities.LineaComandaId;
 import com.RaspberryBar.repository.ComandaRepository;
 import com.RaspberryBar.repository.LineaComandaRepository;
@@ -85,8 +86,13 @@ public class LineaComandaService {
 
     @Modifying
     @Transactional
-    public void deleteAllByComanda(int comandaId){
-        lineaComandaRepository.deleteAllByLineaComandaIdNumeroComanda(comandaId);
+    public void deleteAllByComanda(int numeroComanda){
+        lineaComandaRepository.deleteAllByLineaComandaIdNumeroComanda(numeroComanda);
+    }
+
+    @Transactional
+    public List<LineaComandaDTO> findAllWithNombreArticulo(int numeroComanda){
+        return lineaComandaRepository.findAllWithNombreArticulo(numeroComanda);
     }
 
 }
