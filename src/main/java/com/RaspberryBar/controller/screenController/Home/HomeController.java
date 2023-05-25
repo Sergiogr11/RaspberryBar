@@ -51,6 +51,11 @@ public class HomeController implements Initializable {
         stageManager.switchScene(FxmlView.MESAS);
     }
 
+    @FXML
+    private void entrarConfiguracion(ActionEvent event) throws IOException {
+        stageManager.switchScene(FxmlView.CONFIGURACION);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }

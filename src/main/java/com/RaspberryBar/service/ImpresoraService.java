@@ -12,7 +12,6 @@ public class ImpresoraService {
     private ImpresoraService() {
     }
 
-
     public static ImpresoraService getInstance(){
         return instance;
     }
