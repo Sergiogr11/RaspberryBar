@@ -45,7 +45,7 @@
                </font>
             </Text>
             <JFXComboBox fx:id="comboBoxImpCocina" layoutX="650.0" layoutY="59.0" prefHeight="51.0" prefWidth="416.0" styleClass="userlist" stylesheets="@../styles/Styles.css" />
-            <JFXButton fx:id="btnConfRestaurante" layoutX="1344.0" layoutY="-2.0" prefHeight="149.0" prefWidth="360.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Configuración Restaurante">
+            <JFXButton fx:id="btnConfRestaurante" onAction="#entrarConfiguracionRestaurante" layoutX="1344.0" layoutY="-2.0" prefHeight="149.0" prefWidth="360.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Configuración Restaurante">
                <font>
                   <Font size="18.0" />
                </font>

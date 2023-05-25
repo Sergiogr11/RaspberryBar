@@ -8,6 +8,7 @@ public class Restaurante{
 
     @Id
     private int restauranteId;
+    private String nombre;
     private String tipoImpositivo;
     private String cif;
     private String direccion;
@@ -16,13 +17,15 @@ public class Restaurante{
     /**
      * Constructor para la clase backend.entities.Restaurante
      * @param restauranteId Identificador unico restaurante
+     * @param nombre Nombre del restaurante
      * @param tipoImpositivo Porcentaje establecido para operaciones comerciales
      * @param cif Codigo de identificacion fiscal restaurante
      * @param direccion Direccion postal del restaurante
      * @param telefono Telefono movil del restaurante
      */
-    public Restaurante(int restauranteId, String tipoImpositivo, String cif, String direccion, String telefono) {
+    public Restaurante(int restauranteId, String nombre, String tipoImpositivo, String cif, String direccion, String telefono) {
         this.restauranteId = restauranteId;
+        this.nombre = nombre;
         this.tipoImpositivo = tipoImpositivo;
         this.cif = cif;
         this.direccion = direccion;
@@ -37,6 +40,14 @@ public class Restaurante{
 
     public void setRestauranteId(int restauranteId) {
         this.restauranteId = restauranteId;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getTipoImpositivo() {

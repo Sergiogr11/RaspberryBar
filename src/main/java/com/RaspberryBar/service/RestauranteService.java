@@ -38,15 +38,14 @@ public class RestauranteService {
     public String updateRestaurante(Restaurante restaurante){
         if (restauranteRepository.existsById(restaurante.getRestauranteId())){
             try {
-
                 List<Restaurante> restaurantes = restauranteRepository.findById(restaurante.getRestauranteId());
                 restaurantes.stream().forEach(s -> {
                     Restaurante restauranteToBeUpdate = restauranteRepository.findById(s.getRestauranteId()).get(0);
-                    restauranteToBeUpdate.setRestauranteId(s.getRestauranteId());
-                    restauranteToBeUpdate.setCif(s.getCif());
-                    restauranteToBeUpdate.setDireccion(s.getDireccion());
-                    restauranteToBeUpdate.setTelefono(s.getTelefono());
-                    restauranteToBeUpdate.setTipoImpositivo(s.getTipoImpositivo());
+                    restauranteToBeUpdate.setRestauranteId(restaurante.getRestauranteId());
+                    restauranteToBeUpdate.setCif(restaurante.getCif());
+                    restauranteToBeUpdate.setDireccion(restaurante.getDireccion());
+                    restauranteToBeUpdate.setTelefono(restaurante.getTelefono());
+                    restauranteToBeUpdate.setTipoImpositivo(restaurante.getTipoImpositivo());
 
                     restauranteRepository.save(restauranteToBeUpdate);
                 });

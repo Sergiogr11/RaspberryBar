@@ -18,6 +18,7 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.Attribute;
 import javax.print.attribute.standard.PrinterName;
+import javax.swing.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
@@ -34,8 +35,6 @@ public class ConfiguracionController implements Initializable {
     @FXML
     private JFXTextField ipServer;
     @FXML
-    private JFXButton btnConfRestaurante;
-    @FXML
     private JFXComboBox<String> comboBoxImpBarra;
     @FXML
     private JFXComboBox<String> comboBoxImpCocina;
@@ -49,6 +48,11 @@ public class ConfiguracionController implements Initializable {
         impresoraService.setImpresoraCocina(comboBoxImpCocina.getValue());
 
         stageManager.switchScene(FxmlView.HOME);
+    }
+
+    @FXML
+    private void entrarConfiguracionRestaurante(ActionEvent event) throws IOException{
+        stageManager.switchScene(FxmlView.CONFIGURACIONRTE);
     }
 
     @Override

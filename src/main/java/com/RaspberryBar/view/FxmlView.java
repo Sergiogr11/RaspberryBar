@@ -226,6 +226,17 @@ public enum FxmlView {
             return "/fxml/configuracion.fxml";
         }
     },
+    CONFIGURACIONRTE {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("configuracionRestaurante.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/configuracionRestaurante.fxml";
+        }
+    },
     ;
 
     public abstract String getTitle();
