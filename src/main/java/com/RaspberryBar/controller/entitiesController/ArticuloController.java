@@ -50,4 +50,9 @@ public class ArticuloController {
     public List<Articulo> findArticulosbyCategoria(@PathVariable("categoriaId") int categoriaId) {
         return articuloService.findArticulosbyCategoria(categoriaId);
     }
+
+    @RequestMapping(value="findArticulo/{articuloId}", method = RequestMethod.GET)
+    public Articulo findArticulo(@PathVariable("articuloId") int articuloId) {
+        return articuloService.findArticulo(articuloId);
+    }
 }

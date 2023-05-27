@@ -3,6 +3,7 @@ package com.RaspberryBar.repository;
 import com.RaspberryBar.entities.Comanda;
 import com.RaspberryBar.entities.Factura;
 import com.RaspberryBar.entities.Mesa;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,7 +21,7 @@ public interface ComandaRepository extends JpaRepository<Comanda, Integer> {
     @Query("select max(c.id) from Comanda c")
     public Integer findMaxId();
 
-    @Query("SELECT c FROM Comanda c WHERE c.mesaId = :mesaId ORDER BY c.fechaHoraApertura DESC")
-    public Comanda findLastComandaByMesa(int mesaId);
+    @Query("SELECT c FROM Comanda c WHERE c.mesaId = :mesaId ORDER BY c.fechaHoraApertura DESC, c.numeroComanda DESC")
+    public List<Comanda> findLastComandaByMesa(@Param("mesaId") int mesaId, Pageable pageable);
 
 }

@@ -6,6 +6,7 @@ import com.RaspberryBar.entities.Mesa;
 import com.RaspberryBar.repository.ComandaRepository;
 import com.RaspberryBar.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -103,6 +104,7 @@ public class ComandaService {
 
     @Transactional
     public Comanda findLastComandaByMesa(int mesaId) {
-        return comandaRepository.findLastComandaByMesa(mesaId);
+        PageRequest pageRequest = PageRequest.of(0, 1);
+        return comandaRepository.findLastComandaByMesa(mesaId, pageRequest).get(0);
     }
 }

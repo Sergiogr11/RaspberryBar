@@ -54,7 +54,32 @@ public class ImpresoraController {
 
         String impresoraBarra = impresoraService.getImpresoraBarra();
         String impresoraCocina = impresoraService.getImpresoraCocina();
+        PrintService printServiceBar = PrinterOutputStream.getPrintServiceByName(impresoraBarra);
+        PrinterOutputStream printerOutputStreamBar = new PrinterOutputStream(printServiceBar);
+        EscPos escpos = new EscPos(printerOutputStreamBar);
 
+        //Obtengo las lineas de comanda
+        lineaComandaList = lineaComandaService.findAllByNumeroComanda(comanda.getNumeroComanda());
+
+        escpos.writeLF("Mesa :" + comanda.getMesaId());
+        escpos.feed(1);
+        for (LineaComanda lineaComanda : lineaComandaList){
+            String articuloName = articuloService.findNombrebyId(lineaComanda.getArticuloId());
+            escpos.writeLF(lineaComanda.getCantidad() + "---------" + articuloName);
+        }
+        escpos.feed(1).cut(EscPos.CutMode.FULL);
+        escpos.close();
+
+        return "Comanda impresa correctamente";
+    }
+
+    @RequestMapping(value="imprimirBebidayComida", method  = RequestMethod.POST)
+    public String imprimirBebidayComida(@RequestBody Comanda comanda) throws IOException {
+
+        //TODO
+
+        String impresoraBarra = impresoraService.getImpresoraBarra();
+        String impresoraCocina = impresoraService.getImpresoraCocina();
         PrintService printServiceBar = PrinterOutputStream.getPrintServiceByName(impresoraBarra);
         PrinterOutputStream printerOutputStreamBar = new PrinterOutputStream(printServiceBar);
         EscPos escpos = new EscPos(printerOutputStreamBar);

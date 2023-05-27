@@ -47,7 +47,7 @@ public class LineaComandaController {
         return lineaComandaService.findAllByNumeroComanda(numeroComanda);
     }
 
-    @RequestMapping(value="findAllWithNombreArticulo", method = RequestMethod.GET)
+    @RequestMapping(value="findAllWithNombreArticulo", method = RequestMethod.POST)
     public List<LineaComandaDTO> findAllWithNombreArticulo(@RequestBody Integer numeroComanda){
         return lineaComandaService.findAllWithNombreArticulo(numeroComanda);
     }

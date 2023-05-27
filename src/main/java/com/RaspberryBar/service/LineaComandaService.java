@@ -43,16 +43,16 @@ public class LineaComandaService {
     public String updateLineaComanda(LineaComanda lineaComanda){
         LineaComandaId id = lineaComanda.getLineaComandaId();
         if (lineaComandaRepository.existsById(id)){
-            List<LineaComanda> lineaComandas = lineaComandaRepository.findAll();
-            lineaComandas.stream().forEach(s -> {
-                LineaComanda lineaComandaToBeUpdate = lineaComandaRepository.findById(s.getLineaComandaId()).get();
-                lineaComandaToBeUpdate.setLineaComandaId(s.getLineaComandaId());
-                lineaComandaToBeUpdate.setCantidad(s.getCantidad());
-                lineaComandaToBeUpdate.setPrecio(s.getPrecio());
-                lineaComandaToBeUpdate.setArticuloId(s.getArticuloId());
+            LineaComanda lineaComandaToBeUpdate = lineaComandaRepository.findById(id).orElse(null);
+            if(lineaComandaToBeUpdate != null) {
+                lineaComandaToBeUpdate.setCantidad(lineaComanda.getCantidad());
+                lineaComandaToBeUpdate.setPrecio(lineaComanda.getPrecio());
+                lineaComandaToBeUpdate.setArticuloId(lineaComanda.getArticuloId());
                 lineaComandaRepository.save(lineaComandaToBeUpdate);
-            });
-            return "Linea Comanda actualizada correctamente.";
+                return "Linea Comanda actualizada correctamente.";
+            } else {
+                return "Error al obtener Linea Comanda para actualizar.";
+            }
         }else {
             return "La Linea de Comanda no existe.";
         }

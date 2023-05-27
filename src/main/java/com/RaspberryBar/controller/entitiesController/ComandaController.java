@@ -6,10 +6,8 @@ import com.RaspberryBar.entities.LineaComanda;
 import com.RaspberryBar.service.CategoriaService;
 import com.RaspberryBar.service.ComandaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,8 +36,8 @@ public class ComandaController {
         return comandaService.deleteComanda(comanda);
     }
 
-    @RequestMapping(value="findLastComandaByMesa", method = RequestMethod.POST)
-    public Comanda findLastComandaByMesa(@RequestBody int mesaId){
+    @RequestMapping(value="findLastComandaByMesa/{mesaId}", method = RequestMethod.GET)
+    public Comanda findLastComandaByMesa(@PathVariable("mesaId") int mesaId){
         return comandaService.findLastComandaByMesa(mesaId);
     }
 
