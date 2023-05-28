@@ -27,11 +27,6 @@ public class FacturaController {
         return facturaService.readFacturas();
     }
 
-    @RequestMapping(value="updateFactura", method = RequestMethod.PUT)
-    public String updateFactura(@RequestBody Factura factura){
-        return facturaService.updateFactura(factura);
-    }
-
     @RequestMapping(value="deleteFactura", method = RequestMethod.DELETE)
     public String deleteFactura(@RequestBody Factura factura){
         return facturaService.deleteFactura(factura);

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Factura{
     @Id
     private int numeroFactura;
-    private String fechaEmision;
+    private long fechaEmision;
     private String nombreReceptor;
     private String dniReceptor;
     private float baseImponible;
@@ -26,7 +26,7 @@ public class Factura{
      * @param restauranteId Identificador del restaurante asociado
      * @param comandaId Identificador de la comanda asociada
      */
-    public Factura(int numeroFactura, String fechaEmision, String nombreReceptor, String dniReceptor, float baseImponible, float importeTotal, int restauranteId, int comandaId) {
+    public Factura(int numeroFactura, long fechaEmision, String nombreReceptor, String dniReceptor, float baseImponible, float importeTotal, int restauranteId, int comandaId) {
         this.numeroFactura = numeroFactura;
         this.fechaEmision = fechaEmision;
         this.nombreReceptor = nombreReceptor;
@@ -46,14 +46,14 @@ public class Factura{
     }
 
     public void setNumeroFactura(int numeroFactura) {
-        this.fechaEmision = fechaEmision;
+        this.numeroFactura = numeroFactura;
     }
 
-    public String getFechaEmision() {
+    public long getFechaEmision() {
         return fechaEmision;
     }
 
-    public void setFechaEmision(String fechaEmision) {
+    public void setFechaEmision(long fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 

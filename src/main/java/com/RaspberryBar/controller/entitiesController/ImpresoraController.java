@@ -1,6 +1,7 @@
 package com.RaspberryBar.controller.entitiesController;
 
 import com.RaspberryBar.entities.Comanda;
+import com.RaspberryBar.entities.Factura;
 import com.RaspberryBar.entities.LineaComanda;
 import com.RaspberryBar.service.ArticuloService;
 import com.RaspberryBar.service.ImpresoraService;
@@ -94,6 +95,30 @@ public class ImpresoraController {
 
 
     public String imprimirBalanceVentas(List<Comanda> comandasList) throws IOException {
+/*
+        String impresoraBarra = impresoraService.getImpresoraBarra();
+        String impresoraCocina = impresoraService.getImpresoraCocina();
+        PrintService printServiceBar = PrinterOutputStream.getPrintServiceByName(impresoraBarra);
+        PrinterOutputStream printerOutputStreamBar = new PrinterOutputStream(printServiceBar);
+        EscPos escpos = new EscPos(printerOutputStreamBar);
+
+
+        escpos.writeLF("Mesa :" + comanda.getMesaId());
+        escpos.feed(1);
+        for (LineaComanda lineaComanda : lineaComandaList){
+            String articuloName = articuloService.findNombrebyId(lineaComanda.getArticuloId());
+            escpos.writeLF(lineaComanda.getCantidad() + "---------" + articuloName);
+        }
+        escpos.feed(1).cut(EscPos.CutMode.FULL);
+        escpos.close();
+
+
+ */
+        return "Comanda impresa correctamente";
+    }
+
+
+    public String imprimirFactura(Factura factura) throws IOException {
 /*
         String impresoraBarra = impresoraService.getImpresoraBarra();
         String impresoraCocina = impresoraService.getImpresoraCocina();
