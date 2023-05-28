@@ -38,7 +38,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void entrarFacturacion(ActionEvent event) throws IOException {
-        //stageManager.switchScene(FxmlView.FACTURACION);
+        stageManager.switchScene(FxmlView.FACTURACION);
     }
 
     @FXML

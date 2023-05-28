@@ -248,6 +248,17 @@ public enum FxmlView {
             return "/fxml/balanceVentas.fxml";
         }
     },
+    FACTURACION {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("facturacion.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/facturacion.fxml";
+        }
+    },
     CREARFACTURAS {
         @Override
         public String getTitle() {
