@@ -33,4 +33,6 @@ public interface LineaComandaRepository extends JpaRepository<LineaComanda, Line
             "WHERE lc.lineaComandaId.numeroComanda = :numeroComanda")
     List<LineaComandaDTO> findAllWithNombreArticulo(@Param("numeroComanda") int numeroComanda);
 
+
+
 }

@@ -33,9 +33,6 @@ public class ImpresoraController {
 
      List<LineaComanda> lineaComandaList;
 
-    //Conecto con LineaComandaController
-    // Imprimo bebida en barra ()
-    //Imprimo comida en cocina ()
 
     //LO QUE QUERIA HACER
     //Obtener lista lineas de comanda
@@ -80,6 +77,10 @@ public class ImpresoraController {
 
         //Obtengo las lineas de comanda
         lineaComandaList = lineaComandaService.findAllByNumeroComanda(comanda.getNumeroComanda());
+
+
+
+
 
         escpos.writeLF("Mesa :" + comanda.getMesaId());
         escpos.feed(1);
@@ -135,9 +136,9 @@ public class ImpresoraController {
         }
         escpos.feed(1).cut(EscPos.CutMode.FULL);
         escpos.close();
-
-
  */
+
+        System.out.println(factura);
         return "Comanda impresa correctamente";
     }
 

@@ -82,13 +82,15 @@ public class CrearFacturaController implements Initializable {
         //Obtengo base imponible respecto al iva y al importe total
         int iva = Integer.parseInt(restaurante.getTipoImpositivo());
         float baseImponible = importeTotal - (importeTotal * iva/100);
+        float baseImponibleRedondeada = Math.round(baseImponible * 100) / 100f;
+
 
         //Creamos la factura en la base de datos
         Factura factura = new Factura();
         factura.setFechaEmision(fechaEmision);
         factura.setNombreReceptor(nombreReceptor);
         factura.setDniReceptor(dniReceptor);
-        factura.setBaseImponible(baseImponible);
+        factura.setBaseImponible(baseImponibleRedondeada);
         factura.setImporteTotal(importeTotal);
         factura.setRestauranteId(restauranteId);
         factura.setComandaId(comandaId);
