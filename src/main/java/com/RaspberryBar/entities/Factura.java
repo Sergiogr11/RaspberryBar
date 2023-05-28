@@ -8,10 +8,10 @@ public class Factura{
     @Id
     private int numeroFactura;
     private String fechaEmision;
-    private String datosReceptor;
+    private String nombreReceptor;
+    private String dniReceptor;
     private float baseImponible;
     private float importeTotal;
-    private String registroMercantil;
     private int restauranteId;
     private int comandaId;
 
@@ -19,23 +19,25 @@ public class Factura{
      * Constructor para la clase backend.entities.Factura
      * @param numeroFactura Identificador unico backend.entities.Factura
      * @param fechaEmision Fecha emision
-     * @param datosReceptor Datos del receptor
+     * @param nombreReceptor Nombre completo del receptor
+     * @param dniReceptor DNI o CIF del receptor
      * @param baseImponible Precio total sin IVA
      * @param importeTotal Importe total con el IVA sumado
-     * @param registroMercantil Identificador del registro mercantil
      * @param restauranteId Identificador del restaurante asociado
      * @param comandaId Identificador de la comanda asociada
      */
-    public Factura(int numeroFactura, String fechaEmision, String datosReceptor, float baseImponible, float importeTotal, String registroMercantil, int restauranteId, int comandaId) {
+    public Factura(int numeroFactura, String fechaEmision, String nombreReceptor, String dniReceptor, float baseImponible, float importeTotal, int restauranteId, int comandaId) {
         this.numeroFactura = numeroFactura;
         this.fechaEmision = fechaEmision;
-        this.datosReceptor = datosReceptor;
+        this.nombreReceptor = nombreReceptor;
+        this.dniReceptor = dniReceptor;
         this.baseImponible = baseImponible;
         this.importeTotal = importeTotal;
-        this.registroMercantil = registroMercantil;
         this.restauranteId = restauranteId;
         this.comandaId = comandaId;
     }
+
+
 
     public Factura(){}
 
@@ -55,12 +57,20 @@ public class Factura{
         this.fechaEmision = fechaEmision;
     }
 
-    public String getDatosReceptor() {
-        return datosReceptor;
+    public String getNombreReceptor() {
+        return nombreReceptor;
     }
 
-    public void setDatosReceptor(String datosReceptor) {
-        this.datosReceptor = datosReceptor;
+    public void setNombreReceptor(String nombreReceptor) {
+        this.nombreReceptor = nombreReceptor;
+    }
+
+    public String getDniReceptor() {
+        return dniReceptor;
+    }
+
+    public void setDniReceptor(String dniReceptor) {
+        this.dniReceptor = dniReceptor;
     }
 
     public float getBaseImponible() {
@@ -77,14 +87,6 @@ public class Factura{
 
     public void setImporteTotal(float importeTotal) {
         this.importeTotal = importeTotal;
-    }
-
-    public String getRegistroMercantil() {
-        return registroMercantil;
-    }
-
-    public void setRegistroMercantil(String registroMercantil) {
-        this.registroMercantil = registroMercantil;
     }
 
     public int getRestauranteId() {
