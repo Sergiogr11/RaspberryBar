@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.print.Printer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
@@ -35,9 +36,14 @@ public class ConfiguracionController implements Initializable {
     @FXML
     private JFXTextField ipServer;
     @FXML
+    private JFXTextField port;
+    @FXML
     private JFXComboBox<String> comboBoxImpBarra;
     @FXML
     private JFXComboBox<String> comboBoxImpCocina;
+
+    @Value("${server.port}")
+    private String serverPort;
 
 
     @FXML
@@ -62,6 +68,8 @@ public class ConfiguracionController implements Initializable {
             String localIpAddress = InetAddress.getLocalHost().getHostAddress();
             // Establece la dirección IP en el campo de texto
             ipServer.setText(localIpAddress);
+            //Establezco el puerto en el campo de texto
+            port.setText(serverPort);
 
             // Obtengo la lista de servicios de impresión disponibles
             PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);

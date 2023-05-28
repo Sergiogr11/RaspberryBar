@@ -24,4 +24,6 @@ public interface ComandaRepository extends JpaRepository<Comanda, Integer> {
     @Query("SELECT c FROM Comanda c WHERE c.mesaId = :mesaId ORDER BY c.fechaHoraApertura DESC, c.numeroComanda DESC")
     public List<Comanda> findLastComandaByMesa(@Param("mesaId") int mesaId, Pageable pageable);
 
+    @Query("SELECT c FROM Comanda c WHERE c.fechaHoraCierre BETWEEN :inicio AND :fin")
+    List<Comanda> findComandasByFechaHoraCierreBetween(@Param("inicio") long inicio, @Param("fin") long fin);
 }

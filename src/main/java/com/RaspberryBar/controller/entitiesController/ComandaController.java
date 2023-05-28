@@ -45,4 +45,11 @@ public class ComandaController {
     public Integer findMaxIdComanda(){
         return comandaService.findMaxId();
     }
+
+    @RequestMapping(value="findComandasByFechaHoraCierreBetween", method = RequestMethod.GET)
+    public List<Comanda> comandasDelDia(long fechaInicio, long fechaFin) {
+        // Buscar las comandas del día
+        return comandaService.findComandasByFechaHoraCierreBetween(fechaInicio, fechaFin);
+    }
+
 }

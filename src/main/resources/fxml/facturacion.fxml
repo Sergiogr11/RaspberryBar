@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Facturacion.FacturacionController">
+   <children>
+      <AnchorPane prefHeight="190.0" prefWidth="600.0" styleClass="background" stylesheets="@../styles/Styles.css">
+         <children>
+            <Label layoutX="30.0" layoutY="50.0" text="Facturación" textFill="WHITE">
+               <font>
+                  <Font name="Pristina" size="48.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnVolver" layoutX="1689.0" layoutY="60.0" onAction="#volver" prefHeight="79.0" prefWidth="154.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Home">
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="889.0" prefWidth="1920.0">
+         <children>
+            <JFXButton fx:id="btnResumenCaja"  alignment="CENTER" contentDisplay="CENTER" layoutX="571.0" layoutY="60.0" onAction="#resumenCajaDiario" prefHeight="219.0" prefWidth="789.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Resumen caja diario" AnchorPane.leftAnchor="571.0" AnchorPane.rightAnchor="560.0" />
+            <JFXButton fx:id="btnVentaFechas" alignment="CENTER" contentDisplay="CENTER" layoutX="571.0" layoutY="332.0" onAction="#entrarBalanceVentas" prefHeight="219.0" prefWidth="789.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Balance ventas entre fechas" />
+            <JFXButton fx:id="btnCrearFactura" alignment="CENTER" contentDisplay="CENTER" layoutX="575.0" layoutY="608.0" onAction="#entrarCrearFactura" prefHeight="219.0" prefWidth="789.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Crear Factura" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

@@ -45,7 +45,7 @@
                </font>
             </Text>
             <JFXComboBox fx:id="comboBoxImpCocina" layoutX="650.0" layoutY="59.0" prefHeight="51.0" prefWidth="416.0" styleClass="userlist" stylesheets="@../styles/Styles.css" />
-            <JFXButton fx:id="btnConfRestaurante" onAction="#entrarConfiguracionRestaurante" layoutX="1344.0" layoutY="-2.0" prefHeight="149.0" prefWidth="360.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Configuración Restaurante">
+            <JFXButton fx:id="btnConfRestaurante" layoutX="1344.0" layoutY="-2.0" onAction="#entrarConfiguracionRestaurante" prefHeight="149.0" prefWidth="360.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Configuración Restaurante">
                <font>
                   <Font size="18.0" />
                </font>
@@ -60,10 +60,20 @@
                   <Font name="Verdana" size="36.0" />
                </font>
             </Text>
-            <JFXTextField fx:id="ipServer" editable="false" layoutX="645.0" layoutY="28.0" prefHeight="65.0" prefWidth="433.0" styleClass="userlist" stylesheets="@../styles/Styles.css" />
+            <JFXTextField fx:id="ipServer" alignment="CENTER" editable="false" layoutX="645.0" layoutY="28.0" prefHeight="65.0" prefWidth="433.0" styleClass="userlist" stylesheets="@../styles/Styles.css" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="62.0" prefWidth="1920.0" />
+      <AnchorPane prefHeight="130.0" prefWidth="1920.0">
+         <children>
+            <Text layoutX="152.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puerto" wrappingWidth="453.6708984375">
+               <font>
+                  <Font name="Verdana" size="36.0" />
+               </font>
+            </Text>
+            <JFXTextField fx:id="port" alignment="CENTER" editable="false" layoutX="645.0" layoutY="28.0" prefHeight="65.0" prefWidth="433.0" styleClass="userlist" stylesheets="@../styles/Styles.css" />
+         </children>
+      </AnchorPane>
       <AnchorPane prefHeight="130.0" prefWidth="1920.0" />
    </children>
 </VBox>

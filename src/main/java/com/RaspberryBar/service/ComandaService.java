@@ -107,4 +107,9 @@ public class ComandaService {
         PageRequest pageRequest = PageRequest.of(0, 1);
         return comandaRepository.findLastComandaByMesa(mesaId, pageRequest).get(0);
     }
+
+    @Transactional
+    public List<Comanda> findComandasByFechaHoraCierreBetween(long inicio, long fin) {
+        return comandaRepository.findComandasByFechaHoraCierreBetween(inicio, fin);
+    }
 }
