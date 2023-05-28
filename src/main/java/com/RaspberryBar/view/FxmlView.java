@@ -256,7 +256,8 @@ public enum FxmlView {
 
         @Override
         public String getFxmlFile() {
-            return "/fxml/facturacion.fxml";
+            return "/fxml/facturacion.fxml" +
+                    "";
         }
     },
     CREARFACTURAS {

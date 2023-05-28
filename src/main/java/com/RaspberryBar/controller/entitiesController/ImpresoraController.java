@@ -1,22 +1,17 @@
 package com.RaspberryBar.controller.entitiesController;
 
-import com.RaspberryBar.entities.Articulo;
 import com.RaspberryBar.entities.Comanda;
 import com.RaspberryBar.entities.LineaComanda;
 import com.RaspberryBar.service.ArticuloService;
 import com.RaspberryBar.service.ImpresoraService;
 import com.RaspberryBar.service.LineaComandaService;
 import com.github.anastaciocintra.escpos.EscPos;
-import com.github.anastaciocintra.escpos.EscPosConst;
 import com.github.anastaciocintra.output.PrinterOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.github.anastaciocintra.escpos.EscPos;
-import com.github.anastaciocintra.output.PrinterOutputStream;
-
 import javax.print.PrintService;
 import java.io.IOException;
 import java.util.List;
