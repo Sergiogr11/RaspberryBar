@@ -49,13 +49,13 @@ public class ComandaService {
                 List<Comanda> comandas = comandaRepository.findById(comanda.getNumeroComanda());
                 comandas.stream().forEach(s -> {
                     Comanda comandaToBeUpdate = comandaRepository.findById(s.getNumeroComanda()).get(0);
-                    comandaToBeUpdate.setNumeroComanda(s.getNumeroComanda());
-                    comandaToBeUpdate.setMesaId(s.getMesaId());
-                    comandaToBeUpdate.setNumeroComensales(s.getNumeroComanda());
-                    comandaToBeUpdate.setFechaHoraApertura(s.getFechaHoraApertura());
-                    comandaToBeUpdate.setFechaHoraCierre(s.getFechaHoraCierre());
-                    comandaToBeUpdate.setPrecioTotal(s.getPrecioTotal());
-                    comandaToBeUpdate.setUsuarioId(s.getUsuarioId());
+                    comandaToBeUpdate.setNumeroComanda(comanda.getNumeroComanda());
+                    comandaToBeUpdate.setMesaId(comanda.getMesaId());
+                    comandaToBeUpdate.setNumeroComensales(comanda.getNumeroComanda());
+                    comandaToBeUpdate.setFechaHoraApertura(comanda.getFechaHoraApertura());
+                    comandaToBeUpdate.setFechaHoraCierre(comanda.getFechaHoraCierre());
+                    comandaToBeUpdate.setPrecioTotal(comanda.getPrecioTotal());
+                    comandaToBeUpdate.setUsuarioId(comanda.getUsuarioId());
 
                     comandaRepository.save(comandaToBeUpdate);
                 });
