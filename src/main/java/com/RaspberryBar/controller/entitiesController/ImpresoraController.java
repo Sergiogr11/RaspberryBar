@@ -1,9 +1,6 @@
 package com.RaspberryBar.controller.entitiesController;
 
-import com.RaspberryBar.entities.Comanda;
-import com.RaspberryBar.entities.Factura;
-import com.RaspberryBar.entities.LineaComanda;
-import com.RaspberryBar.entities.LineaComandaDTO;
+import com.RaspberryBar.entities.*;
 import com.RaspberryBar.service.*;
 import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.EscPosConst;
@@ -25,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class ImpresoraController {
@@ -40,9 +38,11 @@ public class ImpresoraController {
      @Autowired
      MesaService mesaService;
      @Autowired
-     ArticuloService articuloService;
-     @Autowired
      UsuarioService usuarioService;
+     @Autowired
+     RestauranteService restauranteService;
+     @Autowired
+     ComandaService comandaService;
 
     private EscPos configurePrinter(String printerName) throws IOException {
         PrintService printService = PrinterOutputStream.getPrintServiceByName(printerName);
@@ -50,26 +50,116 @@ public class ImpresoraController {
         return new EscPos(printerOutputStream);
     }
 
-    public String imprimirComandas(Comanda comanda) throws IOException {
+    @RequestMapping(value="imprimirComandas", method  = RequestMethod.POST)
+    public String imprimirComandas(@RequestBody Comanda comanda) throws IOException {
 
+        int comandaId = comanda.getNumeroComanda();
+
+        //Inicializo impresora
         String impresoraBarra = impresoraService.getImpresoraBarra();
-        EscPos escpos = configurePrinter(impresoraBarra);
+        EscPos escposBarra = configurePrinter(impresoraBarra);
 
-        //Obtengo las lineas de comanda
-        //lineaComandaList = lineaComandaService.findAllByNumeroComanda(comanda.getNumeroComanda());
+        //Obtengo info del restaurante
+        Restaurante restaurante = restauranteService.readRestaurante().get(0);
+        String nombreRestaurante = restaurante.getNombre();
+        String direccionRestaurante = restaurante.getDireccion();
+        String cifRestaurante = restaurante.getCif();
+        String telefonoRestaurante = restaurante.getTelefono();
 
-        escpos.writeLF("Mesa :" + comanda.getMesaId());
-        escpos.feed(1);
-        /*
-        for (LineaComanda lineaComanda : lineaComandaList){
-            String articuloName = articuloService.findNombrebyId(lineaComanda.getArticuloId());
-            escpos.writeLF(lineaComanda.getCantidad() + "---------" + articuloName);
+        //Obtengo el nombre de la mesa
+        String nombreMesa = mesaService.findMesa(comanda.getMesaId()).getNombreMesa();
+
+        //Obtengo el camarero asociado a la mesa
+        String nombreCamarero = usuarioService.findUsuarioById(comanda.getUsuarioId()).getUsername();
+
+        //Obtengo la fechaApertura y fechaCierre de la comanda
+        long fechaApertura = comanda.getFechaHoraApertura();
+        long fechaCierre = comanda.getFechaHoraCierre();
+        //Creo un objeto date con las horas
+        Date fechaAp = new Date(fechaApertura);
+        Date fechaCi = new Date(fechaApertura);
+        // Formatear la horaCierre en un formato legible
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+        // Formatear la fecha para mostrar solamente la hora en formato "hh:mm"
+        String horaApertura = formatoHora.format(fechaAp);
+        String horaCierre = formatoHora.format(fechaCi);
+
+        //Obtengo el numero de comanda
+        String numeroTicket = String.valueOf(comanda.getNumeroComanda());
+
+        //Obtengo el total de la comanda
+        double precioTotal = comanda.getPrecioTotal();
+
+        List<LineaComandaDTO> lineaComandaTotal = lineaComandaService.findAllWithNombreArticulo(comandaId);
+
+
+        String indicativo = "               Cant.    Importe";
+        String precioTotalFormateado = String.format("%.2f", precioTotal);
+
+        //Procedemos a imprimir el ticket
+        //Procedemos a imprimir en la impresora de cocina
+        Style title = new Style()
+                .setFontName(Style.FontName.Font_B)
+                .setFontSize(Style.FontSize._2, Style.FontSize._2)
+                .setJustification(EscPosConst.Justification.Center);
+
+        Style subtitle = new Style()
+                .setFontSize(Style.FontSize._1, Style.FontSize._1)
+                .setFontName(Style.FontName.Font_B)
+                .setJustification(EscPosConst.Justification.Center);
+
+        Style linea = new Style()
+                .setJustification(EscPosConst.Justification.Center)
+                .setUnderline(Style.Underline.TwoDotThick);
+
+        Style left = new Style()
+                .setJustification(EscPosConst.Justification.Left_Default);
+        Style right = new Style()
+                .setJustification(EscPosConst.Justification.Right);
+        Style rightLine = new Style()
+                .setUnderline(Style.Underline.TwoDotThick)
+                .setJustification(EscPosConst.Justification.Right);
+        Style center = new Style()
+                .setJustification(EscPosConst.Justification.Center);
+        Style fontB = new Style()
+                .setJustification(EscPosConst.Justification.Center)
+                .setFontName(Style.FontName.Font_B);
+
+        escposBarra.feed(2)
+                .writeLF(title,nombreRestaurante)
+                .feed(1)
+                .writeLF(direccionRestaurante)
+                .write(left,"CIF: " + cifRestaurante + "   ")
+                .writeLF(right,"Telf: " + telefonoRestaurante)
+                .writeLF(linea, "            ")
+                .feed(1)
+                .writeLF(center, "Hora Apertura: " + horaApertura)
+                .writeLF(center, "Hora Cierre: " + horaCierre)
+                .writeLF(center, "Mesa: " + nombreMesa)
+                .writeLF(center, "Camarero: " + nombreCamarero)
+                .writeLF(center, "Ticket nº: " + numeroTicket)
+                .writeLF(linea, "            ")
+                .feed(1)
+                .writeLF(center, indicativo);
+
+        for (LineaComandaDTO lineaComanda : lineaComandaTotal) {
+            //escposBarra.writeLF(center, lineaComanda.getLineaComanda().getCantidad() + " " + lineaComanda.getNombreArticulo() + " " + lineaComanda.getLineaComanda().getPrecio());
+            String nombreArticulo = lineaComanda.getNombreArticulo();
+            int cantidad = lineaComanda.getLineaComanda().getCantidad();
+            double importe = lineaComanda.getLineaComanda().getPrecio();
+
+            String lineaArticulo = String.format(Locale.getDefault(), "%-15s%5d%10.2f", nombreArticulo, cantidad, importe);
+            escposBarra.writeLF(center, lineaArticulo);
         }
-        escpos.feed(1).cut(EscPos.CutMode.FULL);
-        escpos.close();
 
+        escposBarra.writeLF(rightLine,  "         ")
+        .writeLF("Total (IVA Incl.):        " + precioTotalFormateado)
+        .feed(1)
+        .writeLF(fontB, "GRACIAS POR SU VISITA")
+        .feed(4)
+        .cut(EscPos.CutMode.FULL)
+        .close();
 
-         */
         return "Comanda impresa correctamente";
     }
 
@@ -158,49 +248,147 @@ public class ImpresoraController {
 
 
     public String imprimirBalanceVentas(List<Comanda> comandasList) throws IOException {
-/*
-        String impresoraBarra = impresoraService.getImpresoraBarra();
-        String impresoraCocina = impresoraService.getImpresoraCocina();
-        PrintService printServiceBar = PrinterOutputStream.getPrintServiceByName(impresoraBarra);
-        PrinterOutputStream printerOutputStreamBar = new PrinterOutputStream(printServiceBar);
-        EscPos escpos = new EscPos(printerOutputStreamBar);
 
-
-        escpos.writeLF("Mesa :" + comanda.getMesaId());
-        escpos.feed(1);
-        for (LineaComanda lineaComanda : lineaComandaList){
-            String articuloName = articuloService.findNombrebyId(lineaComanda.getArticuloId());
-            escpos.writeLF(lineaComanda.getCantidad() + "---------" + articuloName);
-        }
-        escpos.feed(1).cut(EscPos.CutMode.FULL);
-        escpos.close();
-
-
- */
         return "Comanda impresa correctamente";
     }
 
+    @RequestMapping(value="imprimirFactura", method  = RequestMethod.POST)
+    public String imprimirFactura(@RequestBody Factura factura) throws IOException {
 
-    public String imprimirFactura(Factura factura) throws IOException {
-/*
+        int comandaId = factura.getComandaId();
+
+        //Inicializo impresora
         String impresoraBarra = impresoraService.getImpresoraBarra();
-        String impresoraCocina = impresoraService.getImpresoraCocina();
-        PrintService printServiceBar = PrinterOutputStream.getPrintServiceByName(impresoraBarra);
-        PrinterOutputStream printerOutputStreamBar = new PrinterOutputStream(printServiceBar);
-        EscPos escpos = new EscPos(printerOutputStreamBar);
+        EscPos escposBarra = configurePrinter(impresoraBarra);
+
+        //Obtengo info del restaurante
+        Restaurante restaurante = restauranteService.readRestaurante().get(0);
+        String nombreRestaurante = restaurante.getNombre();
+        String direccionRestaurante = restaurante.getDireccion();
+        String cifRestaurante = restaurante.getCif();
+        String telefonoRestaurante = restaurante.getTelefono();
+
+        //Obtengo la comanda
+        Comanda comanda = comandaService.findComandaById(comandaId).get();
+
+        //Obtengo el nombre de la mesa
+        String nombreMesa = mesaService.findMesa(comanda.getMesaId()).getNombreMesa();
+
+        //Obtengo el camarero asociado a la mesa
+        String nombreCamarero = usuarioService.findUsuarioById(comanda.getUsuarioId()).getUsername();
+
+        //Obtengo la fechaApertura y fechaCierre de la comanda
+        long fechaApertura = comanda.getFechaHoraApertura();
+        long fechaCierre = comanda.getFechaHoraCierre();
+        //Creo un objeto date con las horas
+        Date fechaAp = new Date(fechaApertura);
+        Date fechaCi = new Date(fechaCierre);
+        // Formatear la horaCierre en un formato legible
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+        // Formatear la fecha para mostrar solamente la hora en formato "hh:mm"
+        String horaApertura = formatoHora.format(fechaAp);
+        String horaCierre = formatoHora.format(fechaCi);
+
+        //Obtengo el numero de comanda
+        String numeroTicket = String.valueOf(comanda.getNumeroComanda());
+
+        //Obtengo el total de la comanda
+        double precioTotal = comanda.getPrecioTotal();
+
+        //Obtengo la base imponible
+        double iva = Double.parseDouble(restaurante.getTipoImpositivo()) / 100.0; // División decimal
+        double baseImponibleDb = precioTotal * iva;
+        String baseImponible = String.valueOf(baseImponibleDb);
+
+        //Obtengo el nombre y dni del receptor
+        String dniReceptor = factura.getNombreReceptor();
+        String nombreReceptor = factura.getDniReceptor();
+
+        //Obtengo la fecha de Emision
+        long fechaEmisionLong = factura.getFechaEmision();
+        // Creo un objeto Date con la fecha de emisión
+        Date fechaEm = new Date(fechaEmisionLong);
+        // Formatear la fecha en un formato legible
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaEmision = formatoFecha.format(fechaEm);
 
 
-        escpos.writeLF("Mesa :" + comanda.getMesaId());
-        escpos.feed(1);
-        for (LineaComanda lineaComanda : lineaComandaList){
-            String articuloName = articuloService.findNombrebyId(lineaComanda.getArticuloId());
-            escpos.writeLF(lineaComanda.getCantidad() + "---------" + articuloName);
+        List<LineaComandaDTO> lineaComandaTotal = lineaComandaService.findAllWithNombreArticulo(comandaId);
+
+
+        String indicativo = "               Cant.    Importe";
+        String precioTotalFormateado = String.format("%.2f", precioTotal);
+
+        //Procedemos a imprimir el ticket
+        //Procedemos a imprimir en la impresora de cocina
+        Style title = new Style()
+                .setFontName(Style.FontName.Font_B)
+                .setFontSize(Style.FontSize._2, Style.FontSize._2)
+                .setJustification(EscPosConst.Justification.Center);
+
+        Style subtitle = new Style()
+                .setFontSize(Style.FontSize._1, Style.FontSize._1)
+                .setFontName(Style.FontName.Font_B)
+                .setJustification(EscPosConst.Justification.Center);
+
+        Style linea = new Style()
+                .setJustification(EscPosConst.Justification.Center)
+                .setUnderline(Style.Underline.TwoDotThick);
+
+        Style left = new Style()
+                .setJustification(EscPosConst.Justification.Left_Default);
+        Style right = new Style()
+                .setJustification(EscPosConst.Justification.Right);
+        Style rightLine = new Style()
+                .setUnderline(Style.Underline.TwoDotThick)
+                .setJustification(EscPosConst.Justification.Right);
+        Style center = new Style()
+                .setJustification(EscPosConst.Justification.Center);
+        Style fontB = new Style()
+                .setJustification(EscPosConst.Justification.Center)
+                .setFontName(Style.FontName.Font_B);
+
+        escposBarra.feed(2)
+                .writeLF(title,nombreRestaurante)
+                .feed(1)
+                .writeLF(direccionRestaurante)
+                .write(left,"CIF: " + cifRestaurante + "   ")
+                .writeLF(right,"Telf: " + telefonoRestaurante)
+                .writeLF(linea, "            ")
+                .feed(1)
+                .writeLF(center, "Nombre Receptor: " + nombreReceptor)
+                .writeLF(center, "DNI/CIF Receptor: " + dniReceptor)
+                .writeLF(center, "Fecha Emisión: " + fechaEmision)
+                .writeLF(linea, "            ")
+                .feed(1)
+                .writeLF(center, "Hora Apertura: " + horaApertura)
+                .writeLF(center, "Hora Cierre: " + horaCierre)
+                .writeLF(center, "Mesa: " + nombreMesa)
+                .writeLF(center, "Camarero: " + nombreCamarero)
+                .writeLF(center, "Ticket nº: " + numeroTicket)
+                .writeLF(linea, "            ")
+                .feed(1)
+                .writeLF(center, indicativo);
+
+        for (LineaComandaDTO lineaComanda : lineaComandaTotal) {
+            //escposBarra.writeLF(center, lineaComanda.getLineaComanda().getCantidad() + " " + lineaComanda.getNombreArticulo() + " " + lineaComanda.getLineaComanda().getPrecio());
+            String nombreArticulo = lineaComanda.getNombreArticulo();
+            int cantidad = lineaComanda.getLineaComanda().getCantidad();
+            double importe = lineaComanda.getLineaComanda().getPrecio();
+
+            String lineaArticulo = String.format(Locale.getDefault(), "%-15s%5d%10.2f", nombreArticulo, cantidad, importe);
+            escposBarra.writeLF(center, lineaArticulo);
         }
-        escpos.feed(1).cut(EscPos.CutMode.FULL);
-        escpos.close();
- */
 
-        System.out.println(factura);
+        escposBarra.writeLF(rightLine,  "         ")
+                .writeLF("Base Imponible :          " + baseImponible)
+                .writeLF("Total (IVA Incl.):        " + precioTotalFormateado)
+                .feed(1)
+                .writeLF(fontB, "GRACIAS POR SU VISITA")
+                .feed(4)
+                .cut(EscPos.CutMode.FULL)
+                .close();
+
         return "Comanda impresa correctamente";
     }
 
