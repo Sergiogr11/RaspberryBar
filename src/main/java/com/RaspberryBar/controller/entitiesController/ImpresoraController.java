@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.print.PrintService;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +47,8 @@ public class ImpresoraController {
         return new EscPos(printerOutputStream);
     }
 
-    @RequestMapping(value="imprimirComandas", method  = RequestMethod.POST)
-    public String imprimirComandas(@RequestBody Comanda comanda) throws IOException {
+
+    public String imprimirComandas(Comanda comanda) throws IOException {
 
         int comandaId = comanda.getNumeroComanda();
 
@@ -248,12 +245,78 @@ public class ImpresoraController {
 
 
     public String imprimirBalanceVentas(List<Comanda> comandasList) throws IOException {
+        //Numero comandas
+        String totalComandas = String.valueOf(comandasList.size());
 
-        return "Comanda impresa correctamente";
+        //Caja total
+        double precioTotal = 0.0;
+        //Declaro fechas
+        LocalDateTime fechaHoraAperturaMin = null;
+        LocalDateTime fechaHoraCierreMax = null;
+
+        for (Comanda comanda : comandasList) {
+            precioTotal += comanda.getPrecioTotal();
+            long fechaHoraAperturaMillis = comanda.getFechaHoraApertura();
+            long fechaHoraCierreMillis = comanda.getFechaHoraCierre();
+
+            LocalDateTime fechaHoraApertura = LocalDateTime.ofInstant(Instant.ofEpochMilli(fechaHoraAperturaMillis), ZoneId.systemDefault());
+            LocalDateTime fechaHoraCierre = LocalDateTime.ofInstant(Instant.ofEpochMilli(fechaHoraCierreMillis), ZoneId.systemDefault());
+
+            if (fechaHoraAperturaMin == null || fechaHoraApertura.isBefore(fechaHoraAperturaMin)) {
+                fechaHoraAperturaMin = fechaHoraApertura;
+            }
+
+            if (fechaHoraCierreMax == null || fechaHoraCierre.isAfter(fechaHoraCierreMax)) {
+                fechaHoraCierreMax = fechaHoraCierre;
+            }
+        }
+
+        DateTimeFormatter formatoFechaHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String fechaHoraApertura = fechaHoraAperturaMin.format(formatoFechaHora);
+        String fechaHoraCierre = fechaHoraCierreMax.format(formatoFechaHora);
+
+        String precioTotalFormated = String.format("%.2f", precioTotal);
+
+        //Inicializo impresora
+        String impresoraBarra = impresoraService.getImpresoraBarra();
+        EscPos escposBarra = configurePrinter(impresoraBarra);
+
+        Style title = new Style()
+                .setFontName(Style.FontName.Font_C)
+                .setFontSize(Style.FontSize._3, Style.FontSize._3)
+                .setJustification(EscPosConst.Justification.Center);
+
+        Style subtitle = new Style()
+                .setFontName(Style.FontName.Font_C)
+                .setFontSize(Style.FontSize._2, Style.FontSize._2)
+                .setJustification(EscPosConst.Justification.Center);
+
+        Style info = new Style()
+                .setFontName(Style.FontName.Font_C)
+                .setFontSize(Style.FontSize._1, Style.FontSize._1)
+                .setJustification(EscPosConst.Justification.Center);
+
+
+        escposBarra.feed(1)
+                .writeLF(title, "Balance de Ventas")
+                .feed(1)
+                .writeLF(info, "Fecha Apertura:")
+                .writeLF(subtitle, fechaHoraApertura)
+                .writeLF(info, "Fecha Cierre:")
+                .writeLF(subtitle, fechaHoraCierre)
+                .writeLF(info, "Numero Comandas: ")
+                .writeLF(subtitle, totalComandas)
+                .writeLF(info, "Caja Total: ")
+                .writeLF(subtitle, precioTotalFormated)
+                .feed(4)
+                .cut(EscPos.CutMode.FULL)
+                .close();
+
+        return "Balance ventas impreso correctamente";
     }
 
-    @RequestMapping(value="imprimirFactura", method  = RequestMethod.POST)
-    public String imprimirFactura(@RequestBody Factura factura) throws IOException {
+
+    public String imprimirFactura(Factura factura) throws IOException {
 
         int comandaId = factura.getComandaId();
 
@@ -296,9 +359,9 @@ public class ImpresoraController {
         double precioTotal = comanda.getPrecioTotal();
 
         //Obtengo la base imponible
-        double iva = Double.parseDouble(restaurante.getTipoImpositivo()) / 100.0; // División decimal
-        double baseImponibleDb = precioTotal * iva;
-        String baseImponible = String.valueOf(baseImponibleDb);
+        double iva = Double.parseDouble(restaurante.getTipoImpositivo()) / 100.0;
+        double baseImponible = precioTotal - precioTotal * iva;
+        String baseImponibleFormateada = String.format("%.2f", baseImponible);
 
         //Obtengo el nombre y dni del receptor
         String dniReceptor = factura.getNombreReceptor();
@@ -381,7 +444,7 @@ public class ImpresoraController {
         }
 
         escposBarra.writeLF(rightLine,  "         ")
-                .writeLF("Base Imponible :          " + baseImponible)
+                .writeLF("Base Imponible :          " + baseImponibleFormateada)
                 .writeLF("Total (IVA Incl.):        " + precioTotalFormateado)
                 .feed(1)
                 .writeLF(fontB, "GRACIAS POR SU VISITA")
@@ -389,8 +452,7 @@ public class ImpresoraController {
                 .cut(EscPos.CutMode.FULL)
                 .close();
 
-        return "Comanda impresa correctamente";
+        return "Factura impresa correctamente";
     }
-
 
 }
