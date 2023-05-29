@@ -33,6 +33,12 @@ public interface LineaComandaRepository extends JpaRepository<LineaComanda, Line
             "WHERE lc.lineaComandaId.numeroComanda = :numeroComanda")
     List<LineaComandaDTO> findAllWithNombreArticulo(@Param("numeroComanda") int numeroComanda);
 
-
-
+    //PRUEBA
+    @Query("SELECT new com.RaspberryBar.entities.LineaComandaDTO(lc, a.nombreArticulo) " +
+            "FROM LineaComanda lc " +
+            "JOIN Articulo a ON lc.articuloId = a.articuloId " +
+            "JOIN Categoria c ON a.categoriaId = c.categoriaId " +
+            "WHERE c.nombreCategoria = :nombreCategoria AND lc.lineaComandaId.numeroComanda = :numeroComanda")
+    List<LineaComandaDTO> findByComandaAndCategoriaNombre(@Param("numeroComanda") Integer numeroComanda,
+                                                       @Param("nombreCategoria") String nombreCategoria);
 }

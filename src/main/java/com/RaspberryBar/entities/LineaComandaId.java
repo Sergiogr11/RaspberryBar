@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 @EqualsAndHashCode
@@ -18,6 +19,20 @@ public class LineaComandaId implements Serializable {
     public LineaComandaId(int numeroLinea, int numeroComanda) {
         this.numeroLinea = numeroLinea;
         this.numeroComanda = numeroComanda;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LineaComandaId that = (LineaComandaId) o;
+        return getNumeroLinea() == that.getNumeroLinea() &&
+                getNumeroComanda() == that.getNumeroComanda();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNumeroLinea(), getNumeroComanda());
     }
 
     public int getNumeroLinea() {

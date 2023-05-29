@@ -95,4 +95,10 @@ public class LineaComandaService {
         return lineaComandaRepository.findAllWithNombreArticulo(numeroComanda);
     }
 
+    @Transactional
+    public List<LineaComandaDTO> findByComandaAndCategoriaNombre(Integer numeroComanda, String nombreCategoria){
+        return lineaComandaRepository.findByComandaAndCategoriaNombre(numeroComanda, nombreCategoria);
+    }
+
+
 }

@@ -104,9 +104,15 @@ public class UsuarioService {
         }
     }
 
+
     @Transactional
     public Usuario findUsuario(String username){
         return this.usuarioRepository.findByUsername(username);
+    }
+
+    @Transactional
+    public Usuario findUsuarioById(Integer userId){
+        return this.usuarioRepository.findUsuarioById(userId);
     }
 
 }
