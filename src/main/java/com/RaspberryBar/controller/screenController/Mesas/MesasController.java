@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -108,7 +110,8 @@ public class MesasController implements Initializable {
                     stageManager.switchScene(FxmlView.COMANDAS);
                 }
             });
-            mesaButton.setPrefSize(150, 150); //Ajusta el tamaño del botón
+            mesaButton.setPrefSize(225, 225); //Ajusta el tamaño del botón
+            mesaButton.setFont(new Font(28)); // Ajusta el tamaño de la fuente
             //Si la mesa esta libre se mostrara verde
             if (mesa.getEstadoMesa().equals("Libre")){
                 mesaButton.setStyle("-fx-background-color: #00FF00");
@@ -118,8 +121,8 @@ public class MesasController implements Initializable {
                 mesaButton.setStyle("-fx-background-color: #CF0808");
             }
             // Establecer margen del botón
-            AnchorPane.setTopAnchor(mesaButton, 50.0);
-            AnchorPane.setLeftAnchor(mesaButton, 50.0);
+            AnchorPane.setTopAnchor(mesaButton, 75.0);
+            AnchorPane.setLeftAnchor(mesaButton, 75.0);
             tableroMesas.getChildren().add(mesaButton);
         }
         //Configura las propiedades del FlowPane
