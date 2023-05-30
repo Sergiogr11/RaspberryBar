@@ -32,7 +32,6 @@ public class ConfiguracionController implements Initializable {
     @Lazy
     @Autowired
     private StageManager stageManager;
-
     @FXML
     private JFXTextField ipServer;
     @FXML
@@ -48,16 +47,24 @@ public class ConfiguracionController implements Initializable {
 
     @FXML
     private void volver(ActionEvent event) throws IOException {
-        // Guardo las impresoras seleccionadas
+
         ImpresoraService impresoraService = ImpresoraService.getInstance();
+        // Guardo las impresoras seleccionadas
         impresoraService.setImpresoraBarra(comboBoxImpBarra.getValue());
         impresoraService.setImpresoraCocina(comboBoxImpCocina.getValue());
+        impresoraService.saveConfig();
 
         stageManager.switchScene(FxmlView.HOME);
     }
 
     @FXML
     private void entrarConfiguracionRestaurante(ActionEvent event) throws IOException{
+        ImpresoraService impresoraService = ImpresoraService.getInstance();
+        // Guardo las impresoras seleccionadas
+        impresoraService.setImpresoraBarra(comboBoxImpBarra.getValue());
+        impresoraService.setImpresoraCocina(comboBoxImpCocina.getValue());
+        impresoraService.saveConfig();
+
         stageManager.switchScene(FxmlView.CONFIGURACIONRTE);
     }
 
@@ -84,6 +91,15 @@ public class ConfiguracionController implements Initializable {
                     comboBoxImpCocina.getItems().add(printerName);
                 }
             }
+
+            // Cargar la configuración de la impresora
+            ImpresoraService impresoraService = ImpresoraService.getInstance();
+            impresoraService.loadConfig();
+
+            // Establecer los valores de las impresoras en los ComboBox
+            comboBoxImpBarra.setValue(impresoraService.getImpresoraBarra());
+            comboBoxImpCocina.setValue(impresoraService.getImpresoraCocina());
+
 
         } catch (UnknownHostException e) {
             e.printStackTrace();

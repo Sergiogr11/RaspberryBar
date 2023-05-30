@@ -1,6 +1,10 @@
 package com.RaspberryBar.service;
 
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
+import java.io.*;
+import java.util.Properties;
 
 public class ImpresoraService {
 
@@ -30,5 +34,27 @@ public class ImpresoraService {
 
     public void setImpresoraCocina(String impresoraCocina) {
         this.impresoraCocina = impresoraCocina;
+    }
+
+    public void loadConfig() {
+        Properties properties = new Properties();
+        try (InputStream input = new FileInputStream("config.properties")) {
+            properties.load(input);
+            impresoraBarra = properties.getProperty("impresoraBarra");
+            impresoraCocina = properties.getProperty("impresoraCocina");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void saveConfig() {
+        try (OutputStream output = new FileOutputStream("config.properties")) {
+            Properties properties = new Properties();
+            properties.setProperty("impresoraBarra", impresoraBarra);
+            properties.setProperty("impresoraCocina", impresoraCocina);
+            properties.store(output, null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

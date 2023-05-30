@@ -25,11 +25,6 @@ import java.util.Locale;
 public class ImpresoraController {
 
 
-     //Obtengo las impresoras
-     ImpresoraService impresoraService = ImpresoraService.getInstance();
-     String impresoraBarra = impresoraService.getImpresoraBarra();
-     String impresoraCocina = impresoraService.getImpresoraCocina();
-
      @Autowired
      LineaComandaService lineaComandaService;
      @Autowired
@@ -40,6 +35,12 @@ public class ImpresoraController {
      RestauranteService restauranteService;
      @Autowired
      ComandaService comandaService;
+
+    //Obtengo las impresoras
+    ImpresoraService impresoraService = ImpresoraService.getInstance();
+    String impresoraBarra = impresoraService.getImpresoraBarra();
+    String impresoraCocina = impresoraService.getImpresoraCocina();
+
 
     private EscPos configurePrinter(String printerName) throws IOException {
         PrintService printService = PrinterOutputStream.getPrintServiceByName(printerName);
@@ -53,7 +54,6 @@ public class ImpresoraController {
         int comandaId = comanda.getNumeroComanda();
 
         //Inicializo impresora
-        String impresoraBarra = impresoraService.getImpresoraBarra();
         EscPos escposBarra = configurePrinter(impresoraBarra);
 
         //Obtengo info del restaurante
@@ -165,9 +165,7 @@ public class ImpresoraController {
         int comandaId = comanda.getNumeroComanda();
 
         //Inicializo impresoras
-        String impresoraBarra = impresoraService.getImpresoraBarra();
         EscPos escposBarra = configurePrinter(impresoraBarra);
-        String impresoraCocina = impresoraService.getImpresoraCocina();
         EscPos escposCocina = configurePrinter(impresoraCocina);
 
 
@@ -278,7 +276,6 @@ public class ImpresoraController {
         String precioTotalFormated = String.format("%.2f", precioTotal);
 
         //Inicializo impresora
-        String impresoraBarra = impresoraService.getImpresoraBarra();
         EscPos escposBarra = configurePrinter(impresoraBarra);
 
         Style title = new Style()
@@ -321,7 +318,6 @@ public class ImpresoraController {
         int comandaId = factura.getComandaId();
 
         //Inicializo impresora
-        String impresoraBarra = impresoraService.getImpresoraBarra();
         EscPos escposBarra = configurePrinter(impresoraBarra);
 
         //Obtengo info del restaurante
