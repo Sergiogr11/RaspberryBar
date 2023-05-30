@@ -61,24 +61,21 @@ public class EditarUsuarioController implements Initializable {
             String encrypted_password = UsuarioService.encrypt(getPassword());
             Usuario usuario = new Usuario(id, getUsername(), getEmail(), encrypted_password, getRol(), getTelefono());
 
-            //Si usuario no existe lo creo
-            if(!usuarioExiste(usuario)) {
-                usuarioService.updateUsuario(usuario);
-                //Muestro alert de usuario creado
-                CustomAlert alertEditarUsuario = new CustomAlert(Alert.AlertType.INFORMATION);
-                alertEditarUsuario.setTitle("Usuario Actualizado");
-                alertEditarUsuario.setHeaderText("Usuario actualizado satisfactoriamente");
-                alertEditarUsuario.showAndWait();
-                //Cambio de pantalla
-                stageManager.switchScene(FxmlView.USUARIOS);
-            }else{
-                //Muestro alert de usuario no se ha podido crear
-                CustomAlert alertEditarUsuario = new CustomAlert(Alert.AlertType.ERROR);
-                alertEditarUsuario.setTitle("No se puede actualizar usuario");
-                alertEditarUsuario.setHeaderText("No se puede actualizar usuario porque ya existe otro con ese nombre");
-                alertEditarUsuario.showAndWait();
-            }
+            usuarioService.updateUsuario(usuario);
+            //Muestro alert de usuario creado
+            CustomAlert alertEditarUsuario = new CustomAlert(Alert.AlertType.INFORMATION);
+            alertEditarUsuario.setTitle("Usuario Actualizado");
+            alertEditarUsuario.setHeaderText("Usuario actualizado satisfactoriamente");
+            alertEditarUsuario.showAndWait();
+            //Cambio de pantalla
+            stageManager.switchScene(FxmlView.USUARIOS);
 
+        }else{
+             //Muestro alert de usuario no se ha podido crear
+             CustomAlert alertEditarUsuario = new CustomAlert(Alert.AlertType.ERROR);
+             alertEditarUsuario.setTitle("No se puede actualizar usuario");
+             alertEditarUsuario.setHeaderText("No se ha podido actualizar el usuario");
+             alertEditarUsuario.showAndWait();
         }
     }
 

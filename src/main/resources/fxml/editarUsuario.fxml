@@ -135,7 +135,7 @@
             </VBox>
             <VBox prefHeight="100.0" prefWidth="335.0" HBox.hgrow="ALWAYS">
                <children>
-                  <JFXComboBox fx:id="rol" focusColor="#6b0c0c" prefHeight="40.0" prefWidth="494.0" visibleRowCount="30" VBox.vgrow="ALWAYS" />
+                  <JFXComboBox fx:id="rol" focusColor="#6b0c0c" prefHeight="40.0" prefWidth="494.0" styleClass="userlist" stylesheets="@../styles/Styles.css" visibleRowCount="30" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>
@@ -156,7 +156,7 @@
             </VBox>
             <VBox prefHeight="100.0" prefWidth="198.0" HBox.hgrow="ALWAYS">
                <children>
-                  <JFXTextField fx:id="telefono" alignment="TOP_CENTER" focusColor="#6b0c0c" prefHeight="35.0" prefWidth="609.0" VBox.vgrow="ALWAYS">
+                  <JFXTextField fx:id="telefono" alignment="TOP_CENTER" focusColor="#6b0c0c" prefHeight="35.0" prefWidth="609.0" styleClass="userlist" stylesheets="@../styles/Styles.css" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets right="50.0" />
                      </VBox.margin>
