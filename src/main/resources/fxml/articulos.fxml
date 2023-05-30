@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Articulos.ArticulosController">
    <children>
@@ -24,8 +25,17 @@
       </AnchorPane>
       <AnchorPane prefHeight="889.0" prefWidth="1920.0">
          <children>
-            <JFXButton fx:id="btnListaArticulos" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="127.0" onAction="#entrarListadoArticulos" prefHeight="615.0" prefWidth="779.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Artículos" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="1025.0" />
-            <JFXButton fx:id="btnListaArticulos1" alignment="CENTER" contentDisplay="CENTER" layoutX="1061.0" layoutY="131.0" onAction="#entrarListadoCategorias" prefHeight="615.0" prefWidth="779.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Categorías" />
+            <JFXButton fx:id="btnListaArticulos" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="116.0" layoutY="127.0" onAction="#entrarListadoArticulos" prefHeight="615.0" prefWidth="779.0" styleClass="btnCategoria" stylesheets="@../styles/Styles.css" text="Artículos" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="1025.0">
+               <graphic>
+                  <FontIcon fill="WHITE" iconLiteral="fa-cube" iconSize="150" />
+               </graphic>
+               <font>
+                  <Font name="Verdana" size="48.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnListaArticulos1" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="1061.0" layoutY="131.0" onAction="#entrarListadoCategorias" prefHeight="615.0" prefWidth="779.0" styleClass="btnCategoria" stylesheets="@../styles/Styles.css" text="Categorías">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fa-cubes" iconSize="150" />
+               </graphic></JFXButton>
          </children>
       </AnchorPane>
    </children>

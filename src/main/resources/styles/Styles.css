@@ -34,3 +34,10 @@
     -fx-font-family: Verdana;
     -fx-font-size: 24px;
 }
+
+.btnCategoria{
+	-fx-background-color:  #6b0c0c;
+	-fx-text-fill: #ffffff;
+	-fx-font-family: Verdana;
+    -fx-font-size: 36px;
+}

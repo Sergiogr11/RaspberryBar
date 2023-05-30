@@ -63,7 +63,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <JFXButton fx:id="btnArticulos" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarArticulos" prefHeight="459.0" prefWidth="1013.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Artículos" textFill="#0b0000" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="btnArticulos" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarArticulos" prefHeight="459.0" prefWidth="1013.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Inventario" textFill="#0b0000" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font name="Verdana Bold Italic" size="36.0" />
                      </font>

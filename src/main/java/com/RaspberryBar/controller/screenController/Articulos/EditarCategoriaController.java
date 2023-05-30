@@ -60,7 +60,7 @@ public class EditarCategoriaController implements Initializable {
             Categoria categoria = new Categoria(id, getNombreCategoria(), getDescripcionCategoria());
 
             if (!categoriaExiste(getNombreCategoria())) {
-                categoriaService.createCategoria(categoria);
+                categoriaService.updateCategoria(categoria);
                 //Muestro alert de categoria creada
                 CustomAlert alertEditarCategoria = new CustomAlert(Alert.AlertType.INFORMATION);
                 alertEditarCategoria.setTitle("Categoria actualizada");

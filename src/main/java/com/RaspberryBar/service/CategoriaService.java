@@ -41,16 +41,19 @@ public class CategoriaService {
         if (categoriaRepository.existsById(categoria.getCategoriaId())){
             try {
                 Categoria categoriaToBeUpdate = categoriaRepository.findById(categoria.getCategoriaId()).get(0);
-                categoriaToBeUpdate.setCategoriaId(categoriaToBeUpdate.getCategoriaId());
-                categoriaToBeUpdate.setNombreCategoria(categoria.getNombreCategoria());
-                categoriaToBeUpdate.setDescripcionCategoria(categoria.getDescripcionCategoria());
-                categoriaRepository.save(categoriaToBeUpdate);
-                return "Categoria actualizado correctamente.";
-            }catch (Exception e){
+                if (categoriaToBeUpdate != null) {
+                    categoriaToBeUpdate.setNombreCategoria(categoria.getNombreCategoria());
+                    categoriaToBeUpdate.setDescripcionCategoria(categoria.getDescripcionCategoria());
+                    categoriaRepository.save(categoriaToBeUpdate);
+                    return "Categoría actualizada correctamente.";
+                } else {
+                    return "No se pudo encontrar la categoría para actualizar.";
+                }
+            } catch (Exception e){
                 throw e;
             }
-        }else {
-            return "La Categoria no existe.";
+        } else {
+            return "La categoría no existe.";
         }
     }
 
