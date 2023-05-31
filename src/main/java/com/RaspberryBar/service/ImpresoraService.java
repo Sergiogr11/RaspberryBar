@@ -14,6 +14,7 @@ public class ImpresoraService {
     private String impresoraCocina;
 
     private ImpresoraService() {
+        loadConfig();
     }
 
     public static ImpresoraService getInstance(){

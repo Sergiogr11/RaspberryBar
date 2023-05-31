@@ -8,11 +8,13 @@ import com.RaspberryBar.entities.Restaurante;
 import com.RaspberryBar.service.ComandaService;
 import com.RaspberryBar.service.FacturaService;
 import com.RaspberryBar.service.RestauranteService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -76,33 +78,42 @@ public class CrearFacturaController implements Initializable {
         int restauranteId = restaurante.getRestauranteId();
 
         //Obtengo el importe total de comandaService
-        Comanda comanda = comandaService.findComandaById(comandaId).get();
-        float importeTotal = comanda.getPrecioTotal();
+        Comanda comanda = comandaService.findComandaById(comandaId).orElse(null);
+        if (comanda != null) {
+            float importeTotal = comanda.getPrecioTotal();
+            //Obtengo base imponible respecto al iva y al importe total
+            int iva = Integer.parseInt(restaurante.getTipoImpositivo());
+            float baseImponible = importeTotal - (importeTotal * iva / 100);
+            float baseImponibleRedondeada = Math.round(baseImponible * 100) / 100f;
 
-        //Obtengo base imponible respecto al iva y al importe total
-        int iva = Integer.parseInt(restaurante.getTipoImpositivo());
-        float baseImponible = importeTotal - (importeTotal * iva/100);
-        float baseImponibleRedondeada = Math.round(baseImponible * 100) / 100f;
+
+            //Creamos la factura en la base de datos
+            Factura factura = new Factura();
+            factura.setFechaEmision(fechaEmision);
+            factura.setNombreReceptor(nombreReceptor);
+            factura.setDniReceptor(dniReceptor);
+            factura.setBaseImponible(baseImponibleRedondeada);
+            factura.setImporteTotal(importeTotal);
+            factura.setRestauranteId(restauranteId);
+            factura.setComandaId(comandaId);
 
 
-        //Creamos la factura en la base de datos
-        Factura factura = new Factura();
-        factura.setFechaEmision(fechaEmision);
-        factura.setNombreReceptor(nombreReceptor);
-        factura.setDniReceptor(dniReceptor);
-        factura.setBaseImponible(baseImponibleRedondeada);
-        factura.setImporteTotal(importeTotal);
-        factura.setRestauranteId(restauranteId);
-        factura.setComandaId(comandaId);
-
-        facturaService.createFactura(factura);
-
-        //Imprimimos la factura
-        impresoraController.imprimirFactura(factura);
+            facturaService.createFactura(factura);
+            //Imprimimos la factura
+            impresoraController.imprimirFactura(factura);
+        } else {
+            // No existe la comanda, mostramos un mensaje de error
+            CustomAlert alertErrorBalanceVentas = new CustomAlert(Alert.AlertType.INFORMATION);
+            alertErrorBalanceVentas.setTitle("No existe comanda");
+            alertErrorBalanceVentas.setHeaderText("No hay una comanda asociada a ese Id ");
+            alertErrorBalanceVentas.showAndWait();
+        }
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
 }

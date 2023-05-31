@@ -38,7 +38,7 @@ public class MenuCobrarController implements Initializable {
     JFXButton btnCancelar;
 
 
-    int cantidad;
+    double cantidad = 0.0;
 
     private void inicializarTecladoNumerico() {
         numerosGridPane.setHgap(7);
@@ -53,11 +53,16 @@ public class MenuCobrarController implements Initializable {
             GridPane.setHgrow(button, Priority.ALWAYS);
             GridPane.setVgrow(button, Priority.ALWAYS);
 
-            // Añade acción a los botones numéricos
+            // Añado acción a los botones numéricos
             button.setOnAction(event -> {
-                String temp = cantidad == 0 ? button.getText() : cantidad + button.getText();
-                cantidad = Integer.parseInt(temp);
-                dineroRecibido.setText(String.valueOf(cantidad));
+                String currentText = dineroRecibido.getText();
+                if (currentText.contains(".")) {
+                    String[] parts = currentText.split("\\.");
+                    if (parts.length > 1 && parts[1].length() >= 2) {
+                        return; // No agregar más números después del punto decimal.
+                    }
+                }
+                dineroRecibido.setText(currentText + button.getText());
             });
 
             numerosGridPane.add(button, (i - 1) % 3, (i - 1) / 3);
@@ -70,10 +75,17 @@ public class MenuCobrarController implements Initializable {
         GridPane.setVgrow(zeroButton, Priority.ALWAYS);
         //Añado accion al boton 0
         zeroButton.setOnAction(event -> {
-            String temp = cantidad == 0 ? zeroButton.getText() : cantidad + zeroButton.getText();
-            cantidad = Integer.parseInt(temp);
-            dineroRecibido.setText(String.valueOf(cantidad));
+            String currentText = dineroRecibido.getText();
+            if (currentText.contains(".")) {
+                String[] parts = currentText.split("\\.");
+                if (parts.length > 1 && parts[1].length() >= 2) {
+                    return; // No agregar más números después del punto decimal.
+                }
+            }
+            dineroRecibido.setText(currentText + zeroButton.getText());
         });
+
+
         numerosGridPane.add(zeroButton, 1, 3);
 
         JFXButton clearButton = new JFXButton("C");
@@ -83,24 +95,30 @@ public class MenuCobrarController implements Initializable {
         GridPane.setVgrow(clearButton, Priority.ALWAYS);
         //Añado accion al boton clear
         clearButton.setOnAction(event -> {
-            cantidad = 0;
-            dineroRecibido.setText("0");
+            dineroRecibido.setText(""); // Muestra solo hasta dos decimales.
         });
         numerosGridPane.add(clearButton, 0, 3);
 
-        JFXButton okButton = new JFXButton("OK");
-        okButton.setStyle("-fx-background-color: #757575; -fx-text-fill: #ffffff; -fx-font-style: Verdana; -fx-font-size: 24px;");
-        okButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        GridPane.setHgrow(okButton, Priority.ALWAYS);
-        GridPane.setVgrow(okButton, Priority.ALWAYS);
-        //Añado accion al boton -
-        okButton.setOnAction(event -> {
-            float aDevolverDinero = cantidad - comandasController.totalPrice;
-            aDevolver.setText(String.valueOf(aDevolverDinero));
-        });
-        numerosGridPane.add(okButton, 2, 3);
-    }
+        JFXButton decimalButton = new JFXButton(".");
+        decimalButton.setStyle("-fx-background-color: #757575; -fx-text-fill: #ffffff; -fx-font-style: Verdana; -fx-font-size: 24px;");
+        decimalButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        GridPane.setHgrow(decimalButton, Priority.ALWAYS);
+        GridPane.setVgrow(decimalButton, Priority.ALWAYS);
 
+        decimalButton.setOnAction(event -> {
+            String currentText = dineroRecibido.getText();
+            if (!currentText.contains(".")) {
+                dineroRecibido.setText(currentText + ".");
+            } else {
+                String[] parts = currentText.split("\\.");
+                if (parts.length > 1 && parts[1].length() < 2) {
+                    dineroRecibido.setText(currentText + ".");
+                }
+            }
+        });
+
+        numerosGridPane.add(decimalButton, 2, 3);
+    }
     @FXML
     public void cobrar(ActionEvent event ) throws IOException{
         Mesa mesa = mesaService.findMesa(comandasController.mesaId);
@@ -112,6 +130,7 @@ public class MenuCobrarController implements Initializable {
 
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
         stage.close();
+        comandasController.reiniciarValores();
     }
 
     @FXML
@@ -126,5 +145,20 @@ public class MenuCobrarController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         inicializarTecladoNumerico();
         precioTotal.setText(String.valueOf(comandasController.totalPrice));
+
+        dineroRecibido.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    float cantidadRecibida = Float.parseFloat(newValue);
+                    float aDevolverDinero = cantidadRecibida - comandasController.totalPrice;
+                    aDevolver.setText(String.format("%.2f", aDevolverDinero)); // Muestra solo hasta dos decimales
+                } catch (NumberFormatException e) {
+                    // Manejar la excepción si el valor ingresado no es un número válido
+                    aDevolver.setText("0.00");
+                }
+            } else {
+                aDevolver.setText("0.00");
+            }
+        });
     }
 }

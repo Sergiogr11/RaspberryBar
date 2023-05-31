@@ -6,13 +6,17 @@ import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.EscPosConst;
 import com.github.anastaciocintra.escpos.Style;
 import com.github.anastaciocintra.output.PrinterOutputStream;
+import org.aopalliance.intercept.Invocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.PostConstruct;
 import javax.print.PrintService;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -47,7 +51,6 @@ public class ImpresoraController {
         PrinterOutputStream printerOutputStream = new PrinterOutputStream(printService);
         return new EscPos(printerOutputStream);
     }
-
 
     public String imprimirComandas(Comanda comanda) throws IOException {
 
@@ -328,14 +331,25 @@ public class ImpresoraController {
         String telefonoRestaurante = restaurante.getTelefono();
 
         //Obtengo la comanda
-        Comanda comanda = comandaService.findComandaById(comandaId).get();
+        Comanda comanda = new Comanda();
+        try{
+            comanda = comandaService.findComandaById(comandaId).get();
+        }catch (NullPointerException e){
+        }
 
         //Obtengo el nombre de la mesa
-        String nombreMesa = mesaService.findMesa(comanda.getMesaId()).getNombreMesa();
+        String nombreMesa = "";
+        try {
+            nombreMesa = mesaService.findMesa(comanda.getMesaId()).getNombreMesa();
+        }catch(NullPointerException e){
+        }
 
-        //Obtengo el camarero asociado a la mesa
-        String nombreCamarero = usuarioService.findUsuarioById(comanda.getUsuarioId()).getUsername();
-
+        //Obtengo el camarero asociado a la mes
+        String nombreCamarero = "";
+        try {
+            nombreCamarero = usuarioService.findUsuarioById(comanda.getUsuarioId()).getUsername();
+        }catch(NullPointerException e){
+        }
         //Obtengo la fechaApertura y fechaCierre de la comanda
         long fechaApertura = comanda.getFechaHoraApertura();
         long fechaCierre = comanda.getFechaHoraCierre();
@@ -360,8 +374,8 @@ public class ImpresoraController {
         String baseImponibleFormateada = String.format("%.2f", baseImponible);
 
         //Obtengo el nombre y dni del receptor
-        String dniReceptor = factura.getNombreReceptor();
-        String nombreReceptor = factura.getDniReceptor();
+        String dniReceptor = factura.getDniReceptor();
+        String nombreReceptor = factura.getNombreReceptor();
 
         //Obtengo la fecha de Emision
         long fechaEmisionLong = factura.getFechaEmision();

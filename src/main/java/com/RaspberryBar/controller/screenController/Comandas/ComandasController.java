@@ -23,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -78,7 +79,7 @@ public class ComandasController implements Initializable {
     LocalDateTime fechaApertura;
     int usuarioId = 1;
     //Inicializo contador de linea Comanda
-    int numeroLinea  = 0;
+    int numeroLinea  = 1;
     public int mesaId;
     Comanda comandaActiva;
 
@@ -95,6 +96,7 @@ public class ComandasController implements Initializable {
 
         //Se reinicia el contador de lineas
         numeroLinea = 1;
+        cantidad = 0;
         stageManager.switchScene(FxmlView.HOME);
     }
 
@@ -206,14 +208,22 @@ public class ComandasController implements Initializable {
                     comandaId = comandaService.findMaxId();
                 }
 
-                LineaComandaId lineaComandaId = new LineaComandaId(numeroLinea, comandaId);
 
+                LineaComandaId lineaComandaId = new LineaComandaId(numeroLinea, comandaId);
+/*
                 LineaComanda nuevaLinea = new LineaComanda(
                         lineaComandaId,
                         cantidadFinal,
                         precio,
                         articuloSeleccionado.getArticuloId()
                 );
+                */
+                LineaComanda nuevaLinea = new LineaComanda();
+                nuevaLinea.setLineaComandaId(lineaComandaId);
+                nuevaLinea.setCantidad(cantidadFinal);
+                nuevaLinea.setPrecio(precio);
+                nuevaLinea.setCantidad(cantidadFinal);
+                nuevaLinea.setArticuloId(articuloSeleccionado.getArticuloId());
 
                 // Agregar la nueva fila al TreeTableView
                 lineasComanda.add(nuevaLinea);
@@ -276,6 +286,9 @@ public class ComandasController implements Initializable {
 
             // Obtengo las lineas de comanda de la comanda activa
             List<LineaComanda> lineasComandaActivas = lineaComandaService.findAllByNumeroComanda(comandaActiva.getNumeroComanda());
+            //Obtengo el precioTotal
+            totalPrice = comandaActiva.getPrecioTotal();
+            precioTotal.setText(String.valueOf(totalPrice));
             // Agrego las lineas de comanda activas a la lista observable
             lineasComanda.addAll(lineasComandaActivas);
         }else{
@@ -333,7 +346,6 @@ public class ComandasController implements Initializable {
 
         //Imprimir con la impresora
         impresoraController.imprimirComandas(comanda);
-        //TODO
     }
 
     @FXML
@@ -389,7 +401,30 @@ public class ComandasController implements Initializable {
             precioTotal.setText(String.valueOf(totalPrice));
 
             lineasComanda.remove(selectedLineaComanda);
+
+            if (comandaActiva != null) {
+                lineaComandaService.deleteLineaComanda(selectedLineaComanda);
+            }
+
         }
+    }
+
+    public void reiniciarValores(){
+        cantidad = 0;
+        mesaId = 6;
+
+        // Limpiar la lista de lineas de comanda después de guardarlas y precio total
+        lineasComanda.clear();
+        totalPrice = 0;
+        precioTotal.setText("0");
+
+        // Reinicia la comanda activa y su ID
+        comandaActiva = null;
+        comandaId = 0;
+
+        //Se reinicia el contador de lineas
+        numeroLinea = 1;
+
     }
 
     @Override

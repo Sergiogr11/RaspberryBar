@@ -5,11 +5,13 @@ import com.RaspberryBar.controller.entitiesController.ImpresoraController;
 import com.RaspberryBar.entities.Comanda;
 import com.RaspberryBar.service.ComandaService;
 import com.RaspberryBar.service.UsuarioService;
+import com.RaspberryBar.view.CustomAlert;
 import com.RaspberryBar.view.FxmlView;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -54,9 +56,16 @@ public class FacturacionController implements Initializable {
         //Buscar tickets que tengan el día correspondiente
         List<Comanda> comandaListDiario;
         comandaListDiario = comandaService.findComandasByFechaHoraCierreBetween(inicioDelDiaMillis, finalDelDiaMillis);
+        if(comandaListDiario.size() != 0){
+            //Imprimir resumen hoy
+            impresoraController.imprimirBalanceVentas(comandaListDiario);
+        }else{
+            CustomAlert alertErrorBalanceVentas = new CustomAlert(Alert.AlertType.INFORMATION);
+            alertErrorBalanceVentas.setTitle("No hay comandas");
+            alertErrorBalanceVentas.setHeaderText("No hay comandas en ese rango de fechas");
+            alertErrorBalanceVentas.showAndWait();
+        }
 
-        //Imprimir resumen hoy
-        impresoraController.imprimirBalanceVentas(comandaListDiario);
     }
 
     @FXML
