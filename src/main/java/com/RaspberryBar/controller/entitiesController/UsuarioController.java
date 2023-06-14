@@ -2,9 +2,7 @@ package com.RaspberryBar.controller.entitiesController;
 
 import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.service.UsuarioService;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.EvaluationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

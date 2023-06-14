@@ -7,7 +7,7 @@ plugins {
 
 group = 'com.RaspberryBar'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '1.8.0_202'
 
 mainClassName = 'com.RaspberryBar.RaspberryBarApplication'
 
@@ -18,21 +18,21 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.projectlombok:lombok:1.18.20'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.projectlombok:lombok:1.18.20'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.xerial:sqlite-jdbc:3.34.0'
 	implementation 'org.openjfx:javafx-fxml:11.0.2'
 	implementation 'org.openjfx:javafx-controls:11.0.2'
 	implementation 'org.openjfx:javafx-graphics:11.0.2'
-	implementation 'org.springframework:spring-context:5.3.8'
 	implementation 'com.jfoenix:jfoenix:8.0.10'
 	implementation 'org.kordamp.ikonli:ikonli-javafx:2.6.0'
 	implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:2.6.0'
 	implementation 'com.github.anastaciocintra:escpos-coffee:4.1.0'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
-

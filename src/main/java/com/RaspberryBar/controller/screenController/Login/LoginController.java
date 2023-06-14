@@ -1,5 +1,6 @@
 package com.RaspberryBar.controller.screenController.Login;
 import com.RaspberryBar.config.StageManager;
+import com.RaspberryBar.entities.Usuario;
 import com.RaspberryBar.service.UsuarioService;
 import com.RaspberryBar.view.FxmlView;
 import javafx.event.ActionEvent;
@@ -39,8 +40,13 @@ public class LoginController implements Initializable {
     @FXML
     private void login(ActionEvent event) throws IOException {
         if(usuarioService.authenticate(getUsername(), getPassword())){
-            stageManager.switchScene(FxmlView.HOME);
-            lblLogin.setText("Login Correcto");
+            Usuario usuario = usuarioService.findUsuario(getUsername());
+            if(usuario.getRol().equals("ADMIN")){
+                stageManager.switchScene(FxmlView.HOME);
+            }
+            else {
+                lblLogin.setText("El usuario no es administrador");
+            }
         }else{
             lblLogin.setText("Usuario o Contraseña Incorrectos");
         }

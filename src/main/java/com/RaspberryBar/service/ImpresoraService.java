@@ -39,7 +39,7 @@ public class ImpresoraService {
 
     public void loadConfig() {
         Properties properties = new Properties();
-        try (InputStream input = new FileInputStream("config.properties")) {
+        try (InputStream input = new FileInputStream(System.getProperty("user.dir") + File.separator + "config.properties")) {
             properties.load(input);
             impresoraBarra = properties.getProperty("impresoraBarra");
             impresoraCocina = properties.getProperty("impresoraCocina");
@@ -49,7 +49,7 @@ public class ImpresoraService {
     }
 
     public void saveConfig() {
-        try (OutputStream output = new FileOutputStream("config.properties")) {
+        try (OutputStream output = new FileOutputStream(System.getProperty("user.dir") + File.separator + "config.properties")) {
             Properties properties = new Properties();
             properties.setProperty("impresoraBarra", impresoraBarra);
             properties.setProperty("impresoraCocina", impresoraCocina);

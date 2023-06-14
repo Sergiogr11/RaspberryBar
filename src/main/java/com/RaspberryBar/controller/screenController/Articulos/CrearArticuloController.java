@@ -157,7 +157,7 @@ public class CrearArticuloController implements Initializable {
         //Valido que el precio tenga formato de precio y sean numeros
         RegexValidator precioValidator = new RegexValidator();
         precioValidator.setRegexPattern("^\\d{1,5}(?:\\.\\d{0,2})?$");
-        precioValidator.setMessage("Introduce un precio válido");
+        precioValidator.setMessage("Introduce un precio válido, los decimales con .");
 
         //Seteamos los validadores a nuestros JFXTextFields
         nombreArticulo.getValidators().add(requiredFieldValidator);

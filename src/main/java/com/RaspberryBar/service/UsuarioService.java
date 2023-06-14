@@ -11,7 +11,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
 
-import static com.sun.javafx.font.FontResource.SALT;
 
 @Service
 public class UsuarioService {

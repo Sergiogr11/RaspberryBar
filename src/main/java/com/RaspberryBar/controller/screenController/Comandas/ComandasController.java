@@ -80,7 +80,7 @@ public class ComandasController implements Initializable {
     int usuarioId = 1;
     //Inicializo contador de linea Comanda
     int numeroLinea  = 1;
-    public int mesaId;
+    public Integer mesaId;
     Comanda comandaActiva;
 
     @FXML
@@ -98,6 +98,8 @@ public class ComandasController implements Initializable {
         numeroLinea = 1;
         cantidad = 0;
         stageManager.switchScene(FxmlView.HOME);
+
+        mesaId = 0;
     }
 
     private void inicializarTecladoNumerico(){
