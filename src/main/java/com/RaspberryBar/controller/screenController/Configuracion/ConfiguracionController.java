@@ -22,8 +22,10 @@ import javax.print.attribute.standard.PrinterName;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 @Controller
@@ -70,11 +72,35 @@ public class ConfiguracionController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
+/*
+            try {
+                String interfaceName = "wlan0"; // Nombre de la interfaz de red
+                NetworkInterface networkInterface = NetworkInterface.getByName(interfaceName);
+
+                Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+                while (inetAddresses.hasMoreElements()) {
+                    InetAddress inetAddress = inetAddresses.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress()) {
+                        String localIpAddress = inetAddress.getHostAddress();
+                        ipServer.setText(localIpAddress);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+ */
+
             // Obtiene la dirección IP local
-            String localIpAddress = InetAddress.getLocalHost().getHostAddress();
-            // Establece la dirección IP en el campo de texto
+        String localIpAddress = null;
+        try {
+            localIpAddress = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        // Establece la dirección IP en el campo de texto
             ipServer.setText(localIpAddress);
+
             //Establezco el puerto en el campo de texto
             port.setText(serverPort);
 
@@ -99,10 +125,5 @@ public class ConfiguracionController implements Initializable {
             // Establecer los valores de las impresoras en los ComboBox
             comboBoxImpBarra.setValue(impresoraService.getImpresoraBarra());
             comboBoxImpCocina.setValue(impresoraService.getImpresoraCocina());
-
-
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
     }
 }

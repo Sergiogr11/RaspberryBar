@@ -2,24 +2,25 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" minHeight="1080.0" minWidth="1920.0" style="-fx-background-image: /images/background-login.jpg;" styleClass="background" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Login.LoginController">
+<VBox alignment="CENTER" minHeight="1080.0" minWidth="1920.0" styleClass="background" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Login.LoginController">
     <children>
-        <Rectangle fill="DODGERBLUE" stroke="#ffffff8b" strokeType="INSIDE" />
-        <Label fx:id="lblLogin" alignment="TOP_CENTER" text="Bienvenido a ComandApp" textFill="WHITE">
-            <font>
-                <Font name="Pristina" size="72.0" />
-            </font>
+      <ImageView fitHeight="344.0" fitWidth="322.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/comandapp.png" />
+         </image>
          <VBox.margin>
-            <Insets bottom="300.0" />
+            <Insets bottom="50.0" />
          </VBox.margin>
-        </Label>
+      </ImageView>
+        <Rectangle fill="DODGERBLUE" stroke="#ffffff8b" strokeType="INSIDE" />
         <TextField fx:id="username" maxHeight="60.0" maxWidth="1200.0" prefHeight="60.0" prefWidth="1200.0" promptText="Username">
          <font>
             <Font name="Verdana" size="24.0" />
@@ -31,7 +32,7 @@
          <font>
             <Font name="Verdana" size="24.0" />
          </font></PasswordField>
-      <JFXButton fx:id="btnLogin" layoutX="50.0" maxHeight="138.0" maxWidth="354.0" onAction="#login" prefHeight="130.0" prefWidth="354.0" styleClass="btnGreen" text="Iniciar Sesión">
+      <JFXButton fx:id="btnLogin" layoutX="50.0" maxHeight="138.0" maxWidth="354.0" onAction="#login" prefHeight="130.0" prefWidth="354.0" ripplerFill="WHITE" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Iniciar Sesión">
          <font>
             <Font name="Verdana" size="24.0" />
          </font>

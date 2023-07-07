@@ -11,96 +11,100 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1024.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Home.HomeController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.RaspberryBar.controller.screenController.Home.HomeController">
    <children>
-      <AnchorPane prefHeight="156.0" prefWidth="887.0" styleClass="background" stylesheets="@../styles/Styles.css">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1024.0" minWidth="1280.0">
          <children>
-            <Label layoutX="40.0" layoutY="9.0" prefHeight="118.0" prefWidth="358.0" text="Restaurante San Juan" textFill="WHITE">
-               <font>
-                  <Font name="Pristina" size="48.0" />
-               </font>
-            </Label>
-            <AnchorPane layoutY="23.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="23.0">
+            <AnchorPane prefHeight="156.0" prefWidth="887.0" styleClass="background" stylesheets="@../styles/Styles.css">
                <children>
-                  <JFXButton fx:id="btnLogout" contentDisplay="CENTER" layoutX="-1.0" layoutY="10.0" mnemonicParsing="false" onAction="#entrarLogout" prefHeight="68.0" prefWidth="164.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Logout">
+                  <Label layoutX="40.0" layoutY="9.0" prefHeight="118.0" prefWidth="358.0" text="Restaurante San Juan" textFill="WHITE">
                      <font>
-                        <Font name="Verdana Italic" size="24.0" />
+                        <Font name="Pristina" size="48.0" />
                      </font>
-                  </JFXButton>
+                  </Label>
+                  <AnchorPane layoutY="23.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="23.0">
+                     <children>
+                        <JFXButton fx:id="btnLogout1" contentDisplay="CENTER" layoutX="-1.0" layoutY="10.0" mnemonicParsing="false" onAction="#entrarLogout" prefHeight="68.0" prefWidth="164.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Logout">
+                           <font>
+                              <Font name="Verdana Italic" size="24.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="408.0" prefWidth="1920.0">
-         <children>
-            <JFXButton fx:id="btnComandas" alignment="CENTER" contentDisplay="TOP" layoutX="275.0" layoutY="14.0" mnemonicParsing="false" onAction="#entrarComandas" prefHeight="156.0" prefWidth="403.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Comandas" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="276.0" AnchorPane.topAnchor="14.0">
-               <font>
-                  <Font name="Verdana Bold Italic" size="36.0" />
-               </font>
-               <graphic>
-                  <FontIcon iconColor="WHITE" iconLiteral="fa-cutlery" iconSize="100" />
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="btnConfiguracion" layoutX="1780.0" layoutY="-10.0" onAction="#entrarConfiguracion" prefHeight="144.0" prefWidth="134.0" text=" ">
-               <graphic>
-                  <FontIcon iconColor="#6b0c0c" iconLiteral="fa-gear" iconSize="120" />
-               </graphic>
-            </JFXButton>
-         </children>
-         <VBox.margin>
-            <Insets top="25.0" />
-         </VBox.margin>
-      </AnchorPane>
-      <AnchorPane prefHeight="215.0" prefWidth="887.0" VBox.vgrow="ALWAYS">
-         <children>
-            <GridPane hgap="25.0" vgap="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+            <AnchorPane prefHeight="400.0" prefWidth="1800.0">
                <children>
-                  <JFXButton fx:id="btnArticulos" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarArticulos" prefHeight="459.0" prefWidth="1013.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Inventario" textFill="#0b0000" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="btnComandas1" alignment="CENTER" contentDisplay="TOP" layoutX="275.0" layoutY="14.0" mnemonicParsing="false" onAction="#entrarComandas" prefHeight="156.0" prefWidth="403.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Comandas" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="276.0" AnchorPane.topAnchor="14.0">
                      <font>
                         <Font name="Verdana Bold Italic" size="36.0" />
                      </font>
                      <graphic>
-                        <FontIcon iconColor="WHITE" iconLiteral="fa-shopping-basket" iconSize="100" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-cutlery" iconSize="100" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnFacturacion" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarFacturacion" prefHeight="373.0" prefWidth="1126.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Facturación" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <font>
-                        <Font name="Verdana Bold" size="36.0" />
-                     </font>
+                  <JFXButton fx:id="btnConfiguracion1" layoutX="1780.0" layoutY="-10.0" onAction="#entrarConfiguracion" prefHeight="144.0" prefWidth="134.0" text=" ">
                      <graphic>
-                        <FontIcon iconColor="WHITE" iconLiteral="fa-file-text-o" iconSize="100" />
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="btnRegistrar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarRegistrar" prefHeight="447.0" prefWidth="1028.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Usuarios" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <font>
-                        <Font name="Verdana Bold Italic" size="36.0" />
-                     </font>
-                     <graphic>
-                        <FontIcon iconColor="WHITE" iconLiteral="fa-user-circle" iconSize="100" />
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="btnMesas" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarMesas" prefHeight="338.0" prefWidth="1178.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Mesas" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <font>
-                        <Font name="Verdana Bold" size="36.0" />
-                     </font>
-                     <graphic>
-                        <FontIcon iconColor="WHITE" iconLiteral="fa-th" iconSize="100" />
+                        <FontIcon iconColor="#6b0c0c" iconLiteral="fa-gear" iconSize="120" />
                      </graphic>
                   </JFXButton>
                </children>
-            </GridPane>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </AnchorPane>
+            <AnchorPane prefHeight="215.0" prefWidth="887.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <GridPane hgap="25.0" vgap="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <JFXButton fx:id="btnArticulos1" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarArticulos" prefHeight="459.0" prefWidth="1013.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Inventario" textFill="#0b0000" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Verdana Bold Italic" size="36.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="fa-shopping-basket" iconSize="100" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnFacturacion1" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarFacturacion" prefHeight="373.0" prefWidth="1126.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Facturación" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Verdana Bold" size="36.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="fa-file-text-o" iconSize="100" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnRegistrar1" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarRegistrar" prefHeight="447.0" prefWidth="1028.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Usuarios" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Verdana Bold Italic" size="36.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="fa-user-circle" iconSize="100" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnMesas1" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#entrarMesas" prefHeight="338.0" prefWidth="1178.0" styleClass="btnGreen" stylesheets="@../styles/Styles.css" text="Mesas" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Verdana Bold" size="36.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="fa-th" iconSize="100" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </GridPane>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </AnchorPane>
          </children>
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </AnchorPane>
+      </VBox>
    </children>
-</VBox>
+</AnchorPane>
